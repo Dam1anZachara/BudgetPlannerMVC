@@ -23,6 +23,16 @@ namespace BudgetPlannerMVC.Web.Controllers
             return View();
         }
 
+        public IActionResult ViewListOfItems()
+        {
+            List<Item> items = new List<Item>();
+            items.Add(new Item() { Id = 1, Name = "Apple", TypeName = "Grocery" });
+            items.Add(new Item() { Id = 2, Name = "Strawberry", TypeName = "Grocery" });
+            items.Add(new Item() { Id = 3, Name = "Pineapple", TypeName = "Grocery" });
+
+            return View(items);
+        }
+
         public IActionResult Privacy()
         {
             return View();
