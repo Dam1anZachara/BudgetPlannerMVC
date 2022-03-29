@@ -28,14 +28,8 @@ namespace BudgetPlannerMVC.Web.Controllers
         }
         public IActionResult ConfigureYourBudget()
         {
-            List<ExpenseType> expenseTypes = new List<ExpenseType>();
-            expenseTypes.Add(new ExpenseType() { Id = 1, Name = "General expenses" });
-            expenseTypes.Add(new ExpenseType() { Id = 2, Name = "Home" });
-            List<IncomeType> incomeTypes = new List<IncomeType>();
-            incomeTypes.Add(new IncomeType() { Id = -1, Name = "General incomes" });
-            incomeTypes.Add(new IncomeType() { Id = -2, Name = "Work" });
-            return View(expenseTypes);
-            return View(incomeTypes);
+            List<AmountType> amountTypes = new List<AmountType>();
+            return View();
         }
         public IActionResult ViewListOfItems()
         {
