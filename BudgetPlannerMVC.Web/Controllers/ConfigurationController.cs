@@ -16,6 +16,10 @@ namespace BudgetPlannerMVC.Web.Controllers
             new ConfigurationModel(){ Id = 2, TypeName = "General incomes", TypeOfAmount = TypeOfAmount.Income}
         };
         // GET: Configuration
+        public List<ConfigurationModel> GetAllConfigModels()
+        {
+            return (List<ConfigurationModel>) configurations;
+        }
         public ActionResult Index()
         {
             return View(configurations);

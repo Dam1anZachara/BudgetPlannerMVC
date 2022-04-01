@@ -1,5 +1,6 @@
 using BudgetPlannerMVC.Application.Interfaces;
 using BudgetPlannerMVC.Application.Services;
+using BudgetPlannerMVC.Web.Controllers;
 using BudgetPlannerMVC.Web.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -39,6 +40,8 @@ namespace BudgetPlannerMVC.Web
             services.AddControllersWithViews();
 
             services.AddTransient<IItemService, ItemService>();
+
+            services.AddTransient<ConfigurationController>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

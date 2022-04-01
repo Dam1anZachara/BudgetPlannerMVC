@@ -10,47 +10,58 @@ namespace BudgetPlannerMVC.Web.Controllers
 {
     public class AmountController : Controller
     {
+        ConfigurationController configurationController = new ConfigurationController();
         private static IList<AmountModel> amounts = new List<AmountModel>();
-        // GET: AmountController
+        private static IList<ConfigurationModel> _configurations;
+
+        public AmountController()
+        {
+            _configurations = configurationController.GetAllConfigModels();
+        }
+        // GET: Amount
         public ActionResult Index()
         {
             return View(amounts);
         }
 
-        // GET: AmountController/Details/5
+        // GET: Amount/Details/5
         public ActionResult Details(int id)
         {
             return View();
         }
 
-        // GET: AmountController/Create
+        // GET: Amount/Create
         public ActionResult Create()
         {
-            return View();
+            var configNames = new List<string>();
+            foreach (var config in _configurations)
+            {
+                configNames.Add(config.TypeName);
+            }
+            ViewBag.configNames = configNames;
+            return View(new AmountModel());
         }
 
-        // POST: AmountController/Create
+        // POST: Amount/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public ActionResult Create(AmountModel amountModel)
         {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            var configuration = _configurations.FirstOrDefault(x => x.TypeName == amountModel.TypeName);
+            amountModel.Id = amounts.Count+1;
+            amountModel.TypeName = configuration.TypeName;
+            amountModel.TypeOfAmount = configuration.TypeOfAmount;
+            amounts.Add(amountModel);
+            return RedirectToAction(nameof(Index));
         }
 
-        // GET: AmountController/Edit/5
+        // GET: Amount/Edit/5
         public ActionResult Edit(int id)
         {
             return View();
         }
 
-        // POST: AmountController/Edit/5
+        // POST: Amount/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(int id, IFormCollection collection)
@@ -65,13 +76,13 @@ namespace BudgetPlannerMVC.Web.Controllers
             }
         }
 
-        // GET: AmountController/Delete/5
+        // GET: Amount/Delete/5
         public ActionResult Delete(int id)
         {
             return View();
         }
 
-        // POST: AmountController/Delete/5
+        // POST: Amount/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Delete(int id, IFormCollection collection)
