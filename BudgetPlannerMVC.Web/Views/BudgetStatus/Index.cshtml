@@ -1,0 +1,53 @@
+﻿@model IEnumerable<BudgetPlannerMVC.Web.Models.BudgetStatusModel>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Budget Status</h1>
+
+@*<p>
+    <a asp-action="Create">Create New</a>
+</p>*@
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.Encode("Sum of Expenses")
+            </th>
+            <th>
+                @Html.Encode("Sum of Incomes")
+            </th>
+            <th>
+                @Html.Encode("Budget Balance")
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+
+        @foreach (var item in Model)
+        {
+            var sumOfExpense = item.Expenses.Sum(p => p.Value);
+            var sumOfIncomes = item.Incomes.Sum(p => p.Value);
+        <tr>
+            <td>
+                @sumOfExpense PLN
+            </td>
+            <td>
+                @sumOfIncomes PLN
+            </td>
+            @{ 
+                var budgetBalance = sumOfIncomes - sumOfExpense;
+            }
+            <td>
+                @budgetBalance PLN
+            </td>
+        </tr>
+        }
+
+        <tr>
+
+        </tr>
+    </tbody>
+</table>

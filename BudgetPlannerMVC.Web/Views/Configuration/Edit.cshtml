@@ -19,7 +19,8 @@
             </div>
             <div class="form-group">
                 <label asp-for="TypeOfAmount" class="control-label"></label>
-                <input asp-for="TypeOfAmount" class="form-control" />
+                @Html.DropDownListFor(model => model.TypeOfAmount, new SelectList(ViewBag.list));
+                @*<input asp-for="TypeOfAmount" class="form-control" />*@
                 <span asp-validation-for="TypeOfAmount" class="text-danger"></span>
             </div>
             <div class="form-group">

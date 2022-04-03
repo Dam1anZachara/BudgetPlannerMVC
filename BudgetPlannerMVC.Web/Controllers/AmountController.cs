@@ -1,6 +1,7 @@
 ﻿using BudgetPlannerMVC.Web.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +11,7 @@ namespace BudgetPlannerMVC.Web.Controllers
 {
     public class AmountController : Controller
     {
-        ConfigurationController configurationController = new ConfigurationController();
+        private ConfigurationController configurationController = new ConfigurationController();
         private static IList<AmountModel> amounts = new List<AmountModel>();
         private static IList<ConfigurationModel> _configurations;
 
@@ -18,6 +19,16 @@ namespace BudgetPlannerMVC.Web.Controllers
         {
             _configurations = configurationController.GetAllConfigModels();
         }
+
+        public List<AmountModel> GetAllExpenses()
+        {
+            return amounts.Where(p => p.TypeOfAmount == TypeOfAmount.Expense).ToList();
+        }
+        public List<AmountModel> GetAllIncomes()
+        {
+            return amounts.Where(p => p.TypeOfAmount == TypeOfAmount.Income).ToList();
+        }
+
         // GET: Amount
         public ActionResult Index()
         {
@@ -27,7 +38,7 @@ namespace BudgetPlannerMVC.Web.Controllers
         // GET: Amount/Details/5
         public ActionResult Details(int id)
         {
-            return View();
+            return View(amounts.FirstOrDefault(p => p.Id == id));
         }
 
         // GET: Amount/Create
@@ -47,9 +58,9 @@ namespace BudgetPlannerMVC.Web.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(AmountModel amountModel)
         {
-            var configuration = _configurations.FirstOrDefault(x => x.TypeName == amountModel.TypeName);
+            var configuration = _configurations.FirstOrDefault(p => p.TypeName == amountModel.TypeName);
             amountModel.Id = amounts.Count+1;
-            amountModel.TypeName = configuration.TypeName;
+            //amountModel.TypeName = configuration.TypeName;
             amountModel.TypeOfAmount = configuration.TypeOfAmount;
             amounts.Add(amountModel);
             return RedirectToAction(nameof(Index));
@@ -58,43 +69,34 @@ namespace BudgetPlannerMVC.Web.Controllers
         // GET: Amount/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            return View(amounts.FirstOrDefault(p => p.Id == id));
         }
 
         // POST: Amount/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public ActionResult Edit(int id, AmountModel amountModel)
         {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            AmountModel amount = amounts.FirstOrDefault(p => p.Id == id);
+            amount.Value = amountModel.Value;
+            amount.Date = amountModel.Date;
+            return RedirectToAction(nameof(Index));
         }
 
         // GET: Amount/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+            return View(amounts.FirstOrDefault(p => p.Id == id));
         }
 
         // POST: Amount/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public ActionResult Delete(int id, AmountModel amountModel)
         {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            AmountModel amount = amounts.FirstOrDefault(p => p.Id == id);
+            amounts.Remove(amount);
+            return RedirectToAction(nameof(Index));
         }
     }
 }

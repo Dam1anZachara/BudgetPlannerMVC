@@ -70,7 +70,7 @@ namespace BudgetPlannerMVC.Web
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=BudgetStatus}/{action=Index}/{id?}");
                 endpoints.MapRazorPages();
             });
 

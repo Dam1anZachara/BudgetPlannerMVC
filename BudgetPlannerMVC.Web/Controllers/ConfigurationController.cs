@@ -15,11 +15,15 @@ namespace BudgetPlannerMVC.Web.Controllers
             new ConfigurationModel(){ Id = 1, TypeName = "General expenses", TypeOfAmount = TypeOfAmount.Expense},
             new ConfigurationModel(){ Id = 2, TypeName = "General incomes", TypeOfAmount = TypeOfAmount.Income}
         };
-        // GET: Configuration
-        public List<ConfigurationModel> GetAllConfigModels()
+        private static IList<string> typesOfAmount = new List<string>() 
         {
-            return (List<ConfigurationModel>) configurations;
-        }
+            TypeOfAmount.Expense.ToString(),
+            TypeOfAmount.Income.ToString()
+        };
+
+        public List<ConfigurationModel> GetAllConfigModels() => configurations.ToList();
+
+        // GET: Configuration
         public ActionResult Index()
         {
             return View(configurations);
@@ -28,16 +32,13 @@ namespace BudgetPlannerMVC.Web.Controllers
         // GET: Configuration/Details/5
         public ActionResult Details(int id)
         {
-            return View(configurations.FirstOrDefault(x => x.Id == id));
+            return View(configurations.FirstOrDefault(p => p.Id == id));
         }
 
         // GET: Configuration/Create
         public ActionResult Create()
         {
-            var list = new List<string>();
-            list.Add(TypeOfAmount.Expense.ToString());
-            list.Add(TypeOfAmount.Income.ToString());
-            ViewBag.list = list;
+            ViewBag.list = typesOfAmount;
             return View(new ConfigurationModel());
         }
 
@@ -54,7 +55,8 @@ namespace BudgetPlannerMVC.Web.Controllers
         // GET: Configuration/Edit/5
         public ActionResult Edit(int id)
         {
-            return View(configurations.FirstOrDefault(x => x.Id == id));
+            ViewBag.list = typesOfAmount;
+            return View(configurations.FirstOrDefault(p => p.Id == id));
         }
 
         // POST: Configuration/Edit/5
@@ -62,7 +64,7 @@ namespace BudgetPlannerMVC.Web.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(int id, ConfigurationModel configurationModel)
         {
-            ConfigurationModel configuration = configurations.FirstOrDefault(x => x.Id == id);
+            ConfigurationModel configuration = configurations.FirstOrDefault(p => p.Id == id);
             configuration.TypeName = configurationModel.TypeName;
             configuration.TypeOfAmount = configurationModel.TypeOfAmount;
 
@@ -72,7 +74,7 @@ namespace BudgetPlannerMVC.Web.Controllers
         // GET: Configuration/Delete/5
         public ActionResult Delete(int id)
         {
-            return View(configurations.FirstOrDefault(x => x.Id == id));
+            return View(configurations.FirstOrDefault(p => p.Id == id));
         }
 
         // POST: Configuration/Delete/5
@@ -80,7 +82,7 @@ namespace BudgetPlannerMVC.Web.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Delete(int id, ConfigurationModel configurationModel)
         {
-            ConfigurationModel configuration = configurations.FirstOrDefault(x => x.Id == id);
+            ConfigurationModel configuration = configurations.FirstOrDefault(p => p.Id == id);
             configurations.Remove(configuration);
             return RedirectToAction(nameof(Index));
         }
