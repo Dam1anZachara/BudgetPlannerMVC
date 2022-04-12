@@ -13,7 +13,11 @@ namespace BudgetPlannerMVC.Infrastructure
     {
         public DbSet<Amount> Amounts { get; set; }
         public DbSet<Assign> Assigns { get; set; }
+        public DbSet<ContactDetail> ContactDetails { get; set; }
+        public DbSet<ContactDetailType> ContactDetailTypes { get; set; }
         public DbSet<Domain.Model.Type> Types { get; set; }
+        public DbSet<User> Users { get; set; }
+        public DbSet<UserContactInformation> UserContactInformation { get; set; }
 
         public Context(DbContextOptions options) : base(options)
         {
@@ -22,6 +26,10 @@ namespace BudgetPlannerMVC.Infrastructure
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
+
+            builder.Entity<User>()
+                .HasOne(a => a.UserContactInformation).WithOne(b => b.User)
+                .HasForeignKey<UserContactInformation>(p => p.UserRef);
         }
     }
 }
