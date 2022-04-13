@@ -17,7 +17,7 @@ namespace BudgetPlannerMVC.Infrastructure
         public DbSet<ContactDetailType> ContactDetailTypes { get; set; }
         public DbSet<Domain.Model.Type> Types { get; set; }
         public DbSet<User> Users { get; set; }
-        public DbSet<UserContactInformation> UserContactInformation { get; set; }
+        public DbSet<UserPersonalData> UserPersonalData { get; set; }
 
         public Context(DbContextOptions options) : base(options)
         {
@@ -28,8 +28,8 @@ namespace BudgetPlannerMVC.Infrastructure
             base.OnModelCreating(builder);
 
             builder.Entity<User>()
-                .HasOne(a => a.UserContactInformation).WithOne(b => b.User)
-                .HasForeignKey<UserContactInformation>(p => p.UserRef);
+                .HasOne(a => a.UserPersonalData).WithOne(b => b.User)
+                .HasForeignKey<UserPersonalData>(p => p.UserRef);
         }
     }
 }
