@@ -1,4 +1,5 @@
-﻿using BudgetPlannerMVC.Domain.Model;
+﻿using BudgetPlannerMVC.Domain.Interfaces;
+using BudgetPlannerMVC.Domain.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace BudgetPlannerMVC.Infrastructure.Repositories
 {
-    public class AmountRepository
+    public class AmountRepository : IAmountRepository
     {
         private readonly Context _context;
         public AmountRepository(Context context)
