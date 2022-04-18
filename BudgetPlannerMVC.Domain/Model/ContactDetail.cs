@@ -12,7 +12,7 @@ namespace BudgetPlannerMVC.Domain.Model
         public string ContactDetailInformation { get; set; }
         public int ContactDetailTypeId { get; set; }
         public ContactDetailType ContactDetailType { get; set; }
-        public int UserId { get; set; }
-        public User User { get; set; }
+        public int AppUserId { get; set; }
+        public AppUser AppUser { get; set; }
     }
 }

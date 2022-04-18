@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BudgetPlannerMVC.Domain.Model
 {
-    public class UserPersonalData
+    public class AppUserPersonalData
     {
         public int Id { get; set; }
         public string FirstName { get; set; }
@@ -15,6 +15,6 @@ namespace BudgetPlannerMVC.Domain.Model
 
         public int UserRef { get; set; }
 
-        public User User { get; set; }
+        public AppUser AppUser { get; set; }
     }
 }
