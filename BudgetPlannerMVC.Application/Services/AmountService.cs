@@ -4,10 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BudgetPlannerMVC.Application.Interfaces
+namespace BudgetPlannerMVC.Application.Services
 {
-    public interface IItemService
+    public class AmountService
     {
-        List<int> GetAllItems();
     }
 }

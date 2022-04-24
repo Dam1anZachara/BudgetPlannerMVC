@@ -2,11 +2,11 @@
 
 namespace BudgetPlannerMVC.Web.Controllers
 {
-    public class AmountController : Controller
+    public class TypeController : Controller
     {
         public IActionResult Index()
         {
-            var model = amountService.GetAllAmountsForList();
+            var model = typeService.GetAllTypesForList();
             return View();
         }
         [HttpGet]
@@ -20,5 +20,6 @@ namespace BudgetPlannerMVC.Web.Controllers
             var id = customerService.AddAmount(model);
             return View();
         }
+
     }
 }

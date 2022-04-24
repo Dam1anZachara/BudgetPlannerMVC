@@ -1,6 +1,9 @@
+using BudgetPlannerMVC.Application;
 using BudgetPlannerMVC.Application.Interfaces;
 using BudgetPlannerMVC.Application.Services;
+using BudgetPlannerMVC.Domain.Interfaces;
 using BudgetPlannerMVC.Infrastructure;
+using BudgetPlannerMVC.Infrastructure.Repositories;
 using BudgetPlannerMVC.Web.Controllers;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -31,11 +34,11 @@ namespace BudgetPlannerMVC.Web
 
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<Context>();
+
+            services.AddApplication();
+            services.AddInfrastructure();
+            
             services.AddControllersWithViews();
-
-            services.AddTransient<IItemService, ItemService>();
-
-            services.AddTransient<ConfigurationController>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
