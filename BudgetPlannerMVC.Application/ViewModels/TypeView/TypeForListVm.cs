@@ -14,6 +14,7 @@ namespace BudgetPlannerMVC.Application.ViewModels.TypeView
         public int Id { get; set; }
         public string Name { get; set; }
         public int AssignId { get; set; }
+        public virtual Assign Assign { get; set; }
 
         public void Mapping(Profile profile)
         {

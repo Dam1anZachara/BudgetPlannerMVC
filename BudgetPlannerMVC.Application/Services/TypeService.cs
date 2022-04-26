@@ -22,6 +22,18 @@ namespace BudgetPlannerMVC.Application.Services
             throw new System.NotImplementedException();
         }
 
+        public ListTypeForListVm GetAllExpenseTypesForList()
+        {
+            var expenseTypes = _typeRepository.GetAllExpenseTypes()
+                .ProjectTo<TypeForListVm>(_mapper.ConfigurationProvider).ToList();
+            var expenseTypeList = new ListTypeForListVm()
+            {
+                Types = expenseTypes,
+                Count = expenseTypes.Count
+            };
+            return expenseTypeList;
+        }
+
         public ListTypeForListVm GetAllTypesForList()
         {
             var types = _typeRepository.GetAllTypes()

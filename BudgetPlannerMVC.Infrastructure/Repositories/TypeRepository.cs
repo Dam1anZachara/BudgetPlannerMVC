@@ -9,9 +9,18 @@ namespace BudgetPlannerMVC.Infrastructure.Repositories
 {
     public class TypeRepository : ITypeRepository
     {
+        private readonly Context _context;
+        public TypeRepository(Context context)
+        {
+            _context = context;
+        }
         public IQueryable<Domain.Model.Type> GetAllTypes()
         {
-            throw new NotImplementedException();
+            return _context.Types;
+        }
+        public IQueryable<Domain.Model.Type> GetAllExpenseTypes()
+        {
+            return _context.Types.Where(p => p.AssignId == 1);
         }
 
         public Domain.Model.Type GetType(int typeId)

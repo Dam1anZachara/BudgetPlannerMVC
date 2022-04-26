@@ -10,7 +10,9 @@ namespace BudgetPlannerMVC.Application.Interfaces
     public interface ITypeService
     {
         ListTypeForListVm GetAllTypesForList();
+        ListTypeForListVm GetAllExpenseTypesForList();
         int AddType(NewTypeVm type);
+        
 
         //TypeDetailsVm GetTypeDetails(int typeId);
     }
