@@ -10,6 +10,7 @@ namespace BudgetPlannerMVC.Domain.Interfaces
     {
         IQueryable<Model.Type> GetAllTypes();
         IQueryable<Model.Type> GetAllExpenseTypes();
+        IQueryable<Model.Type> GetAllIncomeTypes();
         Model.Type GetType(int typeId);
     }
 }

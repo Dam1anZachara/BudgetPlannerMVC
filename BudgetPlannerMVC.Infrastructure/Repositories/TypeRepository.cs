@@ -22,6 +22,10 @@ namespace BudgetPlannerMVC.Infrastructure.Repositories
         {
             return _context.Types.Where(p => p.AssignId == 1);
         }
+        public IQueryable<Domain.Model.Type> GetAllIncomeTypes()
+        {
+            return _context.Types.Where(p => p.AssignId == 2);
+        }
 
         public Domain.Model.Type GetType(int typeId)
         {

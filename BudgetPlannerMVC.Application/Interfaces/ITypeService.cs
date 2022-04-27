@@ -11,6 +11,7 @@ namespace BudgetPlannerMVC.Application.Interfaces
     {
         ListTypeForListVm GetAllTypesForList();
         ListTypeForListVm GetAllExpenseTypesForList();
+        ListTypeForListVm GetAllIncomeTypesForList();
         int AddType(NewTypeVm type);
         
 

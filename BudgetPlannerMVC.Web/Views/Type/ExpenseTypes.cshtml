@@ -1,16 +1,13 @@
 ﻿@model BudgetPlannerMVC.Application.ViewModels.TypeView.ListTypeForListVm
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "ExpenseTypes";
 }
 
-<h1>Index</h1>
+<h1>ExpenseTypes</h1>
 
 <p>
     <a asp-action="Create">Create New</a>
-</p>
-<p>
-    <a href="@Url.Action("ExpenseTypes")">Expense Types</a>
 </p>
 <table class="table">
     <thead>
@@ -22,9 +19,9 @@
                 Name
             </th>
             <th>
-                Assign
+                AssignId
             </th>
-             <th>
+            <th>
                 Assign Name
             </th>
             <th></th>
@@ -42,11 +39,11 @@
             <td>
                 @Html.DisplayFor(modelItem => item.AssignId)
             </td>
-                 <td>
+            <td>
                 @Html.DisplayFor(modelItem => item.Assign.Name)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
                 @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
                 @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
             </td>

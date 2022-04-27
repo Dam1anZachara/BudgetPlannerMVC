@@ -34,6 +34,18 @@ namespace BudgetPlannerMVC.Application.Services
             return expenseTypeList;
         }
 
+        public ListTypeForListVm GetAllIncomeTypesForList()
+        {
+            var incomeTypes = _typeRepository.GetAllIncomeTypes()
+                .ProjectTo<TypeForListVm>(_mapper.ConfigurationProvider).ToList();
+            var incomeTypeList = new ListTypeForListVm()
+            {
+                Types = incomeTypes,
+                Count = incomeTypes.Count
+            };
+            return incomeTypeList;
+        }
+
         public ListTypeForListVm GetAllTypesForList()
         {
             var types = _typeRepository.GetAllTypes()
