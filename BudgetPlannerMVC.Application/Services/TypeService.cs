@@ -21,13 +21,17 @@ namespace BudgetPlannerMVC.Application.Services
         {
             throw new System.NotImplementedException();
         }
-
-        public ListTypeForListVm GetAllExpenseTypesForList()
+        
+        public ListTypeForListVm GetAllExpenseTypesForList(int pageSize, int pageNo, string searchString)
         {
-            var expenseTypes = _typeRepository.GetAllExpenseTypes()
+            var expenseTypes = _typeRepository.GetAllExpenseTypes().Where(p => p.Name == searchString)
                 .ProjectTo<TypeForListVm>(_mapper.ConfigurationProvider).ToList();
+            var typesToShow = expenseTypes.Skip(pageSize * (pageNo - 1)).Take(pageSize).ToList();
             var expenseTypeList = new ListTypeForListVm()
             {
+                PageSize = pageSize,
+                CurrentPage = pageNo,
+                SearchString = searchString,
                 Types = expenseTypes,
                 Count = expenseTypes.Count
             };

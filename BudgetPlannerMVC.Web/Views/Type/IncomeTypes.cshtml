@@ -1,21 +1,15 @@
-﻿@*@model BudgetPlannerMVC.Application.ViewModels.TypeView.ListTypeForListVm*@
+﻿@model BudgetPlannerMVC.Application.ViewModels.TypeView.ListTypeForListVm
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "IncomeTypes";
 }
 
-<h1>Budget configuration</h1>
+<h1>IncomeTypes</h1>
 
-@*<p>
+<p>
     <a asp-action="Create">Create New</a>
-</p>*@
-<p>
-    <a href="@Url.Action("ExpenseTypes")">Manage expense types</a>
 </p>
-<p>
-    <a href="@Url.Action("IncomeTypes")">Manage income types</a>
-</p>
-@*<table class="table">
+<table class="table">
     <thead>
         <tr>
             <th>
@@ -25,9 +19,9 @@
                 Name
             </th>
             <th>
-                Assign
+                Assign Id
             </th>
-             <th>
+            <th>
                 Assign Name
             </th>
             <th></th>
@@ -45,15 +39,18 @@
             <td>
                 @Html.DisplayFor(modelItem => item.AssignId)
             </td>
-                 <td>
+            <td>
                 @Html.DisplayFor(modelItem => item.Assign.Name)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
                 @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
                 @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
             </td>
         </tr>
 }
     </tbody>
-</table>*@
+</table>
+<p>
+    <a href="@Url.Action("")">Back to configuration menu</a>
+</p>

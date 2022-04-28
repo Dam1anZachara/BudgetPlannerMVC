@@ -13,12 +13,24 @@ namespace BudgetPlannerMVC.Web.Controllers
         }
         public IActionResult Index()
         {
-            var model = _typeService.GetAllTypesForList();
-            return View(model);
+            //var model = _typeService.GetAllTypesForList();
+            return View();
         }
+        [HttpGet]
         public IActionResult ExpenseTypes()
         {
-            var model = _typeService.GetAllExpenseTypesForList();
+            var model = _typeService.GetAllExpenseTypesForList(2, 1, "");
+            return View(model);
+        }
+        [HttpPost]
+        public IActionResult ExpenseTypes(int pageSize, int pageNo, string searchString)
+        {
+            var model = _typeService.GetAllExpenseTypesForList(pageSize, pageNo, searchString);
+            return View(model);
+        }
+        public IActionResult IncomeTypes()
+        {
+            var model = _typeService.GetAllIncomeTypesForList();
             return View(model);
         }
         [HttpGet]
