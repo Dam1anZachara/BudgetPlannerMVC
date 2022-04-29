@@ -13,8 +13,8 @@ namespace BudgetPlannerMVC.Application.Interfaces
         ListTypeForListVm GetAllExpenseTypesForList(int pageSize, int pageNo, string searchString);
         ListTypeForListVm GetAllIncomeTypesForList();
         int AddType(NewTypeVm type);
-        
-
-        //TypeDetailsVm GetTypeDetails(int typeId);
+        NewTypeVm GetTypeForEdit(int id);
+        void UpdateType(NewTypeVm model);
+        void DeleteType(int id);
     }
 }

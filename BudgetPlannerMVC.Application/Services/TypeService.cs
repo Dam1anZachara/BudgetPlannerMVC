@@ -3,6 +3,7 @@ using AutoMapper.QueryableExtensions;
 using BudgetPlannerMVC.Application.Interfaces;
 using BudgetPlannerMVC.Application.ViewModels.TypeView;
 using BudgetPlannerMVC.Domain.Interfaces;
+using BudgetPlannerMVC.Domain.Model;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -19,9 +20,16 @@ namespace BudgetPlannerMVC.Application.Services
         }
         public int AddType(NewTypeVm type)
         {
-            throw new System.NotImplementedException();
+            var newType = _mapper.Map<Type>(type);
+            var id = _typeRepository.AddType(newType);
+            return id;
         }
-        
+
+        public void DeleteType(int id)
+        {
+            _typeRepository.DeleteType(id);
+        }
+
         public ListTypeForListVm GetAllExpenseTypesForList(int pageSize, int pageNo, string searchString)
         {
             var expenseTypes = _typeRepository.GetAllExpenseTypes().Where(p => p.Name == searchString)
@@ -60,6 +68,19 @@ namespace BudgetPlannerMVC.Application.Services
                 Count = types.Count
             };
             return typeList;
+        }
+
+        public NewTypeVm GetTypeForEdit(int id)
+        {
+            var type = _typeRepository.GetType(id);
+            var typeVm = _mapper.Map<NewTypeVm>(type);
+            return typeVm;
+        }
+
+        public void UpdateType(NewTypeVm model)
+        {
+            var type = _mapper.Map<Type>(model);
+            _typeRepository.UpdateCustomer(type);
         }
     }
 }

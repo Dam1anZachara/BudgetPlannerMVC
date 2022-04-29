@@ -77,6 +77,8 @@
                 }
         </tr>
     </table>
+    <input type="hidden" name="pageNo" id="pageNo" />
+    <input type="hidden" name="pageSize" id="pageSize" value="2" />
 </div>
 </form>
 <p>
@@ -85,5 +87,11 @@
 
 @section Scripts
 {
-
+    <script type="text/javascript">
+        function PageClick(ExpenseTypes)
+        {
+            document.getElementById("pageNo").value = ExpenseTypes;
+            document.forms[0].submit();
+        }
+    </script>
 }

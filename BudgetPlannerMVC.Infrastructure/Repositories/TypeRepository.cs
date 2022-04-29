@@ -16,7 +16,7 @@ namespace BudgetPlannerMVC.Infrastructure.Repositories
         }
         public IQueryable<Domain.Model.Type> GetAllTypes()
         {
-            return _context.Types;
+            return _context.Types.OrderBy(p => p.AssignId);
         }
         public IQueryable<Domain.Model.Type> GetAllExpenseTypes()
         {
@@ -30,6 +30,28 @@ namespace BudgetPlannerMVC.Infrastructure.Repositories
         public Domain.Model.Type GetType(int typeId)
         {
             throw new NotImplementedException();
+        }
+
+        public int AddType(Domain.Model.Type type)
+        {
+            _context.Types.Add(type);
+            _context.SaveChanges();
+            return type.Id;
+        }
+
+        public void UpdateCustomer(Domain.Model.Type type)
+        {
+            _context.Attach(type);
+            _context.Entry(type).Property("Name").IsModified = true;
+            _context.Entry(type).Property("AssignId").IsModified = true;
+            _context.SaveChanges();
+        }
+
+        public void DeleteType(int id)
+        {
+            var type = _context.Types.Find(id);
+            _context.Types.Remove(type);
+            _context.SaveChanges();
         }
     }
 }
