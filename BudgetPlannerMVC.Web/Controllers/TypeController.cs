@@ -13,19 +13,15 @@ namespace BudgetPlannerMVC.Web.Controllers
         {
             _typeService = typeService;
         }
+
+        [HttpGet]
         public IActionResult Index()
         {
-            //var model = _typeService.GetAllTypesForList();
-            return View();
-        }
-        [HttpGet]
-        public IActionResult ExpenseTypes()
-        {
-            var model = _typeService.GetAllExpenseTypesForList(2, 1, "");
+            var model = _typeService.GetAllTypesForList(3, 1, "");
             return View(model);
         }
         [HttpPost]
-        public IActionResult ExpenseTypes(int pageSize, int? pageNo, string searchString)
+        public IActionResult Index(int pageSize, int? pageNo, string searchString)
         {
             if (!pageNo.HasValue)
             {
@@ -35,22 +31,20 @@ namespace BudgetPlannerMVC.Web.Controllers
             {
                 searchString = String.Empty;
             }
-            var model = _typeService.GetAllExpenseTypesForList(pageSize, pageNo.Value, searchString);
+            var model = _typeService.GetAllTypesForList(pageSize, pageNo.Value, searchString);
             return View(model);
         }
-        public IActionResult IncomeTypes()
-        {
-            var model = _typeService.GetAllIncomeTypesForList();
-            return View(model);
-        }
+
         [HttpGet]
-        public IActionResult AddType()
+        public IActionResult AddType(string x)
         {
+            ViewBag.list = _typeService.DropDownAssigns();
             return View(new NewTypeVm());
         }
         [HttpPost]
         public IActionResult AddType(NewTypeVm model)
         {
+            //model.AssignId = 1;
             var id = _typeService.AddType(model);
             return RedirectToAction("Index");
         }

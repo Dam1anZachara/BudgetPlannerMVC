@@ -9,12 +9,12 @@ namespace BudgetPlannerMVC.Application.Interfaces
 {
     public interface ITypeService
     {
-        ListTypeForListVm GetAllTypesForList();
-        ListTypeForListVm GetAllExpenseTypesForList(int pageSize, int pageNo, string searchString);
-        ListTypeForListVm GetAllIncomeTypesForList();
+        ListTypeForListVm GetAllTypesForList(int pageSize, int pageNo, string searchString);
         int AddType(NewTypeVm type);
         NewTypeVm GetTypeForEdit(int id);
         void UpdateType(NewTypeVm model);
         void DeleteType(int id);
+        ListAssignForListVm GetAllAssignsForList();
+        List<string> DropDownAssigns();
     }
 }

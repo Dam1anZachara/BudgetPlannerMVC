@@ -1,4 +1,5 @@
 ﻿using BudgetPlannerMVC.Domain.Interfaces;
+using BudgetPlannerMVC.Domain.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,18 +19,9 @@ namespace BudgetPlannerMVC.Infrastructure.Repositories
         {
             return _context.Types.OrderBy(p => p.AssignId);
         }
-        public IQueryable<Domain.Model.Type> GetAllExpenseTypes()
-        {
-            return _context.Types.Where(p => p.AssignId == 1);
-        }
-        public IQueryable<Domain.Model.Type> GetAllIncomeTypes()
-        {
-            return _context.Types.Where(p => p.AssignId == 2);
-        }
-
         public Domain.Model.Type GetType(int typeId)
         {
-            throw new NotImplementedException();
+            return _context.Types.FirstOrDefault(p => p.Id == typeId);
         }
 
         public int AddType(Domain.Model.Type type)
@@ -52,6 +44,10 @@ namespace BudgetPlannerMVC.Infrastructure.Repositories
             var type = _context.Types.Find(id);
             _context.Types.Remove(type);
             _context.SaveChanges();
+        }
+        public IQueryable<Assign> GetAssigns()
+        {
+            return _context.Assigns;
         }
     }
 }

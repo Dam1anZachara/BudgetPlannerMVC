@@ -1,4 +1,4 @@
-﻿@*@model BudgetPlannerMVC.Application.ViewModels.TypeView.ListTypeForListVm*@
+﻿@model BudgetPlannerMVC.Application.ViewModels.TypeView.ListTypeForListVm
 
 @{
     ViewData["Title"] = "Index";
@@ -6,54 +6,90 @@
 
 <h1>Budget configuration</h1>
 
-@*<p>
-    <a asp-action="Create">Create New</a>
-</p>*@
 <p>
-    <a href="@Url.Action("ExpenseTypes")">Manage expense types</a>
+    <a asp-action="AddType">Create New</a>
 </p>
-<p>
-    <a href="@Url.Action("IncomeTypes")">Manage income types</a>
-</p>
-@*<table class="table">
-    <thead>
-        <tr>
-            <th>
-                Id
-            </th>
-            <th>
-                Name
-            </th>
-            <th>
-                Assign
-            </th>
-             <th>
-                Assign Name
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model.Types) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Id)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.AssignId)
-            </td>
-                 <td>
-                @Html.DisplayFor(modelItem => item.Assign.Name)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-            </td>
-        </tr>
+<form asp-action="Index" asp-controller="Type" method="post">
+    <div class="row">
+        <input type="text" asp-for="SearchString" name="searchString" id="searchString" />
+        <input type="submit" value="Search"/>
+    </div>
+        <div class="row">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>
+                            Id
+                        </th>
+                        <th>
+                            Name
+                        </th>
+                        <th>
+                            AssignId
+                        </th>
+                        <th>
+                            Assign Name
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+            @foreach (var item in Model.Types) 
+                    {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Id)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.AssignId)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Assign.Name)
+                        </td>
+                        <td>
+                            @Html.ActionLink("Edit", "EditType", new {  id=item.Id }) |
+                            @Html.ActionLink("Details", "Details", new { id=item.Id}) |
+                            @Html.ActionLink("Delete", "Delete", new {  id=item.Id })
+                        </td>
+                    </tr>
+                    }
+                </tbody>
+            </table>
+            </div>
+        <div class="row">
+            <table>
+                <tr>
+                        @for(int i = 1; i <= Math.Ceiling(Model.Count / (double)Model.PageSize); i++)
+                        {
+                            <td>
+                                @if (i != Model.CurrentPage)
+                                {
+                                    <a href="javascript:PagerClick(@i)">@i</a>
+                                }
+                                else
+                                {
+                                    <span>@i</span>
+                                }
+                            </td>
+                        }
+                </tr>
+            </table>
+            <input type="hidden" name="pageNo" id="pageNo" />
+            <input type="hidden" name="pageSize" id="pageSize" value="3" />
+        </div>
+</form>
+
+
+@section Scripts
+{
+    <script type="text/javascript">
+        function PagerClick(index)
+        {
+            document.getElementById("pageNo").value = index;
+            document.forms[0].submit();
+        }
+    </script>
 }
-    </tbody>
-</table>*@

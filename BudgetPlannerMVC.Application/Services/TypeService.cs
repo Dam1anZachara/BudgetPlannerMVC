@@ -30,41 +30,17 @@ namespace BudgetPlannerMVC.Application.Services
             _typeRepository.DeleteType(id);
         }
 
-        public ListTypeForListVm GetAllExpenseTypesForList(int pageSize, int pageNo, string searchString)
+        public ListTypeForListVm GetAllTypesForList(int pageSize, int pageNo, string searchString)
         {
-            var expenseTypes = _typeRepository.GetAllExpenseTypes().Where(p => p.Name == searchString)
+            var types = _typeRepository.GetAllTypes().Where(p => p.Name.StartsWith(searchString))
                 .ProjectTo<TypeForListVm>(_mapper.ConfigurationProvider).ToList();
-            var typesToShow = expenseTypes.Skip(pageSize * (pageNo - 1)).Take(pageSize).ToList();
-            var expenseTypeList = new ListTypeForListVm()
+            var typesToShow = types.Skip(pageSize * (pageNo - 1)).Take(pageSize).ToList();
+            var typeList = new ListTypeForListVm()
             {
                 PageSize = pageSize,
                 CurrentPage = pageNo,
                 SearchString = searchString,
-                Types = expenseTypes,
-                Count = expenseTypes.Count
-            };
-            return expenseTypeList;
-        }
-
-        public ListTypeForListVm GetAllIncomeTypesForList()
-        {
-            var incomeTypes = _typeRepository.GetAllIncomeTypes()
-                .ProjectTo<TypeForListVm>(_mapper.ConfigurationProvider).ToList();
-            var incomeTypeList = new ListTypeForListVm()
-            {
-                Types = incomeTypes,
-                Count = incomeTypes.Count
-            };
-            return incomeTypeList;
-        }
-
-        public ListTypeForListVm GetAllTypesForList()
-        {
-            var types = _typeRepository.GetAllTypes()
-                .ProjectTo<TypeForListVm>(_mapper.ConfigurationProvider).ToList();
-            var typeList = new ListTypeForListVm()
-            {
-                Types = types,
+                Types = typesToShow,
                 Count = types.Count
             };
             return typeList;
@@ -81,6 +57,29 @@ namespace BudgetPlannerMVC.Application.Services
         {
             var type = _mapper.Map<Type>(model);
             _typeRepository.UpdateCustomer(type);
+        }
+        public ListAssignForListVm GetAllAssignsForList()
+        {
+            var assigns = _typeRepository.GetAssigns().
+                ProjectTo<AssignForListVm>(_mapper.ConfigurationProvider).ToList();
+            var assignList = new ListAssignForListVm()
+            {
+                Assigns = assigns,
+            };
+            return assignList;
+        }
+        public List<string> DropDownAssigns()
+        {
+            var assigns = _typeRepository.GetAssigns().
+                ProjectTo<AssignForListVm>(_mapper.ConfigurationProvider).ToList();
+
+            var dropDownAssigns = new List<string>();
+            foreach (var assign in assigns)
+            {
+                dropDownAssigns.Add(assign.Name);
+            }
+            return dropDownAssigns;
+
         }
     }
 }
