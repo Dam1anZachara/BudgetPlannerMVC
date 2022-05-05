@@ -12,7 +12,7 @@ namespace BudgetPlannerMVC.Domain.Interfaces
         IQueryable<Model.Type> GetAllTypes();
         Model.Type GetType(int typeId);
         int AddType(Model.Type type);
-        void UpdateCustomer(Model.Type type);
+        void UpdateType(Model.Type type);
         void DeleteType(int id);
         IQueryable<Assign> GetAssigns();
     }

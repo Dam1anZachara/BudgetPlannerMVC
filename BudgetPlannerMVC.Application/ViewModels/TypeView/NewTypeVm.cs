@@ -12,9 +12,10 @@ namespace BudgetPlannerMVC.Application.ViewModels.TypeView
     {
         public int Id { get; set; }
         public string Name { get; set; }
+        public string Description { get; set; }
         public int AssignId { get; set; }
-        public virtual AssignForListVm Assign { get; set; }
-        public virtual ListAssignForListVm Assigns { get; set; }
+        public string NameOfAssign { get; set; }
+        public ListAssignForListVm Assigns { get; set; }
 
         public void Mapping(Profile profile)
         {

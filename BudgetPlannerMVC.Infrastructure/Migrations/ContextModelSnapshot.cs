@@ -45,48 +45,6 @@ namespace BudgetPlannerMVC.Infrastructure.Migrations
                     b.ToTable("Amounts");
                 });
 
-            modelBuilder.Entity("BudgetPlannerMVC.Domain.Model.AppUser", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("NickName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("AppUsers");
-                });
-
-            modelBuilder.Entity("BudgetPlannerMVC.Domain.Model.AppUserPersonalData", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("FirstName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("LastName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("UserRef")
-                        .HasColumnType("int");
-
-                    b.Property<string>("UserStatus")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserRef")
-                        .IsUnique();
-
-                    b.ToTable("AppUserPersonalData");
-                });
-
             modelBuilder.Entity("BudgetPlannerMVC.Domain.Model.Assign", b =>
                 {
                     b.Property<int>("Id")
@@ -102,46 +60,6 @@ namespace BudgetPlannerMVC.Infrastructure.Migrations
                     b.ToTable("Assigns");
                 });
 
-            modelBuilder.Entity("BudgetPlannerMVC.Domain.Model.ContactDetail", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("AppUserId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("ContactDetailInformation")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("ContactDetailTypeId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AppUserId");
-
-                    b.HasIndex("ContactDetailTypeId");
-
-                    b.ToTable("ContactDetails");
-                });
-
-            modelBuilder.Entity("BudgetPlannerMVC.Domain.Model.ContactDetailType", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("ContactDetailTypes");
-                });
-
             modelBuilder.Entity("BudgetPlannerMVC.Domain.Model.Type", b =>
                 {
                     b.Property<int>("Id")
@@ -151,6 +69,9 @@ namespace BudgetPlannerMVC.Infrastructure.Migrations
 
                     b.Property<int>("AssignId")
                         .HasColumnType("int");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
@@ -373,36 +294,6 @@ namespace BudgetPlannerMVC.Infrastructure.Migrations
                     b.Navigation("Type");
                 });
 
-            modelBuilder.Entity("BudgetPlannerMVC.Domain.Model.AppUserPersonalData", b =>
-                {
-                    b.HasOne("BudgetPlannerMVC.Domain.Model.AppUser", "AppUser")
-                        .WithOne("AppUserPersonalData")
-                        .HasForeignKey("BudgetPlannerMVC.Domain.Model.AppUserPersonalData", "UserRef")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("AppUser");
-                });
-
-            modelBuilder.Entity("BudgetPlannerMVC.Domain.Model.ContactDetail", b =>
-                {
-                    b.HasOne("BudgetPlannerMVC.Domain.Model.AppUser", "AppUser")
-                        .WithMany("ContactDetails")
-                        .HasForeignKey("AppUserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("BudgetPlannerMVC.Domain.Model.ContactDetailType", "ContactDetailType")
-                        .WithMany()
-                        .HasForeignKey("ContactDetailTypeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("AppUser");
-
-                    b.Navigation("ContactDetailType");
-                });
-
             modelBuilder.Entity("BudgetPlannerMVC.Domain.Model.Type", b =>
                 {
                     b.HasOne("BudgetPlannerMVC.Domain.Model.Assign", "Assign")
@@ -463,13 +354,6 @@ namespace BudgetPlannerMVC.Infrastructure.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("BudgetPlannerMVC.Domain.Model.AppUser", b =>
-                {
-                    b.Navigation("AppUserPersonalData");
-
-                    b.Navigation("ContactDetails");
                 });
 
             modelBuilder.Entity("BudgetPlannerMVC.Domain.Model.Assign", b =>

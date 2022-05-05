@@ -8,19 +8,6 @@ namespace BudgetPlannerMVC.Infrastructure.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "AppUsers",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    NickName = table.Column<string>(type: "nvarchar(max)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_AppUsers", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "AspNetRoles",
                 columns: table => new
                 {
@@ -70,41 +57,6 @@ namespace BudgetPlannerMVC.Infrastructure.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Assigns", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "ContactDetailTypes",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ContactDetailTypes", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "AppUserPersonalData",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    FirstName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    UserStatus = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    UserRef = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_AppUserPersonalData", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_AppUserPersonalData_AppUsers_UserRef",
-                        column: x => x.UserRef,
-                        principalTable: "AppUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -220,6 +172,7 @@ namespace BudgetPlannerMVC.Infrastructure.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     AssignId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -229,33 +182,6 @@ namespace BudgetPlannerMVC.Infrastructure.Migrations
                         name: "FK_Types_Assigns_AssignId",
                         column: x => x.AssignId,
                         principalTable: "Assigns",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "ContactDetails",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    ContactDetailInformation = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ContactDetailTypeId = table.Column<int>(type: "int", nullable: false),
-                    AppUserId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ContactDetails", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_ContactDetails_AppUsers_AppUserId",
-                        column: x => x.AppUserId,
-                        principalTable: "AppUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_ContactDetails_ContactDetailTypes_ContactDetailTypeId",
-                        column: x => x.ContactDetailTypeId,
-                        principalTable: "ContactDetailTypes",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -286,12 +212,6 @@ namespace BudgetPlannerMVC.Infrastructure.Migrations
                 name: "IX_Amounts_TypeId",
                 table: "Amounts",
                 column: "TypeId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_AppUserPersonalData_UserRef",
-                table: "AppUserPersonalData",
-                column: "UserRef",
-                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -333,16 +253,6 @@ namespace BudgetPlannerMVC.Infrastructure.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ContactDetails_AppUserId",
-                table: "ContactDetails",
-                column: "AppUserId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_ContactDetails_ContactDetailTypeId",
-                table: "ContactDetails",
-                column: "ContactDetailTypeId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Types_AssignId",
                 table: "Types",
                 column: "AssignId");
@@ -352,9 +262,6 @@ namespace BudgetPlannerMVC.Infrastructure.Migrations
         {
             migrationBuilder.DropTable(
                 name: "Amounts");
-
-            migrationBuilder.DropTable(
-                name: "AppUserPersonalData");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoleClaims");
@@ -372,9 +279,6 @@ namespace BudgetPlannerMVC.Infrastructure.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "ContactDetails");
-
-            migrationBuilder.DropTable(
                 name: "Types");
 
             migrationBuilder.DropTable(
@@ -382,12 +286,6 @@ namespace BudgetPlannerMVC.Infrastructure.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
-
-            migrationBuilder.DropTable(
-                name: "AppUsers");
-
-            migrationBuilder.DropTable(
-                name: "ContactDetailTypes");
 
             migrationBuilder.DropTable(
                 name: "Assigns");

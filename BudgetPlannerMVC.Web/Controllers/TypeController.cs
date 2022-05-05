@@ -36,7 +36,7 @@ namespace BudgetPlannerMVC.Web.Controllers
         }
 
         [HttpGet]
-        public IActionResult AddType(string x)
+        public IActionResult AddType()
         {
             ViewBag.list = _typeService.DropDownAssigns();
             return View(new NewTypeVm());
@@ -44,19 +44,25 @@ namespace BudgetPlannerMVC.Web.Controllers
         [HttpPost]
         public IActionResult AddType(NewTypeVm model)
         {
-            //model.AssignId = 1;
+            var nameOfAssign = model.NameOfAssign;
+            var assignId = _typeService.GetAssignIdByName(nameOfAssign);
+            model.AssignId = assignId;
             var id = _typeService.AddType(model);
             return RedirectToAction("Index");
         }
         [HttpGet]
         public IActionResult EditType(int id)
         {
+            ViewBag.list = _typeService.DropDownAssigns();
             var type = _typeService.GetTypeForEdit(id);
             return View(type);
         }
         [HttpPost]
         public IActionResult EditType(NewTypeVm model)
         {
+            var nameOfAssign = model.NameOfAssign;
+            var assignId = _typeService.GetAssignIdByName(nameOfAssign);
+            model.AssignId = assignId;
             if (ModelState.IsValid)
             {
                 _typeService.UpdateType(model);
@@ -69,6 +75,11 @@ namespace BudgetPlannerMVC.Web.Controllers
         {
             _typeService.DeleteType(id);
             return RedirectToAction("Index");
+        }
+        public IActionResult Details(int id)
+        {
+            var type = _typeService.GetTypeForEdit(id);
+            return View(type);
         }
     }
 }

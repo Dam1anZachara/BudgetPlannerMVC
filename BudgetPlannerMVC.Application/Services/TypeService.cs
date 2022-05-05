@@ -56,7 +56,7 @@ namespace BudgetPlannerMVC.Application.Services
         public void UpdateType(NewTypeVm model)
         {
             var type = _mapper.Map<Type>(model);
-            _typeRepository.UpdateCustomer(type);
+            _typeRepository.UpdateType(type);
         }
         public ListAssignForListVm GetAllAssignsForList()
         {
@@ -80,6 +80,13 @@ namespace BudgetPlannerMVC.Application.Services
             }
             return dropDownAssigns;
 
+        }
+
+        public int GetAssignIdByName(string nameOfAssign)
+        {
+            var assign = _typeRepository.GetAssigns().First(p => p.Name == nameOfAssign);
+            var result = assign.Id;
+            return result;
         }
     }
 }

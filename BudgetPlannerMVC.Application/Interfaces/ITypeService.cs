@@ -16,5 +16,6 @@ namespace BudgetPlannerMVC.Application.Interfaces
         void DeleteType(int id);
         ListAssignForListVm GetAllAssignsForList();
         List<string> DropDownAssigns();
+        int GetAssignIdByName(string nameOfAssign);
     }
 }

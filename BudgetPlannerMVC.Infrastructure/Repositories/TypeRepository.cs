@@ -31,11 +31,12 @@ namespace BudgetPlannerMVC.Infrastructure.Repositories
             return type.Id;
         }
 
-        public void UpdateCustomer(Domain.Model.Type type)
+        public void UpdateType(Domain.Model.Type type)
         {
             _context.Attach(type);
             _context.Entry(type).Property("Name").IsModified = true;
             _context.Entry(type).Property("AssignId").IsModified = true;
+            _context.Entry(type).Property("Description").IsModified = true;
             _context.SaveChanges();
         }
 
