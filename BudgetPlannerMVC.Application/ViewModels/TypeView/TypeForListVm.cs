@@ -19,10 +19,10 @@ namespace BudgetPlannerMVC.Application.ViewModels.TypeView
 
         public void Mapping(Profile profile)
         {
-            profile.CreateMap<Domain.Model.Type, TypeForListVm>()
-                .ForMember(d => d.Id, opt => opt.MapFrom(s => s.Id))
-                .ForMember(d => d.Name, opt => opt.MapFrom(s => s.Name))
-                .ForMember(d => d.AssignId, opt => opt.MapFrom(s => s.AssignId));
+            profile.CreateMap<Domain.Model.Type, TypeForListVm>();
+                //.ForMember(d => d.Id, opt => opt.MapFrom(s => s.Id))
+                //.ForMember(d => d.Name, opt => opt.MapFrom(s => s.Name))
+                //.ForMember(d => d.AssignId, opt => opt.MapFrom(s => s.AssignId));
         }
     }
 }

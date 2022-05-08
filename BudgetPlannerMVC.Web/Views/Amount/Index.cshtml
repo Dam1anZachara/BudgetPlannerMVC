@@ -1,0 +1,94 @@
+﻿@model BudgetPlannerMVC.Application.ViewModels.AmountView.ListAmountForListVm
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="AddAmount">Create New</a>
+</p>
+<form asp-action="Index" asp-controller="Amount" method="post">
+    <div class="row">
+        <input type="text" asp-for="SearchString" name="searchString" id="searchString" />
+        <input type="submit" value="Search"/>
+    </div>
+    <div class="row">
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Date
+            </th>
+            <th>
+                Type
+            </th>
+            <th>
+                Assignment
+            </th>
+            <th>
+                Value
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Amounts) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Date)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Type.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Type.Assign.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Value)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+</div>
+<div class="row">
+            <table>
+                <tr>
+                        @for(int i = 1; i <= Math.Ceiling(Model.Count / (double)Model.PageSize); i++)
+                        {
+                            <td>
+                                
+                                @if (i != Model.CurrentPage)
+                                {
+                                    <a class="badge badge-dark" href="javascript:PagerClick(@i)">@i</a>
+                                }
+                                else
+                                {
+                                    <span class="badge badge-outline-dark">@i</span>
+                                }
+                            </td>
+                        }
+                </tr>
+            </table>
+            <input type="hidden" name="pageNo" id="pageNo" />
+            <input type="hidden" name="pageSize" id="pageSize" value="3" />
+        </div>
+</form>
+
+@section Scripts
+{
+    <script type="text/javascript">
+        function PagerClick(index)
+        {
+            document.getElementById("pageNo").value = index;
+            document.forms[0].submit();
+        }
+    </script>
+}

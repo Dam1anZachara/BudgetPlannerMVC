@@ -4,27 +4,24 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Budget configuration</h1>
+<h1 class="display-4">Budget Configuration</h1>
 
 <p>
-    <a asp-action="AddType">Create New</a>
+    <a class="btn btn-primary" asp-action="AddType">Create New</a>
 </p>
 <form asp-action="Index" asp-controller="Type" method="post">
     <div class="row">
         <input type="text" asp-for="SearchString" name="searchString" id="searchString" />
-        <input type="submit" value="Search"/>
+        <input class="btn btn-outline-dark" type="submit" value="Search"/>
     </div>
         <div class="row">
             <table class="table">
                 <thead>
                     <tr>
-                        <th>
-                            Id
-                        </th>
-                        <th>
+                        <th style="width:auto">
                             Name
                         </th>
-                        <th>
+                        <th style="width:auto"> 
                             Assignment
                         </th>
                         <th></th>
@@ -34,38 +31,52 @@
             @foreach (var item in Model.Types) 
                     {
                     <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Id)
-                        </td>
-                        <td>
+                        @if (item.AssignId == 1)
+                        {
+                        <td class="text-success">
                             @Html.DisplayFor(modelItem => item.Name)
                         </td>
-                        <td>
+                        
+                        <td class="text-success">
                             @Html.DisplayFor(modelItem => item.Assign.Name)
                         </td>
-                        <td>
-                            @Html.ActionLink("Edit", "EditType", new {  id=item.Id }) |
-                            @Html.ActionLink("Details", "Details", new { id=item.Id}) |
-                            @Html.ActionLink("Delete", "Delete", new {  id=item.Id })
+                        }
+                        else
+                        {
+                        <td class="text-danger">
+                            @Html.DisplayFor(modelItem => item.Name)
+                        </td>
+                        
+                        <td class="text-danger">
+                            @Html.DisplayFor(modelItem => item.Assign.Name)
+                        </td>
+                        }
+
+                        <td style="width:35%">
+                            @Html.ActionLink("Edit", "EditType", new {  id=item.Id }, new {@class = "btn btn-info"})
+                            @Html.ActionLink("Details", "Details", new { id=item.Id}, new {@class = "btn btn-warning"}) 
+                            @Html.ActionLink("Delete", "Delete", new {  id=item.Id }, new {@class = "btn btn-danger"})
                         </td>
                     </tr>
                     }
                 </tbody>
-            </table>
+            </table>        
             </div>
+            <hr class="alert-dark" style="width:auto"/>
         <div class="row">
             <table>
                 <tr>
                         @for(int i = 1; i <= Math.Ceiling(Model.Count / (double)Model.PageSize); i++)
                         {
                             <td>
+                                
                                 @if (i != Model.CurrentPage)
                                 {
-                                    <a href="javascript:PagerClick(@i)">@i</a>
+                                    <a class="badge badge-dark" href="javascript:PagerClick(@i)">@i</a>
                                 }
                                 else
                                 {
-                                    <span>@i</span>
+                                    <span class="badge badge-outline-dark">@i</span>
                                 }
                             </td>
                         }

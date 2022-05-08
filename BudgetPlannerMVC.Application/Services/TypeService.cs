@@ -72,14 +72,12 @@ namespace BudgetPlannerMVC.Application.Services
         {
             var assigns = _typeRepository.GetAssigns().
                 ProjectTo<AssignForListVm>(_mapper.ConfigurationProvider).ToList();
-
             var dropDownAssigns = new List<string>();
             foreach (var assign in assigns)
             {
                 dropDownAssigns.Add(assign.Name);
             }
             return dropDownAssigns;
-
         }
 
         public int GetAssignIdByName(string nameOfAssign)

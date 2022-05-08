@@ -15,17 +15,6 @@ namespace BudgetPlannerMVC.Infrastructure.Repositories
         {
             _context = context;
         }
-
-        public void DeleteAmount(int amountId)
-        {
-            var amount = _context.Amounts.Find(amountId);
-            if (amount != null)
-            {
-                _context.Amounts.Remove(amount);
-                _context.SaveChanges();
-            }
-        }
-
         public int AddAmount(Amount amount)
         {
             _context.Amounts.Add(amount);
@@ -33,44 +22,29 @@ namespace BudgetPlannerMVC.Infrastructure.Repositories
             return amount.Id;
         }
 
-        public IQueryable<Amount> GetAmountsByTypeId(int typeId)
+        public void DeleteAmount(int id)
         {
-            var amounts = _context.Amounts.Where(a => a.TypeId == typeId);
-            return amounts;
+            throw new NotImplementedException();
         }
 
-        public Amount GetAmountById(int amountId)
+        public IQueryable<Amount> GetAllAmounts()
         {
-            var amount = _context.Amounts.FirstOrDefault(a => a.Id == amountId);
-            return amount;
-        }
-        
-        public void DeleteType(int typeId)
-        {
-            var type = _context.Types.Find(typeId);
-            if (type != null)
-            {
-                _context.Types.Remove(type);
-                _context.SaveChanges();
-            }
-        }
-        public int AddType(Domain.Model.Type type)
-        {
-            _context.Types.Add(type);
-            _context.SaveChanges();
-            return type.Id;
+            return _context.Amounts;
         }
 
-        public IQueryable<Domain.Model.Type> GetTypeByAssignId(int assignId)
+        public Amount GetAmount(int amountId)
         {
-            var types = _context.Types.Where(t => t.AssignId == assignId);
-            return types;
+            throw new NotImplementedException();
         }
 
-        public Domain.Model.Type GetTypeById(int typeId)
+        public IQueryable<Domain.Model.Type> GetTypes()
         {
-            var type = _context.Types.FirstOrDefault(t => t.Id == typeId);
-            return type;
+            return _context.Types;
+        }
+
+        public void UpdateAmount(Amount amount)
+        {
+            throw new NotImplementedException();
         }
     }
 }

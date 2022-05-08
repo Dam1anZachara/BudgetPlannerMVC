@@ -1,24 +1,25 @@
 ﻿using AutoMapper;
 using BudgetPlannerMVC.Application.Mapping;
 using BudgetPlannerMVC.Domain.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BudgetPlannerMVC.Application.ViewModels.TypeView
+namespace BudgetPlannerMVC.Application.ViewModels.AmountView
 {
-    public class NewTypeVm : IMapFrom<Domain.Model.Type>
+    public class NewAmountVm : IMapFrom<Amount>
     {
         public int Id { get; set; }
-        public string Name { get; set; }
+        public DateTime Date { get; set; }
+        public decimal Value { get; set; }
         public string Description { get; set; }
-        public int AssignId { get; set; }
-        public string NameOfAssign { get; set; }
-
+        public int TypeId { get; set; }
+        public string NameOfType { get; set; }
         public void Mapping(Profile profile)
         {
-            profile.CreateMap<NewTypeVm, Domain.Model.Type>().ReverseMap();
+            profile.CreateMap<NewAmountVm, Amount>().ReverseMap();
         }
     }
 }

@@ -70,10 +70,16 @@ namespace BudgetPlannerMVC.Web.Controllers
             }
             return View(model);
         }
-
+        [HttpGet]
         public IActionResult Delete(int id)
         {
-            _typeService.DeleteType(id);
+            var type = _typeService.GetTypeForEdit(id);
+            return View(type);
+        }
+        [HttpPost]
+        public IActionResult Delete(NewTypeVm model)
+        {
+            _typeService.DeleteType(model.Id);
             return RedirectToAction("Index");
         }
         public IActionResult Details(int id)
