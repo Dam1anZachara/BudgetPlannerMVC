@@ -58,6 +58,14 @@ namespace BudgetPlannerMVC.Application.Services
             };
             return amountList;
         }
+
+        public NewAmountVm GetAmountForEdit(int id)
+        {
+            var amount = _amountRepository.GetAmount(id);
+            var amountVm = _mapper.Map<NewAmountVm>(amount);
+            return amountVm;
+        }
+
         public int GetTypeIdByName(string nameOfType)
         {
             var indexOfAssignment = nameOfType.IndexOf("-");
@@ -65,6 +73,12 @@ namespace BudgetPlannerMVC.Application.Services
             var type = _amountRepository.GetTypes().First(p => p.Name == nameOfTypeTrimmed);
             var result = type.Id;
             return result;
+        }
+
+        public void UpdateAmount(NewAmountVm model)
+        {
+            var amount = _mapper.Map<Amount>(model);
+            _amountRepository.UpdateAmount(amount);
         }
     }
 }

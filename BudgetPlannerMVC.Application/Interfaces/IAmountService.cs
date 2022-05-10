@@ -13,5 +13,7 @@ namespace BudgetPlannerMVC.Application.Interfaces
         int AddAmount(NewAmountVm amount);
         List<string> DropDownTypes();
         int GetTypeIdByName(string nameOfType);
+        NewAmountVm GetAmountForEdit(int id);
+        void UpdateAmount(NewAmountVm amount);
     }
 }

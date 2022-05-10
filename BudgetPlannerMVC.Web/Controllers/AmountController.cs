@@ -49,5 +49,25 @@ namespace BudgetPlannerMVC.Web.Controllers
             var id = _amountService.AddAmount(model);
             return RedirectToAction("Index");
         }
+        [HttpGet]
+        public IActionResult EditAmount(int id)
+        {
+            ViewBag.list = _amountService.DropDownTypes();
+            var amount = _amountService.GetAmountForEdit(id);
+            return View(amount);
+        }
+        [HttpPost]
+        public IActionResult EditAmount(NewAmountVm model)
+        {
+            var nameOfType = model.NameOfType;
+            var typeId = _amountService.GetTypeIdByName(nameOfType);
+            model.TypeId = typeId;
+            if (ModelState.IsValid)
+            {
+                _amountService.UpdateAmount(model);
+                return RedirectToAction("Index");
+            }
+            return View(model);
+        }
     }
 }

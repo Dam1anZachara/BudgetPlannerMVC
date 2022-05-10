@@ -32,9 +32,9 @@ namespace BudgetPlannerMVC.Infrastructure.Repositories
             return _context.Amounts;
         }
 
-        public Amount GetAmount(int amountId)
+        public Amount GetAmount(int id)
         {
-            throw new NotImplementedException();
+            return _context.Amounts.FirstOrDefault(p => p.Id == id);
         }
 
         public IQueryable<Domain.Model.Type> GetTypes()
@@ -44,7 +44,12 @@ namespace BudgetPlannerMVC.Infrastructure.Repositories
 
         public void UpdateAmount(Amount amount)
         {
-            throw new NotImplementedException();
+            _context.Attach(amount);
+            _context.Entry(amount).Property("Date").IsModified = true;
+            _context.Entry(amount).Property("Value").IsModified = true;
+            _context.Entry(amount).Property("Description").IsModified = true;
+            _context.Entry(amount).Property("TypeId").IsModified = true;
+            _context.SaveChanges();
         }
     }
 }
