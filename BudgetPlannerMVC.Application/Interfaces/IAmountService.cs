@@ -15,5 +15,6 @@ namespace BudgetPlannerMVC.Application.Interfaces
         int GetTypeIdByName(string nameOfType);
         NewAmountVm GetAmountForEdit(int id);
         void UpdateAmount(NewAmountVm amount);
+        void DeleteAmount(int id);
     }
 }

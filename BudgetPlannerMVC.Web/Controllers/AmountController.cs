@@ -69,5 +69,17 @@ namespace BudgetPlannerMVC.Web.Controllers
             }
             return View(model);
         }
+        [HttpGet]
+        public IActionResult Delete(int id)
+        {
+            var amount = _amountService.GetAmountForEdit(id);
+            return View(amount);
+        }
+        [HttpPost]
+        public IActionResult Delete(AmountForListVm model)
+        {
+            _amountService.DeleteAmount(model.Id);
+            return RedirectToAction("Index");
+        }
     }
 }

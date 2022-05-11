@@ -24,7 +24,9 @@ namespace BudgetPlannerMVC.Infrastructure.Repositories
 
         public void DeleteAmount(int id)
         {
-            throw new NotImplementedException();
+            var amount = _context.Amounts.Find(id);
+            _context.Amounts.Remove(amount);
+            _context.SaveChanges();
         }
 
         public IQueryable<Amount> GetAllAmounts()

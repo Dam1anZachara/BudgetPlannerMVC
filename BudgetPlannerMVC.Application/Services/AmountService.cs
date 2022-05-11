@@ -31,6 +31,11 @@ namespace BudgetPlannerMVC.Application.Services
             return id;
         }
 
+        public void DeleteAmount(int id)
+        {
+            _amountRepository.DeleteAmount(id);
+        }
+
         public List<string> DropDownTypes()
         {
             var types = _amountRepository.GetTypes().OrderBy(p => p.Assign.Id).
