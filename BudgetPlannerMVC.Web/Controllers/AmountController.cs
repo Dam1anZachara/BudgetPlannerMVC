@@ -81,5 +81,10 @@ namespace BudgetPlannerMVC.Web.Controllers
             _amountService.DeleteAmount(model.Id);
             return RedirectToAction("Index");
         }
+        public IActionResult Details(int id)
+        {
+            var amount = _amountService.GetAmountForEdit(id);
+            return View(amount);
+        }
     }
 }
