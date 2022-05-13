@@ -76,7 +76,7 @@ namespace BudgetPlannerMVC.Web.Controllers
             return View(amount);
         }
         [HttpPost]
-        public IActionResult Delete(AmountForListVm model)
+        public IActionResult Delete(NewAmountVm model)
         {
             _amountService.DeleteAmount(model.Id);
             return RedirectToAction("Index");

@@ -20,7 +20,8 @@ namespace BudgetPlannerMVC.Application.ViewModels.AmountView
         public TypeForListVm Type { get; set; }
         public void Mapping(Profile profile)
         {
-            profile.CreateMap<Amount, AmountForListVm>();
+            profile.CreateMap<Amount, AmountForListVm>()
+                .ForMember(d => d.Type, opt => opt.Ignore());
         }
     }
 }

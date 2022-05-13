@@ -1,10 +1,13 @@
 using BudgetPlannerMVC.Application;
 using BudgetPlannerMVC.Application.Interfaces;
 using BudgetPlannerMVC.Application.Services;
+using BudgetPlannerMVC.Application.ViewModels.TypeView;
 using BudgetPlannerMVC.Domain.Interfaces;
 using BudgetPlannerMVC.Infrastructure;
 using BudgetPlannerMVC.Infrastructure.Repositories;
 using BudgetPlannerMVC.Web.Controllers;
+using FluentValidation;
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -38,8 +41,10 @@ namespace BudgetPlannerMVC.Web
 
             services.AddApplication();
             services.AddInfrastructure();
-            
-            services.AddControllersWithViews();
+
+            services.AddControllersWithViews().AddFluentValidation();
+
+            services.AddTransient<IValidator<NewTypeVm>, NewTypeValidation>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
