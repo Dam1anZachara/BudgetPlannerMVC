@@ -5,11 +5,18 @@
 }
 
 <h1>Index</h1>
-
+@*<input asp-for="Date" value="@DateTime.Now" type="datetime" class="form-control" asp-format="{0:yyyy-MM-ddTHH:mm}" />*@
 <p>
     <a asp-action="AddAmount">Create New</a>
 </p>
 <form asp-action="Index" asp-controller="Amount" method="post">
+    <div class="row">
+        <input type="datetime" asp-for="StartDate" class="form-control" asp-format="{0:yyyy-MM-ddTHH:mm}" id="startDate" />
+        <input type="datetime" asp-for="EndDate" class="form-control" asp-format="{0:yyyy-MM-ddTHH:mm}" id="endDate" />
+    </div>
+    <div class="row">
+        
+    </div>
     <div class="row">
         <input type="text" asp-for="SearchString" name="searchString" id="searchString" />
         <input type="submit" value="Search"/>

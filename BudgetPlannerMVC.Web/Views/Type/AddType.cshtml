@@ -26,6 +26,7 @@
             </div>
             <div class="form-group">
                 <label class="control-label">Assignment</label>
+                @*<select asp-for="AssignId" class="form-control" asp-items="@(new SelectList(Model.Assigns,"Id", "Name"))"></select>*@
                 @Html.DropDownListFor(model => model.NameOfAssign, new SelectList(ViewBag.list), new {@class="btn btn-outline-dark dropdown-toggle"})
             </div>
             <div class="form-group">

@@ -22,6 +22,13 @@ namespace BudgetPlannerMVC.Infrastructure
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
+
+            //builder.Entity<Amount>()
+            //    .HasOne(a => a.Type).WithMany(t => t.Amounts)
+            //    .HasForeignKey(at => at.TypeId);
+            //builder.Entity<Domain.Model.Type>()
+            //    .HasOne(ta => ta.Assign).WithMany(tp => tp.Types)
+            //    .HasForeignKey(ai => ai.AssignId);
         }
     }
 }

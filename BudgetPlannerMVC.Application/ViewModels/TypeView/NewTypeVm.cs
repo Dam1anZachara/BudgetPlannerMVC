@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using BudgetPlannerMVC.Application.Mapping;
 using FluentValidation;
+using System.Collections.Generic;
 
 namespace BudgetPlannerMVC.Application.ViewModels.TypeView
 {
@@ -11,12 +12,11 @@ namespace BudgetPlannerMVC.Application.ViewModels.TypeView
         public string Description { get; set; }
         public int AssignId { get; set; }
         public string NameOfAssign { get; set; }
-        public TypeForListVm Type { get; set; }
+        public AssignForTypeVm Assign { get; set; }
+        public List<AssignForTypeVm> Assigns { get; set; }
         public void Mapping(Profile profile)
         {
-            profile.CreateMap<NewTypeVm, Domain.Model.Type>().ReverseMap()
-            .ForMember(d => d.NameOfAssign, opt => opt.Ignore())
-            .ForMember(d => d.Type, opt => opt.Ignore());
+            profile.CreateMap<NewTypeVm, Domain.Model.Type>().ReverseMap();
         }
     }
 
@@ -27,7 +27,7 @@ namespace BudgetPlannerMVC.Application.ViewModels.TypeView
             RuleFor(x => x.Id).NotNull();
             RuleFor(x => x.Name).NotEmpty();
             RuleFor(x => x.Name).MaximumLength(20);
-            RuleFor(x => x.Name).NotEqual("-");
+            //RuleFor(x => x.Name).NotEqual("-");
         }
     }
 }

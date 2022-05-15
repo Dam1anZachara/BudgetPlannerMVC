@@ -32,7 +32,8 @@ namespace BudgetPlannerMVC.Application.Services
 
         public ListTypeForListVm GetAllTypesForList(int pageSize, int pageNo, string searchString)
         {
-            var types = _typeRepository.GetAllTypes().Where(p => p.Name.StartsWith(searchString))
+            var types = _typeRepository.GetAllTypes()
+                .Where(p => p.Name.StartsWith(searchString))
                 .ProjectTo<TypeForListVm>(_mapper.ConfigurationProvider).ToList();
             var typesToShow = types.Skip(pageSize * (pageNo - 1)).Take(pageSize).ToList();
             var typeList = new ListTypeForListVm()
@@ -48,30 +49,30 @@ namespace BudgetPlannerMVC.Application.Services
 
         public NewTypeVm GetTypeForEdit(int id)
         {
-            var type = _typeRepository.GetType(id);
-            var typeVm = _mapper.Map<NewTypeVm>(type);
+            var types = _typeRepository.GetAllTypes()
+                .Where(p => p.Id == id).ProjectTo<NewTypeVm>(_mapper.ConfigurationProvider).ToList();
+            var typeVm = types.FirstOrDefault(x => x.Id == id);
             return typeVm;
         }
-
         public void UpdateType(NewTypeVm model)
         {
             var type = _mapper.Map<Type>(model);
             _typeRepository.UpdateType(type);
         }
-        public ListAssignForListVm GetAllAssignsForList()
-        {
-            var assigns = _typeRepository.GetAssigns().
-                ProjectTo<AssignForListVm>(_mapper.ConfigurationProvider).ToList();
-            var assignList = new ListAssignForListVm()
-            {
-                Assigns = assigns,
-            };
-            return assignList;
-        }
+        //public NewTypeVm GetAllAssignsForList(NewTypeVm model)
+        //{
+        //    var assigns = _typeRepository.GetAssigns().
+        //        ProjectTo<AssignForTypeVm>(_mapper.ConfigurationProvider).ToList();
+        //    var assignList = new NewTypeVm()
+        //    {
+        //        Assigns = assigns,
+        //    };
+        //    return assignList;
+        //}
         public List<string> DropDownAssigns()
         {
             var assigns = _typeRepository.GetAssigns().
-                ProjectTo<AssignForListVm>(_mapper.ConfigurationProvider).ToList();
+                ProjectTo<AssignForTypeVm>(_mapper.ConfigurationProvider).ToList();
             var dropDownAssigns = new List<string>();
             foreach (var assign in assigns)
             {

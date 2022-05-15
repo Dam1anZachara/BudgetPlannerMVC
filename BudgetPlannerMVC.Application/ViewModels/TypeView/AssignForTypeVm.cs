@@ -9,14 +9,14 @@ using System.Threading.Tasks;
 
 namespace BudgetPlannerMVC.Application.ViewModels.TypeView
 {
-    public class AssignForListVm : IMapFrom<Assign>
+    public class AssignForTypeVm : IMapFrom<Assign>
     {
         public int Id { get; set; }
         public string Name { get; set; }
 
         public void Mapping(Profile profile)
         {
-            profile.CreateMap<Assign, AssignForListVm>();
+            profile.CreateMap<Assign, AssignForTypeVm>();
         }
     }
 }

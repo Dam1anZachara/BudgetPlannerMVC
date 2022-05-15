@@ -17,11 +17,13 @@ namespace BudgetPlannerMVC.Web.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-            var model = _amountService.GetAllAmountsForList(3, 1, "");
+            DateTime startDate = new DateTime(year: DateTime.Now.Year, month: DateTime.Now.Month, day: 1);
+            DateTime endDate = DateTime.Today.AddDays(1);   
+            var model = _amountService.GetAllAmountsForList(3, 1, "", startDate, endDate);
             return View(model);
         }
         [HttpPost]
-        public IActionResult Index(int pageSize, int? pageNo, string searchString)
+        public IActionResult Index(int pageSize, int? pageNo, string searchString, DateTime startDate, DateTime endDate)
         {
             if (!pageNo.HasValue)
             {
@@ -31,7 +33,7 @@ namespace BudgetPlannerMVC.Web.Controllers
             {
                 searchString = String.Empty;
             }
-            var model = _amountService.GetAllAmountsForList(pageSize, pageNo.Value, searchString);
+            var model = _amountService.GetAllAmountsForList(pageSize, pageNo.Value, searchString, startDate, endDate);
             return View(model);
         }
         [HttpGet]

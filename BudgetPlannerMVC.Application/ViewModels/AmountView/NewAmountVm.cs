@@ -20,11 +20,12 @@ namespace BudgetPlannerMVC.Application.ViewModels.AmountView
         public int TypeId { get; set; }
         public string NameOfType { get; set; }
         public TypeForListVm Type { get; set; }
+        public string TypeName { get; set; }
         public void Mapping(Profile profile)
         {
-            profile.CreateMap<NewAmountVm, Amount>().ReverseMap()
-                .ForMember(d => d.NameOfType, opt => opt.Ignore())
-                .ForMember(d => d.Type, opt => opt.Ignore());
+            profile.CreateMap<NewAmountVm, Amount>().ReverseMap();
+            //.ForMember(d => d.NameOfType, opt => opt.Ignore())
+            //.ForMember(d => d.Type, opt => opt.Ignore());
         }
     }
 }

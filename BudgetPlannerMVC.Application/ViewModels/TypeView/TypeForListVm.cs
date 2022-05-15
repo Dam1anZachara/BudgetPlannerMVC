@@ -15,12 +15,12 @@ namespace BudgetPlannerMVC.Application.ViewModels.TypeView
         public string Name { get; set; }
         public string Description { get; set; }
         public int AssignId { get; set; }
-        public AssignForListVm Assign { get; set; }
+        public AssignForTypeVm Assign { get; set; }
+
 
         public void Mapping(Profile profile)
         {
-            profile.CreateMap<Domain.Model.Type, TypeForListVm>()
-                .ForMember(d => d.Assign, opt => opt.Ignore());
+            profile.CreateMap<Domain.Model.Type, TypeForListVm>();
         }
     }
 }

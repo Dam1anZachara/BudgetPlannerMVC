@@ -9,7 +9,7 @@ namespace BudgetPlannerMVC.Application.Interfaces
 {
     public interface IAmountService
     {
-        ListAmountForListVm GetAllAmountsForList(int pageSize, int pageNo, string searchString);
+        ListAmountForListVm GetAllAmountsForList(int pageSize, int pageNo, string searchString, DateTime startDate, DateTime endDate);
         int AddAmount(NewAmountVm amount);
         List<string> DropDownTypes();
         int GetTypeIdByName(string nameOfType);

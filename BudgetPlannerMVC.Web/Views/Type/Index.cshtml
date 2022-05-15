@@ -33,21 +33,21 @@
                     <tr>
                         @if (item.AssignId == 1)
                         {
-                        <td class="text-success">
+                        <td class="text-danger">
                             @Html.DisplayFor(modelItem => item.Name)
                         </td>
                         
-                        <td class="text-success">
+                        <td class="text-danger">
                             @Html.DisplayFor(modelItem => item.Assign.Name)
                         </td>
                         }
                         else
                         {
-                        <td class="text-danger">
+                        <td class="text-success">
                             @Html.DisplayFor(modelItem => item.Name)
                         </td>
                         
-                        <td class="text-danger">
+                        <td class="text-success">
                             @Html.DisplayFor(modelItem => item.Assign.Name)
                         </td>
                         }

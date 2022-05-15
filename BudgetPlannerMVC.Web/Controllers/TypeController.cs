@@ -39,6 +39,8 @@ namespace BudgetPlannerMVC.Web.Controllers
         public IActionResult AddType()
         {
             ViewBag.list = _typeService.DropDownAssigns();
+            //var model = new NewTypeVm();
+            //_typeService.GetAllAssignsForList(model);
             return View(new NewTypeVm());
         }
         [HttpPost]

@@ -14,7 +14,7 @@ namespace BudgetPlannerMVC.Application.Interfaces
         NewTypeVm GetTypeForEdit(int id);
         void UpdateType(NewTypeVm model);
         void DeleteType(int id);
-        ListAssignForListVm GetAllAssignsForList();
+        //NewTypeVm GetAllAssignsForList(NewTypeVm model);
         List<string> DropDownAssigns();
         int GetAssignIdByName(string nameOfAssign);
     }

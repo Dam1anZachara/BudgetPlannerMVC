@@ -48,9 +48,10 @@ namespace BudgetPlannerMVC.Application.Services
             return dropDownTypes;
         }
 
-        public ListAmountForListVm GetAllAmountsForList(int pageSize, int pageNo, string searchString)
+        public ListAmountForListVm GetAllAmountsForList(int pageSize, int pageNo, string searchString, DateTime startDate, DateTime endDate)
         {
             var amounts = _amountRepository.GetAllAmounts().Where(p => p.Type.Name.StartsWith(searchString))
+                .Where(t => t.Date >= startDate && t.Date <= endDate).OrderBy(d => d.Date)
                 .ProjectTo<AmountForListVm>(_mapper.ConfigurationProvider).ToList();
             var amountsToShow = amounts.Skip(pageSize * (pageNo - 1)).Take(pageSize).ToList();
             var amountList = new ListAmountForListVm()
@@ -60,14 +61,17 @@ namespace BudgetPlannerMVC.Application.Services
                 SearchString = searchString,
                 Amounts = amountsToShow,
                 Count = amounts.Count,
+                StartDate = startDate,
+                EndDate = endDate
             };
             return amountList;
         }
 
         public NewAmountVm GetAmountForEdit(int id)
         {
-            var amount = _amountRepository.GetAmount(id);
-            var amountVm = _mapper.Map<NewAmountVm>(amount);
+            var amounts = _amountRepository.GetAllAmounts().Where(p => p.Id == id)
+                .ProjectTo<NewAmountVm>(_mapper.ConfigurationProvider).ToList();
+            var amountVm = amounts.FirstOrDefault(a => a.Id == id);
             return amountVm;
         }
 
