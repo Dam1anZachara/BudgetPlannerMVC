@@ -54,6 +54,7 @@ namespace BudgetPlannerMVC.Application.Services
                 .Where(t => t.Date >= startDate && t.Date <= endDate).OrderBy(d => d.Date)
                 .ProjectTo<AmountForListVm>(_mapper.ConfigurationProvider).ToList();
             var amountsToShow = amounts.Skip(pageSize * (pageNo - 1)).Take(pageSize).ToList();
+            var sumExpense = amounts.Where(et => et.Type.AssignId == 1).Sum(se => se.Value);
             var amountList = new ListAmountForListVm()
             {
                 PageSize = pageSize,
@@ -62,7 +63,8 @@ namespace BudgetPlannerMVC.Application.Services
                 Amounts = amountsToShow,
                 Count = amounts.Count,
                 StartDate = startDate,
-                EndDate = endDate
+                EndDate = endDate,
+                SumValues.SumOfExpenses = sumExpense
             };
             return amountList;
         }
