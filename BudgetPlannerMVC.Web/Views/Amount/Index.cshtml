@@ -4,20 +4,20 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1 class="display-4">Amount Management</h1>
 @*<input asp-for="Date" value="@DateTime.Now" type="datetime" class="form-control" asp-format="{0:yyyy-MM-ddTHH:mm}" />*@
 <p>
-    <a asp-action="AddAmount">Create New</a>
+    <a class="btn btn-primary" asp-action="AddAmount">Add Amount</a>
 </p>
 <form asp-action="Index" asp-controller="Amount" method="post">
-    <div class="row">
-        <input type="datetime" asp-for="StartDate" class="form-control" asp-format="{0:yyyy-MM-ddTHH:mm}" id="startDate" />
-        <input type="datetime" asp-for="EndDate" class="form-control" asp-format="{0:yyyy-MM-ddTHH:mm}" id="endDate" />
+    <div class="row m-2">
+        <input type="datetime" asp-for="DateSelect.StartDate" class="form-control" asp-format="{0:yyyy-MM-ddTHH:mm}" id="startDate" />
+        <input type="datetime" asp-for="DateSelect.EndDate" class="form-control" asp-format="{0:yyyy-MM-ddTHH:mm}" id="endDate" />
     </div>
     <div class="row">
         
     </div>
-    <div class="row">
+    <div class="row mb-2">
         <input type="text" asp-for="SearchString" name="searchString" id="searchString" />
         <input type="submit" value="Search"/>
     </div>
@@ -43,22 +43,41 @@
     <tbody>
 @foreach (var item in Model.Amounts) {
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Date)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Type.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Type.Assign.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Value)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "EditAmount", new { id=item.Id }) |
-                @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-                @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+            @if (item.Type.AssignId == 1)
+            {
+                <td class="text-danger">
+                    @Html.DisplayFor(modelItem => item.Date)
+                </td>
+                <td class="text-danger">
+                    @Html.DisplayFor(modelItem => item.Type.Name)
+                </td>
+                <td class="text-danger">
+                    @Html.DisplayFor(modelItem => item.Type.Assign.Name)
+                </td>
+                <td class="text-danger">
+                    @Html.DisplayFor(modelItem => item.Value)
+                </td>
+            }
+            else
+            {
+                <td class="text-success">
+                    @Html.DisplayFor(modelItem => item.Date)
+                </td>
+                <td class="text-success">
+                    @Html.DisplayFor(modelItem => item.Type.Name)
+                </td>
+                <td class="text-success">
+                    @Html.DisplayFor(modelItem => item.Type.Assign.Name)
+                </td>
+                <td class="text-success">
+                    @Html.DisplayFor(modelItem => item.Value)
+                </td>
+            }
+
+            <td style="width:35%">
+                @Html.ActionLink("Edit", "EditAmount", new { id = item.Id }, new { @class = "btn btn-info" })
+                @Html.ActionLink("Details", "Details", new { id = item.Id }, new { @class = "btn btn-warning" })
+                @Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { @class = "btn btn-danger" })
             </td>
         </tr>
 }
@@ -87,6 +106,37 @@
             <input type="hidden" name="pageNo" id="pageNo" />
             <input type="hidden" name="pageSize" id="pageSize" value="3" />
         </div>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Expenses Total
+            </th>
+            <th>
+                Incomes Total
+            </th>
+            <th>
+                Balance Total
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Amounts)
+        {
+        <tr>
+            <th class="text-danger">
+                @Html.DisplayFor(modelItem => modelItem.SumValues.SumOfExpenses)
+            </th>
+            <th class="text-success">
+                @Html.DisplayFor(modelItem => modelItem.SumValues.SumOfIncomes)
+            </th>
+            <th class="text-warning">
+                @Html.DisplayFor(modelItem => modelItem.SumValues.Balance)
+            </th>
+        </tr>
+        }
+    </tbody>
+</table>
 </form>
 
 @section Scripts

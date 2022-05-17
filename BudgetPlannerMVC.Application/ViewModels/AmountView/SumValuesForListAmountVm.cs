@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BudgetPlannerMVC.Application.ViewModels.AmountView
 {
-    public class SumValuesForAmountVm
+    public class SumValuesForListAmountVm
     {
         public decimal SumOfExpenses { get; set; }
         public decimal SumOfIncomes { get; set; }

@@ -4,9 +4,8 @@
     ViewData["Title"] = "AddAmount";
 }
 
-<h1>AddAmount</h1>
+<h1 class="display-4">Add Amount</h1>
 
-<h4>NewAmountVm</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -26,13 +25,13 @@
                 <span asp-validation-for="Value" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Description" class="control-label"></label>
-                <input asp-for="Description" class="form-control" />
-                <span asp-validation-for="Description" class="text-danger"></span>
+                <label class="control-label">Type of Amount</label>
+                @Html.DropDownListFor(model => model.NameOfType, new SelectList(ViewBag.list), new { @class = "btn btn-outline-dark dropdown-toggle" })
             </div>
             <div class="form-group">
-                <label class="control-label">Type of Amount</label>
-                @Html.DropDownListFor(model => model.NameOfType, new SelectList(ViewBag.list), new {@class="btn btn-outline-dark dropdown-toggle"})
+                <label asp-for="Description" class="control-label"></label>
+                <textarea asp-for="Description" class="form-control"></textarea>
+                <span asp-validation-for="Description" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
@@ -42,7 +41,7 @@
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a class="btn btn-dark" asp-action="Index">Back to List</a>
 </div>
 
 @section Scripts {

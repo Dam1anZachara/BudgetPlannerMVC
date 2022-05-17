@@ -2,6 +2,7 @@
 using BudgetPlannerMVC.Application.Mapping;
 using BudgetPlannerMVC.Application.ViewModels.TypeView;
 using BudgetPlannerMVC.Domain.Model;
+using FluentValidation;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -15,6 +16,7 @@ namespace BudgetPlannerMVC.Application.ViewModels.AmountView
     {
         public int Id { get; set; }
         public DateTime Date { get; set; }
+        [DataType(DataType.Currency, ErrorMessage = "...")]
         public decimal Value { get; set; }
         public string Description { get; set; }
         public int TypeId { get; set; }
@@ -26,6 +28,17 @@ namespace BudgetPlannerMVC.Application.ViewModels.AmountView
             profile.CreateMap<NewAmountVm, Amount>().ReverseMap();
             //.ForMember(d => d.NameOfType, opt => opt.Ignore())
             //.ForMember(d => d.Type, opt => opt.Ignore());
+        }
+        public class NewAmountValidation : AbstractValidator<NewAmountVm>
+        {
+            public NewAmountValidation()
+            {
+                RuleFor(x => x.Id).NotNull();
+                RuleFor(x => x.Date).NotNull();
+                RuleFor(x => x.Value).ScalePrecision(10, 2, true);
+                RuleFor(x => x.Description).MaximumLength(255);
+                RuleFor(x => x.TypeId).NotNull();
+            }
         }
     }
 }
