@@ -50,19 +50,21 @@ namespace BudgetPlannerMVC.Application.Services
 
         public ListAmountForListVm GetAllAmountsForList(int pageSize, int pageNo, string searchString, DateTime startDate, DateTime endDate)
         {
+            //var dateSelect = new DateSelectForListAmountVm()
+            //{
+            //    StartDate = startDate,
+            //    EndDate = endDate
+            //};
+
             var amounts = _amountRepository.GetAllAmounts().Where(p => p.Type.Name.StartsWith(searchString))
                 .Where(t => t.Date >= startDate && t.Date <= endDate).OrderBy(d => d.Date)
                 .ProjectTo<AmountForListVm>(_mapper.ConfigurationProvider).ToList();
             var amountsToShow = amounts.Skip(pageSize * (pageNo - 1)).Take(pageSize).ToList();
 
-            var dateSelect = new DateSelectForListAmountVm()
-            {
-                StartDate = startDate,
-                EndDate = endDate
-            };
+
 
             var sumExpenses = amounts.Where(et => et.Type.AssignId == 1).Sum(se => se.Value);
-            var sumIncomes = amounts.Where(et => et.Type.AssignId == 1).Sum(se => se.Value);
+            var sumIncomes = amounts.Where(et => et.Type.AssignId == 2).Sum(se => se.Value);
             var sumValues = new SumValuesForListAmountVm()
             {
                 SumOfExpenses = sumExpenses,
@@ -77,9 +79,9 @@ namespace BudgetPlannerMVC.Application.Services
                 SearchString = searchString,
                 Amounts = amountsToShow,
                 Count = amounts.Count,
-                DateSelect = dateSelect,
-                //StartDate = startDate,
-                //EndDate = endDate,
+                //DateSelect = dateSelect,
+                StartDate = startDate,
+                EndDate = endDate,
                 SumValues = sumValues
             };
             return amountList;

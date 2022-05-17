@@ -8,14 +8,12 @@
 @*<input asp-for="Date" value="@DateTime.Now" type="datetime" class="form-control" asp-format="{0:yyyy-MM-ddTHH:mm}" />*@
 <p>
     <a class="btn btn-primary" asp-action="AddAmount">Add Amount</a>
+
 </p>
 <form asp-action="Index" asp-controller="Amount" method="post">
-    <div class="row m-2">
-        <input type="datetime" asp-for="DateSelect.StartDate" class="form-control" asp-format="{0:yyyy-MM-ddTHH:mm}" id="startDate" />
-        <input type="datetime" asp-for="DateSelect.EndDate" class="form-control" asp-format="{0:yyyy-MM-ddTHH:mm}" id="endDate" />
-    </div>
-    <div class="row">
-        
+    <div class="row ">
+        <input type="datetime" asp-for="StartDate" class="form-control" asp-format="{0:yyyy-MM-ddTHH:mm}" id="startDate" />
+        <input type="datetime" asp-for="EndDate" class="form-control" asp-format="{0:yyyy-MM-ddTHH:mm}" id="endDate" />
     </div>
     <div class="row mb-2">
         <input type="text" asp-for="SearchString" name="searchString" id="searchString" />
@@ -121,20 +119,17 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model.Amounts)
-        {
         <tr>
             <th class="text-danger">
-                @Html.DisplayFor(modelItem => modelItem.SumValues.SumOfExpenses)
+                @Html.DisplayFor(model => Model.SumValues.SumOfExpenses)
             </th>
             <th class="text-success">
-                @Html.DisplayFor(modelItem => modelItem.SumValues.SumOfIncomes)
+                @Html.DisplayFor(model => Model.SumValues.SumOfIncomes)
             </th>
             <th class="text-warning">
-                @Html.DisplayFor(modelItem => modelItem.SumValues.Balance)
+                @Html.DisplayFor(model => Model.SumValues.Balance)
             </th>
         </tr>
-        }
     </tbody>
 </table>
 </form>
