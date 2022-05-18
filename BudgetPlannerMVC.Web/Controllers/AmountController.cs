@@ -21,7 +21,7 @@ namespace BudgetPlannerMVC.Web.Controllers
             DateTime endDate = DateTime.Today.AddDays(1);
             var dateSelect = _amountService.GetDateSelect(startDate, endDate);
 
-            var model = _amountService.GetAllAmountsForList(3, 1, "", dateSelect);
+            var model = _amountService.GetAllAmountsForList(6, 1, "", dateSelect);
             return View(model);
         }
         [HttpPost]

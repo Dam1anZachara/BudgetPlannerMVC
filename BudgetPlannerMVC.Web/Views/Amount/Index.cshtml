@@ -7,17 +7,30 @@
 <h1 class="display-4">Amount Management</h1>
 @*<input asp-for="Date" value="@DateTime.Now" type="datetime" class="form-control" asp-format="{0:yyyy-MM-ddTHH:mm}" />*@
 <p>
-    <a class="btn btn-primary" asp-action="AddAmount">Add Amount</a>
+    <a class="form-inline btn btn-primary" asp-action="AddAmount" style="margin-top: 10px">Add Amount</a>
 
 </p>
 <form asp-action="Index" asp-controller="Amount" method="post">
-    <div class="row ">
-        <input type="datetime" asp-for="DateSelect.StartDate" class="form-control" asp-format="{0:yyyy-MM-ddTHH:mm}" id="startDate" />
-        <input type="datetime" asp-for="DateSelect.EndDate" class="form-control" asp-format="{0:yyyy-MM-ddTHH:mm}" id="endDate" />
-    </div>
-    <div class="row mb-2">
-        <input type="text" asp-for="SearchString" name="searchString" id="searchString" />
-        <input type="submit" value="Search"/>
+    <div class="form-inline justify-content-start">
+        <div class="d-flex" style="margin:10px 20px 20px 0px">
+            @*<div class="d-flex" style="margin-right:15px">
+                <a class="btn btn-primary" asp-action="AddAmount">Add Amount</a>
+            </div>*@
+            <div class="d-flex" style="margin-inline:5px">
+                <label class="my-auto mr-1">From:</label>
+                <input type="datetime" asp-for="DateSelect.StartDate" class="form-control" asp-format="{0:yyyy-MM-dd}" id="startDate" />
+            </div>
+            <div class="d-flex" style="margin-inline:5px">
+                <label class="my-auto mr-1">To:</label>
+                <input type="datetime" asp-for="DateSelect.EndDate" class="form-control" asp-format="{0:yyyy-MM-dd}" id="endDate" />
+            </div>
+            <div class="d-flex text-left" style="margin-left:20px" >
+                 <input class="form-control form-rounded" type="text" asp-for="SearchString" name="searchString" id="searchString" placeholder="Search" /> 
+            </div>
+            <div class="d-flex" style="margin-inline:5px">
+                 <input type="submit" value="Search"/>
+            </div>
+        </div>
     </div>
     <div class="row">
 <table class="table">
@@ -102,7 +115,7 @@
                 </tr>
             </table>
             <input type="hidden" name="pageNo" id="pageNo" />
-            <input type="hidden" name="pageSize" id="pageSize" value="3" />
+            <input type="hidden" name="pageSize" id="pageSize" value="6" />
         </div>
 <table class="table">
     <thead>

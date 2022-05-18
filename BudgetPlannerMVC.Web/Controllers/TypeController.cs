@@ -17,7 +17,7 @@ namespace BudgetPlannerMVC.Web.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-            var model = _typeService.GetAllTypesForList(3, 1, "");
+            var model = _typeService.GetAllTypesForList(6, 1, "");
             return View(model);
         }
         [HttpPost]
