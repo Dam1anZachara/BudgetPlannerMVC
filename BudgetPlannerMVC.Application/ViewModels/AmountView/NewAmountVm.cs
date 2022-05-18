@@ -16,7 +16,9 @@ namespace BudgetPlannerMVC.Application.ViewModels.AmountView
     {
         public int Id { get; set; }
         public DateTime Date { get; set; }
+
         [DataType(DataType.Currency, ErrorMessage = "...")]
+        //[Range(0, 99999999.99)]
         public decimal Value { get; set; }
         public string Description { get; set; }
         public int TypeId { get; set; }
@@ -35,7 +37,7 @@ namespace BudgetPlannerMVC.Application.ViewModels.AmountView
             {
                 RuleFor(x => x.Id).NotNull();
                 RuleFor(x => x.Date).NotNull();
-                RuleFor(x => x.Value).ScalePrecision(10, 2, true);
+                RuleFor(x => x.Value).ScalePrecision(6, 2, true);
                 RuleFor(x => x.Description).MaximumLength(255);
                 RuleFor(x => x.TypeId).NotNull();
             }

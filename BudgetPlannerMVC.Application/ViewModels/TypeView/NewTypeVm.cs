@@ -25,7 +25,7 @@ namespace BudgetPlannerMVC.Application.ViewModels.TypeView
         public NewTypeValidation()
         {
             RuleFor(x => x.Id).NotNull();
-            RuleFor(x => x.Name).NotEmpty();
+            RuleFor(x => x.Name).NotEmpty().Must(x => !x.Contains('-'));
             RuleFor(x => x.Name).MaximumLength(20);
             RuleFor(x => x.Description).MaximumLength(255);
             RuleFor(x => x.AssignId).NotNull();

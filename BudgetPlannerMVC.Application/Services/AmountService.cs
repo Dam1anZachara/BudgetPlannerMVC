@@ -48,20 +48,15 @@ namespace BudgetPlannerMVC.Application.Services
             return dropDownTypes;
         }
 
-        public ListAmountForListVm GetAllAmountsForList(int pageSize, int pageNo, string searchString, DateTime startDate, DateTime endDate)
+        public ListAmountForListVm GetAllAmountsForList(int pageSize, int pageNo, string searchString, DateSelectForListAmountVm dateSelect)
         {
-            //var dateSelect = new DateSelectForListAmountVm()
-            //{
-            //    StartDate = startDate,
-            //    EndDate = endDate
-            //};
+            var startDate = dateSelect.StartDate;
+            var endDate = dateSelect.EndDate;
 
             var amounts = _amountRepository.GetAllAmounts().Where(p => p.Type.Name.StartsWith(searchString))
                 .Where(t => t.Date >= startDate && t.Date <= endDate).OrderBy(d => d.Date)
                 .ProjectTo<AmountForListVm>(_mapper.ConfigurationProvider).ToList();
             var amountsToShow = amounts.Skip(pageSize * (pageNo - 1)).Take(pageSize).ToList();
-
-
 
             var sumExpenses = amounts.Where(et => et.Type.AssignId == 1).Sum(se => se.Value);
             var sumIncomes = amounts.Where(et => et.Type.AssignId == 2).Sum(se => se.Value);
@@ -79,9 +74,9 @@ namespace BudgetPlannerMVC.Application.Services
                 SearchString = searchString,
                 Amounts = amountsToShow,
                 Count = amounts.Count,
-                //DateSelect = dateSelect,
-                StartDate = startDate,
-                EndDate = endDate,
+                DateSelect = dateSelect,
+                //StartDate = startDate,
+                //EndDate = endDate,
                 SumValues = sumValues
             };
             return amountList;
@@ -93,6 +88,16 @@ namespace BudgetPlannerMVC.Application.Services
                 .ProjectTo<NewAmountVm>(_mapper.ConfigurationProvider).ToList();
             var amountVm = amounts.FirstOrDefault(a => a.Id == id);
             return amountVm;
+        }
+
+        public DateSelectForListAmountVm GetDateSelect(DateTime startDate, DateTime endDate)
+        {
+            var dateSelect = new DateSelectForListAmountVm()
+            {
+                StartDate = startDate,
+                EndDate = endDate
+            };
+            return dateSelect; 
         }
 
         public int GetTypeIdByName(string nameOfType)

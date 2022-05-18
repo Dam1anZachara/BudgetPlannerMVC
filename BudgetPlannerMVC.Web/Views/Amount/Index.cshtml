@@ -12,8 +12,8 @@
 </p>
 <form asp-action="Index" asp-controller="Amount" method="post">
     <div class="row ">
-        <input type="datetime" asp-for="StartDate" class="form-control" asp-format="{0:yyyy-MM-ddTHH:mm}" id="startDate" />
-        <input type="datetime" asp-for="EndDate" class="form-control" asp-format="{0:yyyy-MM-ddTHH:mm}" id="endDate" />
+        <input type="datetime" asp-for="DateSelect.StartDate" class="form-control" asp-format="{0:yyyy-MM-ddTHH:mm}" id="startDate" />
+        <input type="datetime" asp-for="DateSelect.EndDate" class="form-control" asp-format="{0:yyyy-MM-ddTHH:mm}" id="endDate" />
     </div>
     <div class="row mb-2">
         <input type="text" asp-for="SearchString" name="searchString" id="searchString" />

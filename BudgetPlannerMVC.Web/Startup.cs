@@ -42,7 +42,10 @@ namespace BudgetPlannerMVC.Web
             services.AddApplication();
             services.AddInfrastructure();
 
-            services.AddControllersWithViews().AddFluentValidation();
+            services.AddControllersWithViews().AddFluentValidation(fv => 
+            {
+                fv.ImplicitlyValidateChildProperties = true;
+            });
 
             services.AddTransient<IValidator<NewTypeVm>, NewTypeValidation>();
         }
