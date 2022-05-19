@@ -18,7 +18,7 @@ namespace BudgetPlannerMVC.Web.Controllers
         public IActionResult Index()
         {
             DateTime startDate = new DateTime(year: DateTime.Now.Year, month: DateTime.Now.Month, day: 1);
-            DateTime endDate = DateTime.Today.AddDays(1);
+            DateTime endDate = new DateTime(year: DateTime.Now.Year, month: DateTime.Now.Month, day: DateTime.Now.Day, hour:23, minute: 59, second:59);
             var dateSelect = _amountService.GetDateSelect(startDate, endDate);
 
             var model = _amountService.GetAllAmountsForList(6, 1, "", dateSelect);

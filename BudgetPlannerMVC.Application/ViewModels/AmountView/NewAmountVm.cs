@@ -18,7 +18,7 @@ namespace BudgetPlannerMVC.Application.ViewModels.AmountView
         public DateTime Date { get; set; }
 
         [DataType(DataType.Currency, ErrorMessage = "...")]
-        //[Range(0, 99999999.99)]
+        [Range(0, 99999999.99)]
         public decimal Value { get; set; }
         public string Description { get; set; }
         public int TypeId { get; set; }
