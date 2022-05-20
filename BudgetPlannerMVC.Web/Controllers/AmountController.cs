@@ -3,6 +3,7 @@ using BudgetPlannerMVC.Application.ViewModels.AmountView;
 using BudgetPlannerMVC.Application.ViewModels.TypeView;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Collections.Generic;
 
 namespace BudgetPlannerMVC.Web.Controllers
 {
@@ -22,6 +23,36 @@ namespace BudgetPlannerMVC.Web.Controllers
             var dateSelect = _amountService.GetDateSelect(startDate, endDate);
 
             var model = _amountService.GetAllAmountsForList(6, 1, "", dateSelect);
+
+            ////TEST FOR IDEX VM without SQL ****************
+            //var assign = new AssignForTypeVm()
+            //{
+            //    Id = 1,
+            //    Name = "ExpenseTest"
+            //};
+            //var type = new TypeForListVm()
+            //{
+            //    Id = 1,
+            //    AssignId = 1,
+            //    Name = "TestNoSQL",
+            //    Assign = assign,
+            //};
+            //var amount = new AmountForListVm()
+            //{
+            //    Id = 1,
+            //    Date = DateTime.Now,
+            //    Type = type,
+            //    TypeId = type.Id,
+            //    Value = 200
+            //};
+            //var listAmount = new List<AmountForListVm>();
+            //listAmount.Add(amount);
+            //var model = new ListAmountForListVm() 
+            //{
+            //    Amounts = listAmount,
+            //    DateSelect = dateSelect
+            //};
+            ////TEST END ************************************
             return View(model);
         }
         [HttpPost]

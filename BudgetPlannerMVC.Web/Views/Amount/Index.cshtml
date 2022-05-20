@@ -3,9 +3,12 @@
 @{
     ViewData["Title"] = "Index";
 }
+<head>
 
-<h1 class="display-4">Amount Management</h1>
-@*<input asp-for="Date" value="@DateTime.Now" type="datetime" class="form-control" asp-format="{0:yyyy-MM-ddTHH:mm}" />*@
+</head>
+
+<h1 class="display-4">Amounts Management</h1>
+
 <p>
     <a class="form-inline btn btn-primary" asp-action="AddAmount" style="margin-top: 10px">Add Amount</a>
 
@@ -14,146 +17,169 @@
     <div class="form-inline justify-content-start">
         <div class="d-flex" style="margin:10px 20px 20px 0px">
             @*<div class="d-flex" style="margin-right:15px">
-                <a class="btn btn-primary" asp-action="AddAmount">Add Amount</a>
-            </div>*@
+                    <a class="btn btn-primary" asp-action="AddAmount">Add Amount</a>
+                </div>*@
             <div class="d-flex" style="margin-inline:5px">
                 <label class="my-auto mr-1">From:</label>
-                <input type="datetime" asp-for="DateSelect.StartDate" class="form-control" asp-format="{0:yyyy-MM-dd}" id="startDate" />
+                @*<input type="datetime" asp-for="DateSelect.StartDate" class="form-control" asp-format="{0:yyyy-MM-dd}" id="startDate" />*@
+                <div class="input-group date" id="datepickerStart">
+                    <input type="text" asp-for="DateSelect.StartDate" class="form-control" id="startDate" value="@Model.DateSelect.StartDate.ToString("dd.MM.yyyy")">
+                    <span class="input-group-append">
+                        <span class="input-group-text bg-white">
+                            <i class="fa fa-calendar"></i>
+                        </span>
+                    </span>
+                </div>
             </div>
             <div class="d-flex" style="margin-inline:5px">
                 <label class="my-auto mr-1">To:</label>
-                <input type="datetime" asp-for="DateSelect.EndDate" class="form-control" asp-format="{0:yyyy-MM-dd}" id="endDate" />
+                @*<input type="datetime" asp-for="DateSelect.EndDate" class="form-control" asp-format="{0:yyyy-MM-dd}" id="endDate" />*@
+                <div class="input-group date" id="datepickerEnd">
+                    <input type="text" asp-for="DateSelect.EndDate.Date" class="form-control" id="endDate" value="@Model.DateSelect.EndDate.ToString("dd.MM.yyyy")">
+                    <span class="input-group-append">
+                        <span class="input-group-text bg-white">
+                            <i class="fa fa-calendar"></i>
+                        </span>
+                    </span>
+                </div>
             </div>
-            <div class="d-flex text-left" style="margin-left:20px" >
-                 <input class="form-control form-rounded" type="text" asp-for="SearchString" name="searchString" id="searchString" placeholder="Search" /> 
+            <div class="d-flex text-left" style="margin-left:20px">
+                <input class="form-control form-rounded" type="text" asp-for="SearchString" name="searchString" id="searchString" placeholder="Search" />
             </div>
             <div class="d-flex" style="margin-inline:5px">
-                 <input type="submit" value="Search"/>
+                <input type="submit" value="Search" />
             </div>
         </div>
     </div>
     <div class="row">
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                Date
-            </th>
-            <th>
-                Type
-            </th>
-            <th>
-                Assignment
-            </th>
-            <th>
-                Value
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model.Amounts) {
-        <tr>
-            @if (item.Type.AssignId == 1)
-            {
-                <td class="text-danger">
-                    @Html.DisplayFor(modelItem => item.Date)
-                </td>
-                <td class="text-danger">
-                    @Html.DisplayFor(modelItem => item.Type.Name)
-                </td>
-                <td class="text-danger">
-                    @Html.DisplayFor(modelItem => item.Type.Assign.Name)
-                </td>
-                <td class="text-danger">
-                    @Html.DisplayFor(modelItem => item.Value)
-                </td>
-            }
-            else
-            {
-                <td class="text-success">
-                    @Html.DisplayFor(modelItem => item.Date)
-                </td>
-                <td class="text-success">
-                    @Html.DisplayFor(modelItem => item.Type.Name)
-                </td>
-                <td class="text-success">
-                    @Html.DisplayFor(modelItem => item.Type.Assign.Name)
-                </td>
-                <td class="text-success">
-                    @Html.DisplayFor(modelItem => item.Value)
-                </td>
-            }
-
-            <td style="width:35%">
-                @Html.ActionLink("Edit", "EditAmount", new { id = item.Id }, new { @class = "btn btn-info" })
-                @Html.ActionLink("Details", "Details", new { id = item.Id }, new { @class = "btn btn-warning" })
-                @Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { @class = "btn btn-danger" })
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
-</div>
-<div class="row">
-            <table>
+        <table class="table">
+            <thead>
                 <tr>
-                        @for(int i = 1; i <= Math.Ceiling(Model.Count / (double)Model.PageSize); i++)
+                    <th>
+                        Date
+                    </th>
+                    <th>
+                        Type
+                    </th>
+                    <th>
+                        Assignment
+                    </th>
+                    <th>
+                        Value
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Amounts)
+                {
+                    <tr>
+                        @if (item.Type.AssignId == 1)
                         {
-                            <td>
-                                
-                                @if (i != Model.CurrentPage)
-                                {
-                                    <a class="badge badge-dark" href="javascript:PagerClick(@i)">@i</a>
-                                }
-                                else
-                                {
-                                    <span class="badge badge-outline-dark">@i</span>
-                                }
+                            <td class="text-danger">
+                                @Html.DisplayFor(modelItem => item.Date)
+                            </td>
+                            <td class="text-danger">
+                                @Html.DisplayFor(modelItem => item.Type.Name)
+                            </td>
+                            <td class="text-danger">
+                                @Html.DisplayFor(modelItem => item.Type.Assign.Name)
+                            </td>
+                            <td class="text-danger">
+                                @Html.DisplayFor(modelItem => item.Value)
                             </td>
                         }
-                </tr>
-            </table>
-            <input type="hidden" name="pageNo" id="pageNo" />
-            <input type="hidden" name="pageSize" id="pageSize" value="6" />
-        </div>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                Expenses Total
-            </th>
-            <th>
-                Incomes Total
-            </th>
-            <th>
-                Balance Total
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <th class="text-danger">
-                @Html.DisplayFor(model => Model.SumValues.SumOfExpenses)
-            </th>
-            <th class="text-success">
-                @Html.DisplayFor(model => Model.SumValues.SumOfIncomes)
-            </th>
-            <th class="text-warning">
-                @Html.DisplayFor(model => Model.SumValues.Balance)
-            </th>
-        </tr>
-    </tbody>
-</table>
+                        else
+                        {
+                            <td class="text-success">
+                                @Html.DisplayFor(modelItem => item.Date)
+                            </td>
+                            <td class="text-success">
+                                @Html.DisplayFor(modelItem => item.Type.Name)
+                            </td>
+                            <td class="text-success">
+                                @Html.DisplayFor(modelItem => item.Type.Assign.Name)
+                            </td>
+                            <td class="text-success">
+                                @Html.DisplayFor(modelItem => item.Value)
+                            </td>
+                        }
+
+                        <td style="width:35%">
+                            @Html.ActionLink("Edit", "EditAmount", new { id = item.Id }, new { @class = "btn btn-info" })
+                            @Html.ActionLink("Details", "Details", new { id = item.Id }, new { @class = "btn btn-warning" })
+                            @Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { @class = "btn btn-danger" })
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <div class="row">
+        <table>
+            <tr>
+                @for (int i = 1; i <= Math.Ceiling(Model.Count / (double)Model.PageSize); i++)
+                {
+                    <td>
+
+                        @if (i != Model.CurrentPage)
+                        {
+                            <a class="badge badge-dark" href="javascript:PagerClick(@i)">@i</a>
+                        }
+                        else
+                        {
+                            <span class="badge badge-outline-dark">@i</span>
+                        }
+                    </td>
+                }
+            </tr>
+        </table>
+        <input type="hidden" name="pageNo" id="pageNo" />
+        <input type="hidden" name="pageSize" id="pageSize" value="6" />
+    </div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    Expenses Total
+                </th>
+                <th>
+                    Incomes Total
+                </th>
+                <th>
+                    Balance Total
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th class="text-danger">
+                    @Html.DisplayFor(model => Model.SumValues.SumOfExpenses)
+                </th>
+                <th class="text-success">
+                    @Html.DisplayFor(model => Model.SumValues.SumOfIncomes)
+                </th>
+                <th class="text-warning">
+                    @Html.DisplayFor(model => Model.SumValues.Balance)
+                </th>
+            </tr>
+        </tbody>
+    </table>
 </form>
 
 @section Scripts
 {
     <script type="text/javascript">
-        function PagerClick(index)
-        {
+        function PagerClick(index) {
             document.getElementById("pageNo").value = index;
             document.forms[0].submit();
         }
+    </script>
+
+    <script type="text/javascript">
+        $(function () {
+            $('#datepickerStart').datepicker({ format: 'dd.mm.yyyy' });
+            $('#datepickerEnd').datepicker({ format: 'dd.mm.yyyy' });
+        });
     </script>
 }
