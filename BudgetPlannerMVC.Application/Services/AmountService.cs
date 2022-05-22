@@ -51,7 +51,7 @@ namespace BudgetPlannerMVC.Application.Services
         public ListAmountForListVm GetAllAmountsForList(int pageSize, int pageNo, string searchString, DateSelectForListAmountVm dateSelect)
         {
             var startDate = dateSelect.StartDate;
-            var endDate = dateSelect.EndDate;
+            var endDate = dateSelect.EndDate.AddHours(23).AddMinutes(59).AddSeconds(59).AddMilliseconds(999);
 
             var amounts = _amountRepository.GetAllAmounts().Where(p => p.Type.Name.StartsWith(searchString))
                 .Where(t => t.Date >= startDate && t.Date <= endDate).OrderBy(d => d.Date)

@@ -16,9 +16,8 @@ namespace BudgetPlannerMVC.Application.ViewModels.AmountView
     {
         public int Id { get; set; }
         public DateTime Date { get; set; }
-
-        [DataType(DataType.Currency, ErrorMessage = "...")]
-        [Range(0, 99999999.99)]
+        //[RegularExpression(@"\d{1,20}(\.\d{1,2})?", ErrorMessage = "Invalid Price. Please use the format of XXXX.XX.")]
+        [DataType(DataType.Currency)]
         public decimal Value { get; set; }
         public string Description { get; set; }
         public int TypeId { get; set; }
@@ -37,8 +36,9 @@ namespace BudgetPlannerMVC.Application.ViewModels.AmountView
             {
                 RuleFor(x => x.Id).NotNull();
                 RuleFor(x => x.Date).NotNull();
-                RuleFor(x => x.Value).ScalePrecision(6, 2, true);
-                RuleFor(x => x.Description).MaximumLength(255);
+                //RuleFor(x => x.Date).Must(Date => Date.GetDateTimeFormats("dd.MM.yyyy hh:mm"));
+                RuleFor(x => x.Value).ScalePrecision(2, 4, false);
+                RuleFor(x => x.Description).MaximumLength(255).WithMessage("Description can't be more than 255 characters");
                 RuleFor(x => x.TypeId).NotNull();
             }
         }

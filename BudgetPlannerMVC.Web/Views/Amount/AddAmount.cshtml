@@ -16,13 +16,21 @@
             </div>
             <div class="form-group">
                 <label asp-for="Date" class="control-label"></label>
-                <input asp-for="Date" value="@DateTime.Now" type="datetime" class="form-control" asp-format="{0:yyyy-MM-dd HH:mm}" />
+@*                <input asp-for="Date" value="@DateTime.Now" type="datetime" class="form-control" />*@
+                <div class="input-group date" id="datepickerAdd">
+                    <input type="text" asp-for="Date" class="form-control" id="startDate" value="@DateTime.Now.ToString("dd.MM.yyyy HH:mm")">
+                    <span class="input-group-append">
+                        <span class="input-group-text bg-white">
+                            <i class="fa fa-calendar"></i>
+                        </span>
+                    </span>
+                </div>
                 <span asp-validation-for="Date" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Value" class="control-label"></label>
                 <input asp-for="Value" class="form-control" />
-                @*<span asp-validation-for="Value" class="text-danger"></span>*@
+                <span asp-validation-for="Value" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label class="control-label">Type of Amount</label>
@@ -46,4 +54,9 @@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script type="text/javascript">
+        $(function () {
+            $('#datepickerAdd').datepicker({ format: 'dd.mm.yyyy' });
+        });
+    </script>
 }
