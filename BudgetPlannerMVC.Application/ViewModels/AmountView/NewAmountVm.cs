@@ -16,6 +16,8 @@ namespace BudgetPlannerMVC.Application.ViewModels.AmountView
     {
         public int Id { get; set; }
         public DateTime Date { get; set; }
+        //[DisplayFormat(DataFormatString = "{0:0.##}", ApplyFormatInEditMode = true)]
+        //[RegularExpression(@"^[0-9]+(\.[0-9]{1,2})$", ErrorMessage = "Valid Decimal number with maximum 2 decimal places.")]
         //[RegularExpression(@"\d{1,20}(\.\d{1,2})?", ErrorMessage = "Invalid Price. Please use the format of XXXX.XX.")]
         [DataType(DataType.Currency)]
         public decimal Value { get; set; }
