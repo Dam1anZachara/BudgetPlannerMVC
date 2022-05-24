@@ -19,6 +19,8 @@ namespace BudgetPlannerMVC.Application.ViewModels.AmountView
         //[DisplayFormat(DataFormatString = "{0:0.##}", ApplyFormatInEditMode = true)]
         //[RegularExpression(@"^[0-9]+(\.[0-9]{1,2})$", ErrorMessage = "Valid Decimal number with maximum 2 decimal places.")]
         //[RegularExpression(@"\d{1,20}(\.\d{1,2})?", ErrorMessage = "Invalid Price. Please use the format of XXXX.XX.")]
+        //[DisplayFormat(DataFormatString = "{0:N}", ApplyFormatInEditMode = true)]
+        //[DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:N}")]
         [DataType(DataType.Currency)]
         public decimal Value { get; set; }
         public string Description { get; set; }
@@ -39,7 +41,7 @@ namespace BudgetPlannerMVC.Application.ViewModels.AmountView
                 RuleFor(x => x.Id).NotNull();
                 RuleFor(x => x.Date).NotNull();
                 //RuleFor(x => x.Date).Must(Date => Date.GetDateTimeFormats("dd.MM.yyyy hh:mm"));
-                RuleFor(x => x.Value).ScalePrecision(2, 4, false);
+                //RuleFor(x => x.Value).ScalePrecision(2, 4, false);
                 RuleFor(x => x.Description).MaximumLength(255).WithMessage("Description can't be more than 255 characters");
                 RuleFor(x => x.TypeId).NotNull();
             }
