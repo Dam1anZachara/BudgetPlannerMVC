@@ -1597,5 +1597,6 @@ if ( $.ajaxPrefilter ) {
 		return ajax.apply( this, arguments );
 	};
 }
-return $;
+	return $;
 }));
+
