@@ -25,8 +25,9 @@ namespace BudgetPlannerMVC.Application.ViewModels.TypeView
         public NewTypeValidation()
         {
             RuleFor(x => x.Id).NotNull();
-            //RuleFor(x => x.Name).NotEmpty().Must(name => name != "-");
-            RuleFor(x => x.Name).NotEmpty().Must(name => !name.Contains("-")).MaximumLength(8);
+            //RuleFor(x => x.Name).NotEmpty().Must(name => name != "-").WithMessage("RRRRR");
+            RuleFor(x => x.Name).NotEmpty();
+            //RuleFor(x => x.Name).Must(name => !name.Contains("-")).WithMessage("QPA"); //niedziała delete
             //RuleFor(x => x.Name).MaximumLength(20);
             RuleFor(x => x.Description).MaximumLength(255).WithMessage("Description can't be more than 255 characters");
             RuleFor(x => x.AssignId).NotNull();
