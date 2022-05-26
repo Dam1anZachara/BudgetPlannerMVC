@@ -77,13 +77,18 @@ namespace BudgetPlannerMVC.Web.Controllers
             return View(new NewAmountVm());
         }
         [HttpPost]
-        public IActionResult AddAmount(NewAmountVm model)
+        [ValidateAntiForgeryToken]
+        public IActionResult AddAmount(NewAmountVm model) // sprawdzić
         {
             var nameOfType = model.NameOfType;
             var typeId = _amountService.GetTypeIdByName(nameOfType);
             model.TypeId = typeId;
-            var id = _amountService.AddAmount(model);
-            return RedirectToAction("Index");
+            if (ModelState.IsValid)
+            {
+                var id = _amountService.AddAmount(model);
+                return RedirectToAction("Index");
+            }
+            return View(model);
         }
         [HttpGet]
         public IActionResult EditAmount(int id)
@@ -93,6 +98,7 @@ namespace BudgetPlannerMVC.Web.Controllers
             return View(amount);
         }
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult EditAmount(NewAmountVm model)
         {
             var nameOfType = model.NameOfType;

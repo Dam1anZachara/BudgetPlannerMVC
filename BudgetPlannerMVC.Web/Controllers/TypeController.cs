@@ -44,13 +44,18 @@ namespace BudgetPlannerMVC.Web.Controllers
             return View(new NewTypeVm());
         }
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult AddType(NewTypeVm model)
         {
             var nameOfAssign = model.NameOfAssign;
             var assignId = _typeService.GetAssignIdByName(nameOfAssign);
             model.AssignId = assignId;
-            var id = _typeService.AddType(model);
-            return RedirectToAction("Index");
+            if (ModelState.IsValid)
+            {
+                var id = _typeService.AddType(model);
+                return RedirectToAction("Index");
+            }
+            return View(model);
         }
         [HttpGet]
         public IActionResult EditType(int id)
@@ -60,6 +65,7 @@ namespace BudgetPlannerMVC.Web.Controllers
             return View(type);
         }
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult EditType(NewTypeVm model)
         {
             var nameOfAssign = model.NameOfAssign;

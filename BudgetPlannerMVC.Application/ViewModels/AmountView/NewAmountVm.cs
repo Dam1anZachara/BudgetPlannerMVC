@@ -30,8 +30,8 @@ namespace BudgetPlannerMVC.Application.ViewModels.AmountView
         public string Description { get; set; }
         public int TypeId { get; set; }
         public string NameOfType { get; set; }
-        public TypeForListVm Type { get; set; }
-        public string TypeName { get; set; }
+        public TypeForListVm Type { get; set; } // do usunięcia?
+        public string TypeName { get; set; } //do usunięcia?
         public void Mapping(Profile profile)
         {
             profile.CreateMap<NewAmountVm, Amount>().ReverseMap();
@@ -44,6 +44,7 @@ namespace BudgetPlannerMVC.Application.ViewModels.AmountView
             {
                 RuleFor(x => x.Id).NotNull();
                 RuleFor(x => x.Date).NotNull();
+                RuleFor(x => x.Value).NotEmpty().WithMessage("Value can't be empty");
                 //RuleFor(x => x.Date).Must(Date => Date.GetDateTimeFormats("dd.MM.yyyy hh:mm"));
                 //RuleFor(x => x.Value).ScalePrecision(2, 4, false);
                 RuleFor(x => x.Description).MaximumLength(255).WithMessage("Description can't be more than 255 characters");
