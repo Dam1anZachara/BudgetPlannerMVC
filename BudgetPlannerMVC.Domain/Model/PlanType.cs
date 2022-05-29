@@ -6,16 +6,14 @@ using System.Threading.Tasks;
 
 namespace BudgetPlannerMVC.Domain.Model
 {
-    public class Amount
+    public class PlanType
     {
         public int Id { get; set; }
-        public DateTime Date { get; set; }
         public decimal Value { get; set; }
-        public string Description { get; set; }
         public int? TypeId { get; set; }
-        public int? BudgetUserId { get; set; }
+        public int PlanId { get; set; }
 
         public virtual Type Type { get; set; }
-        public virtual BudgetUser BudgetUser { get; set; }
+        public virtual Plan Plan { get; set; }
     }
 }

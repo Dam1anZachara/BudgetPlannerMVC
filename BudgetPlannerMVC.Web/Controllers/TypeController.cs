@@ -17,7 +17,7 @@ namespace BudgetPlannerMVC.Web.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-            var model = _typeService.GetAllTypesForList(6, 1, "");
+            var model = _typeService.GetAllTypesForList(2, 1, "");
             return View(model);
         }
         [HttpPost]
@@ -39,8 +39,6 @@ namespace BudgetPlannerMVC.Web.Controllers
         public IActionResult AddType()
         {
             ViewBag.list = _typeService.DropDownAssigns();
-            //var model = new NewTypeVm();
-            //_typeService.GetAllAssignsForList(model);
             return View(new NewTypeVm());
         }
         [HttpPost]
@@ -55,6 +53,7 @@ namespace BudgetPlannerMVC.Web.Controllers
                 var id = _typeService.AddType(model);
                 return RedirectToAction("Index");
             }
+            ViewBag.list = _typeService.DropDownAssigns();
             return View(model);
         }
         [HttpGet]
@@ -76,6 +75,7 @@ namespace BudgetPlannerMVC.Web.Controllers
                 _typeService.UpdateType(model);
                 return RedirectToAction("Index");
             }
+            ViewBag.list = _typeService.DropDownAssigns();
             return View(model);
         }
         [HttpGet]

@@ -15,8 +15,8 @@ namespace BudgetPlannerMVC.Application.Services
 {
     public class AmountService : IAmountService
     {
-        readonly IAmountRepository _amountRepository;
-        readonly IMapper _mapper;
+        private readonly IAmountRepository _amountRepository;
+        private readonly IMapper _mapper;
 
         public AmountService(IAmountRepository amountRepository, IMapper mapper)
         {

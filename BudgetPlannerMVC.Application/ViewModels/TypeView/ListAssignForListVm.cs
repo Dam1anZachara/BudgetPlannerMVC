@@ -8,6 +8,6 @@ namespace BudgetPlannerMVC.Application.ViewModels.TypeView
 {
     public class ListAssignForListVm
     {
-        public List<AssignForTypeVm> Assigns { get; set; }
+        //public List<AssignForTypeVm> Assigns { get; set; }
     }
 }

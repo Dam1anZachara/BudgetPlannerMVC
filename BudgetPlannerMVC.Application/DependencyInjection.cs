@@ -1,6 +1,7 @@
 ﻿using BudgetPlannerMVC.Application.Interfaces;
 using BudgetPlannerMVC.Application.Services;
 using BudgetPlannerMVC.Application.ViewModels.AmountView;
+using BudgetPlannerMVC.Application.ViewModels.TypeView;
 using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -23,6 +24,7 @@ namespace BudgetPlannerMVC.Application
             services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
             services.AddTransient<IValidator<NewAmountVm>, NewAmountValidation>();
+            services.AddTransient<IValidator<NewTypeVm>, NewTypeValidation>();
             return services;
         }
     }

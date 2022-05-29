@@ -88,6 +88,7 @@ namespace BudgetPlannerMVC.Web.Controllers
                 var id = _amountService.AddAmount(model);
                 return RedirectToAction("Index");
             }
+            ViewBag.list = _amountService.DropDownTypes();
             return View(model);
         }
         [HttpGet]
@@ -109,6 +110,7 @@ namespace BudgetPlannerMVC.Web.Controllers
                 _amountService.UpdateAmount(model);
                 return RedirectToAction("Index");
             }
+            ViewBag.list = _amountService.DropDownTypes();
             return View(model);
         }
         [HttpGet]

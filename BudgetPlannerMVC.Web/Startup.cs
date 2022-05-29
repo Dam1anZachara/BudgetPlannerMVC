@@ -42,13 +42,12 @@ namespace BudgetPlannerMVC.Web
             services.AddApplication();
             services.AddInfrastructure();
 
-            services.AddControllersWithViews().AddFluentValidation();
-            //services.AddControllersWithViews().AddFluentValidation(fv =>
-            //{
-            //    fv.ImplicitlyValidateChildProperties = true;
-            //});
-
-            services.AddTransient<IValidator<NewTypeVm>, NewTypeValidation>();
+            services.AddControllersWithViews().AddFluentValidation(fv =>
+            {
+                //fv.DisableDataAnnotationsValidation = true;
+                //fv.ConfigureClientsideValidation(enabled: true);
+                //fv.ImplicitlyValidateChildProperties = false;
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
