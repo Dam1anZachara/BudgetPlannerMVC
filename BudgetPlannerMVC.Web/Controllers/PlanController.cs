@@ -1,12 +1,24 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using BudgetPlannerMVC.Application.Interfaces;
+using Microsoft.AspNetCore.Mvc;
 
 namespace BudgetPlannerMVC.Web.Controllers
 {
     public class PlanController : Controller
     {
-        public IActionResult Index()
+        private readonly IPlanService _planService;
+        public PlanController(IPlanService planService)
         {
-            return View();
+            _planService = planService;
         }
+        //[HttpGet]
+        //public IActionResult Index()
+        //{
+        //    var model = _planService.GetAllPlansForList();
+        //    return View();
+        //}
+        //public IActionResult Index()
+        //{
+
+        //}
     }
 }

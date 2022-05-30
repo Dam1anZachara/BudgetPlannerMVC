@@ -9,6 +9,10 @@ namespace BudgetPlannerMVC.Application.Interfaces
 {
     public interface IPlanService
     {
-        public int AddPlan(NewPlanVm plan);
+        int AddPlan(NewPlanVm plan);
+        void DeletePlan(int id);
+        ListPlanForListVm GetAllPlansForList(int pageSize, int pageNo, string searchString);
+        NewPlanVm GetPlanForEdit(int id);
+        void UpdatePlan(NewPlanVm model);
     }
 }

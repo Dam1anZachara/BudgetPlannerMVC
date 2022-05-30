@@ -63,20 +63,17 @@ namespace BudgetPlannerMVC.Application.Services
             };
             return planList;
         }
-
-        //public NewAmountVm GetAmountForEdit(int id)
-        //{
-        //    var amounts = _amountRepository.GetAllAmounts().Where(p => p.Id == id)
-        //        .ProjectTo<NewAmountVm>(_mapper.ConfigurationProvider).ToList();
-        //    var amountVm = amounts.FirstOrDefault(a => a.Id == id);
-        //    return amountVm;
-        //}
-
-
-        //public void UpdateAmount(NewAmountVm model)
-        //{
-        //    var amount = _mapper.Map<Amount>(model);
-        //    _amountRepository.UpdateAmount(amount);
-        //}
+        public NewPlanVm GetPlanForEdit(int id)
+        {
+            var plans = _planRepository.GetAllPlans().Where(p => p.Id == id)
+                .ProjectTo<NewPlanVm>(_mapper.ConfigurationProvider).ToList();
+            var planVm = plans.FirstOrDefault(a => a.Id == id);
+            return planVm;
+        }
+        public void UpdatePlan(NewPlanVm model)
+        {
+            var plan = _mapper.Map<Plan>(model);
+            _planRepository.UpdatePlan(plan);
+        }
     }
 }

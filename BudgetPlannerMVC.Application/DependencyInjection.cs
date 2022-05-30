@@ -20,6 +20,7 @@ namespace BudgetPlannerMVC.Application
         {
             services.AddTransient<ITypeService, TypeService>();
             services.AddTransient<IAmountService, AmountService>();
+            services.AddTransient<IPlanService, PlanService>();
 
             services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
