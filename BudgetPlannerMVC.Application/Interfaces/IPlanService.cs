@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BudgetPlannerMVC.Application.ViewModels.PlanView;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,5 +9,6 @@ namespace BudgetPlannerMVC.Application.Interfaces
 {
     public interface IPlanService
     {
+        public int AddPlan(NewPlanVm plan);
     }
 }

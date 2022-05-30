@@ -16,11 +16,13 @@ namespace BudgetPlannerMVC.Application.Services
     public class AmountService : IAmountService
     {
         private readonly IAmountRepository _amountRepository;
+        private readonly ITypeRepository _typeRepository;
         private readonly IMapper _mapper;
 
-        public AmountService(IAmountRepository amountRepository, IMapper mapper)
+        public AmountService(IAmountRepository amountRepository, ITypeRepository typeRepository, IMapper mapper)
         {
             _amountRepository = amountRepository;
+            _typeRepository = typeRepository;
             _mapper = mapper;
         }
 
@@ -38,7 +40,8 @@ namespace BudgetPlannerMVC.Application.Services
 
         public List<string> DropDownTypes()
         {
-            var types = _amountRepository.GetTypes().OrderBy(p => p.Assign.Id).
+            //var types = _amountRepository.GetTypes().OrderBy(p => p.Assign.Id).
+            var types = _typeRepository.GetAllTypes().OrderBy(p => p.Assign.Id).
                 ProjectTo<TypeForListVm>(_mapper.ConfigurationProvider).ToList();
             var dropDownTypes = new List<string>();
             foreach (var type in types)
@@ -104,7 +107,8 @@ namespace BudgetPlannerMVC.Application.Services
         {
             var indexOfAssignment = nameOfType.IndexOf("-");
             var nameOfTypeTrimmed = nameOfType.Remove(indexOfAssignment);
-            var type = _amountRepository.GetTypes().First(p => p.Name == nameOfTypeTrimmed);
+            //var type = _amountRepository.GetTypes().First(p => p.Name == nameOfTypeTrimmed);
+            var type = _typeRepository.GetAllTypes().First(p => p.Name == nameOfTypeTrimmed);
             var result = type.Id;
             return result;
         }

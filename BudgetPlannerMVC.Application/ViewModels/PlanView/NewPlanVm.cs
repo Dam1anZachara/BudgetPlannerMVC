@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace BudgetPlannerMVC.Application.ViewModels.PlanView
 {
-    public class PlanForListVm : IMapFrom<Plan>
+    public class NewPlanVm : IMapFrom<Plan>
     {
         public int Id { get; set; }
         public string Name { get; set; }
@@ -18,7 +18,7 @@ namespace BudgetPlannerMVC.Application.ViewModels.PlanView
         public DateTime DateEnd { get; set; }
         public void Mapping(Profile profile)
         {
-            profile.CreateMap<Plan, PlanForListVm>();
+            profile.CreateMap<PlanForListVm, Plan>().ReverseMap();
         }
     }
 }
