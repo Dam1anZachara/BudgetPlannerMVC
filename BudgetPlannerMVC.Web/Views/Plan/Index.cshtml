@@ -70,5 +70,37 @@
             </tbody>
         </table>
     </div>
+    <div class="row">
+            <table>
+                <tr>
+                        @for(int i = 1; i <= Math.Ceiling(Model.Count / (double)Model.PageSize); i++)
+                        {
+                            <td>
+                                
+                                @if (i != Model.CurrentPage)
+                                {
+                                    <a class="badge badge-dark" href="javascript:PagerClick(@i)">@i</a>
+                                }
+                                else
+                                {
+                                    <span class="badge badge-outline-dark">@i</span>
+                                }
+                            </td>
+                        }
+                </tr>
+            </table>
+            <input type="hidden" name="pageNo" id="pageNo" />
+            <input type="hidden" name="pageSize" id="pageSize" value="2" />
+        </div>
 </form>
+@section Scripts
+{
+    <script type="text/javascript">
+        function PagerClick(index)
+        {
+            document.getElementById("pageNo").value = index;
+            document.forms[0].submit();
+        }
+    </script>
+}
     

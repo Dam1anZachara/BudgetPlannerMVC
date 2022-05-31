@@ -29,6 +29,16 @@ namespace BudgetPlannerMVC.Infrastructure
         {
             base.OnModelCreating(builder);
 
+            //Default Data
+
+            builder.Entity<Assign>()
+                .HasData(new Assign { Id = 1, Name = "Expense" } , new Assign { Id = 2, Name = "Income"});
+            builder.Entity<Domain.Model.Type>()
+                .HasData(new Domain.Model.Type { Id = 1, AssignId = 1, Name = "General Expenses" });
+            builder.Entity<Domain.Model.Type>()
+                .HasData(new Domain.Model.Type { Id = 2, AssignId = 2, Name = "General Incomes" });
+
+
             //builder.Entity<Amount>()
             //    .HasOne(a => a.Type).WithMany(t => t.Amounts)
             //    .HasForeignKey(at => at.TypeId);
