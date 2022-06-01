@@ -18,7 +18,7 @@ namespace BudgetPlannerMVC.Application.ViewModels.PlanView
         public DateTime DateEnd { get; set; }
         public void Mapping(Profile profile)
         {
-            profile.CreateMap<PlanForListVm, Plan>().ReverseMap();
+            profile.CreateMap<NewPlanVm, Plan>().ReverseMap();
         }
     }
 }

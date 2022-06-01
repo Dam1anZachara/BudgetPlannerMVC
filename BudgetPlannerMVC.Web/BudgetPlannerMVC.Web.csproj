@@ -7,6 +7,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Views\Plan\PlanType\**" />
+    <Content Remove="Views\Plan\PlanType\**" />
+    <EmbeddedResource Remove="Views\Plan\PlanType\**" />
+    <None Remove="Views\Plan\PlanType\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="FluentValidation" Version="11.0.1" />
     <PackageReference Include="FluentValidation.AspNetCore" Version="11.0.1" />
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="5.0.15" />
@@ -22,10 +29,6 @@
   <ItemGroup>
     <ProjectReference Include="..\BudgetPlannerMVC.Application\BudgetPlannerMVC.Application.csproj" />
     <ProjectReference Include="..\BudgetPlannerMVC.Infrastructure\BudgetPlannerMVC.Infrastructure.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Views\Plan\PlanType\" />
   </ItemGroup>
 
 </Project>

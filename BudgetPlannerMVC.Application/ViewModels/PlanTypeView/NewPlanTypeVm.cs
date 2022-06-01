@@ -22,7 +22,7 @@ namespace BudgetPlannerMVC.Application.ViewModels.PlanView
         public PlanForListVm Plan { get; set; }
         public void Mapping(Profile profile)
         {
-            profile.CreateMap<PlanTypeForListVm, PlanType>().ReverseMap();
+            profile.CreateMap<NewPlanTypeVm, PlanType>().ReverseMap();
         }
     }
 }

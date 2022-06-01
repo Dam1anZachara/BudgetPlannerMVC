@@ -7,7 +7,7 @@
 <h1 class="display-4">Budget Plan</h1>
 
 <p>
-    <a class="btn btn-primary" asp-action="Create" style="margin-top: 10px">Add Plan</a>
+    <a class="btn btn-primary" asp-action="AddPlan" style="margin-top: 10px">Add Plan</a>
 </p>
 <form asp-action="Index" asp-controller="Amount" method="post">
     <div class="form-inline justify-content-start">
@@ -62,7 +62,7 @@
                         </td>
                         <td>
                             @*@Html.ActionLink("Configuration ", "ConfigPlan", new { id = item.Id }, new { @class = "btn btn-warning" })*@
-                            <a class="btn btn-warning" asp-controller="PlanType" asp-action="AddPlanType" style="margin-top: 10px" id="">Configuration</a>
+                            <a class="btn btn-warning" asp-controller="PlanType" asp-action="Index" style="margin-top: 10px" id="">Configuration</a>
                             @Html.ActionLink("Edit", "EditPlan", new { id = item.Id }, new { @class = "btn btn-info" })
                             @Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { @class = "btn btn-danger" })
                         </td>
