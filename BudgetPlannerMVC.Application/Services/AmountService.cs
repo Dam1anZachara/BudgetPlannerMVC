@@ -32,12 +32,10 @@ namespace BudgetPlannerMVC.Application.Services
             var id = _amountRepository.AddAmount(newAmount);
             return id;
         }
-
         public void DeleteAmount(int id)
         {
             _amountRepository.DeleteAmount(id);
         }
-
         public List<string> DropDownTypes()
         {
             //var types = _amountRepository.GetTypes().OrderBy(p => p.Assign.Id).
@@ -50,7 +48,6 @@ namespace BudgetPlannerMVC.Application.Services
             }
             return dropDownTypes;
         }
-
         public ListAmountForListVm GetAllAmountsForList(int pageSize, int pageNo, string searchString, DateSelectForListAmountVm dateSelect)
         {
             var startDate = dateSelect.StartDate;
@@ -84,7 +81,6 @@ namespace BudgetPlannerMVC.Application.Services
             };
             return amountList;
         }
-
         public NewAmountVm GetAmountForEdit(int id)
         {
             var amounts = _amountRepository.GetAllAmounts().Where(p => p.Id == id)
@@ -92,7 +88,6 @@ namespace BudgetPlannerMVC.Application.Services
             var amountVm = amounts.FirstOrDefault(a => a.Id == id);
             return amountVm;
         }
-
         public DateSelectForListAmountVm GetDateSelect(DateTime startDate, DateTime endDate)
         {
             var dateSelect = new DateSelectForListAmountVm()
@@ -102,7 +97,6 @@ namespace BudgetPlannerMVC.Application.Services
             };
             return dateSelect; 
         }
-
         public int GetTypeIdByName(string nameOfType)
         {
             var indexOfAssignment = nameOfType.IndexOf("-");
@@ -112,7 +106,6 @@ namespace BudgetPlannerMVC.Application.Services
             var result = type.Id;
             return result;
         }
-
         public void UpdateAmount(NewAmountVm model)
         {
             var amount = _mapper.Map<Amount>(model);

@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace BudgetPlannerMVC.Application.ViewModels.PlanView
 {
-    public class PlanTypeForVm : IMapFrom<PlanType>
+    public class PlanTypeForListVm : IMapFrom<PlanType>
     {
         public int Id { get; set; }
         public decimal Value { get; set; }
@@ -21,7 +21,7 @@ namespace BudgetPlannerMVC.Application.ViewModels.PlanView
         public PlanForListVm Plan { get; set; }
         public void Mapping(Profile profile)
         {
-            profile.CreateMap<PlanType, PlanTypeForVm>();
+            profile.CreateMap<PlanType, PlanTypeForListVm>();
         }
     }
 }

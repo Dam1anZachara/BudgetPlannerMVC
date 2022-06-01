@@ -21,14 +21,12 @@ namespace BudgetPlannerMVC.Infrastructure.Repositories
             _context.SaveChanges();
             return amount.Id;
         }
-
         public void DeleteAmount(int id)
         {
             var amount = _context.Amounts.Find(id);
             _context.Amounts.Remove(amount);
             _context.SaveChanges();
         }
-
         public IQueryable<Amount> GetAllAmounts()
         {
             return _context.Amounts;
@@ -38,12 +36,10 @@ namespace BudgetPlannerMVC.Infrastructure.Repositories
         {
             return _context.Amounts.FirstOrDefault(p => p.Id == id);
         }
-
         public IQueryable<Domain.Model.Type> GetTypes()
         {
             return _context.Types;
         }
-
         public void UpdateAmount(Amount amount)
         {
             _context.Attach(amount);

@@ -24,4 +24,8 @@
     <ProjectReference Include="..\BudgetPlannerMVC.Infrastructure\BudgetPlannerMVC.Infrastructure.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Views\Plan\PlanType\" />
+  </ItemGroup>
+
 </Project>

@@ -87,10 +87,10 @@ namespace BudgetPlannerMVC.Web.Controllers
             _planService.DeletePlan(model.Id);
             return RedirectToAction("Index");
         }
-        public IActionResult Details(int id)
-        {
-            var plan = _planService.GetPlanForEdit(id);
-            return View(plan);
-        }
+        //public IActionResult Details(int id)
+        //{
+        //    var plan = _planService.GetPlanForEdit(id);
+        //    return View(plan);
+        //}
     }
 }

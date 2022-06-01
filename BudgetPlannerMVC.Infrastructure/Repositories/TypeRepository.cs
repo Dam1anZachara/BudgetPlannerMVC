@@ -19,18 +19,16 @@ namespace BudgetPlannerMVC.Infrastructure.Repositories
         {
             return _context.Types.OrderBy(p => p.AssignId);
         }
-        public Domain.Model.Type GetType(int typeId)
+        public Domain.Model.Type GetType(int typeId) // nieużywane
         {
             return _context.Types.FirstOrDefault(p => p.Id == typeId);
         }
-
         public int AddType(Domain.Model.Type type)
         {
             _context.Types.Add(type);
             _context.SaveChanges();
             return type.Id;
         }
-
         public void UpdateType(Domain.Model.Type type)
         {
             _context.Attach(type);
@@ -39,7 +37,6 @@ namespace BudgetPlannerMVC.Infrastructure.Repositories
             _context.Entry(type).Property("Description").IsModified = true;
             _context.SaveChanges();
         }
-
         public void DeleteType(int id)
         {
             var type = _context.Types.Find(id);

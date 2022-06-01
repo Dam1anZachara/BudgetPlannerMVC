@@ -61,9 +61,10 @@
                                 @Html.ActionLink("Active", "Inactive", new { id = item.Id }, new { @class = "btn btn-outline-danger" })
                         </td>
                         <td>
-                            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                            @*@Html.ActionLink("Configuration ", "ConfigPlan", new { id = item.Id }, new { @class = "btn btn-warning" })*@
+                            <a class="btn btn-warning" asp-controller="PlanType" asp-action="AddPlanType" style="margin-top: 10px" id="">Configuration</a>
+                            @Html.ActionLink("Edit", "EditPlan", new { id = item.Id }, new { @class = "btn btn-info" })
+                            @Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { @class = "btn btn-danger" })
                         </td>
                     </tr>
                 }

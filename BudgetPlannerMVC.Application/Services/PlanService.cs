@@ -21,31 +21,17 @@ namespace BudgetPlannerMVC.Application.Services
             _planRepository = planRepository;
             _mapper = mapper;
         }
+
         public int AddPlan(NewPlanVm plan)
         {
             var newPlan = _mapper.Map<Plan>(plan);
             var id = _planRepository.AddPlan(newPlan);
             return id;
         }
-
         public void DeletePlan(int id)
         {
             _planRepository.DeletePlan(id);
         }
-
-        //public List<string> DropDownTypes()
-        //{
-        //    //var types = _amountRepository.GetTypes().OrderBy(p => p.Assign.Id).
-        //    var types = _typeRepository.GetAllTypes().OrderBy(p => p.Assign.Id).
-        //        ProjectTo<TypeForListVm>(_mapper.ConfigurationProvider).ToList();
-        //    var dropDownTypes = new List<string>();
-        //    foreach (var type in types)
-        //    {
-        //        dropDownTypes.Add(type.Name + " - " + type.Assign.Name);
-        //    }
-        //    return dropDownTypes;
-        //}
-
         public ListPlanForListVm GetAllPlansForList(int pageSize, int pageNo, string searchString)
         {
             var plans = _planRepository.GetAllPlans().Where(p => p.Name.StartsWith(searchString))

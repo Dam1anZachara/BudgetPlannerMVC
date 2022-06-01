@@ -16,6 +16,7 @@ namespace BudgetPlannerMVC.Infrastructure
             services.AddTransient<ITypeRepository, TypeRepository>();
             services.AddTransient<IAmountRepository, AmountRepository>();   
             services.AddTransient<IPlanRepository, PlanRepository>();   
+            services.AddTransient<IPlanTypeRepository, PlanTypeRepository>();   
             return services;
         }
     }

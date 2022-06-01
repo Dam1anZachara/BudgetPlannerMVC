@@ -14,6 +14,7 @@ namespace BudgetPlannerMVC.Application.ViewModels.PlanView
     {
         public int Id { get; set; }
         public decimal Value { get; set; }
+        public string NameOfType { get; set; }
         public int? TypeId { get; set; }
         public int PlanId { get; set; }
 
@@ -21,7 +22,7 @@ namespace BudgetPlannerMVC.Application.ViewModels.PlanView
         public PlanForListVm Plan { get; set; }
         public void Mapping(Profile profile)
         {
-            profile.CreateMap<PlanTypeForVm, PlanType>().ReverseMap();
+            profile.CreateMap<PlanTypeForListVm, PlanType>().ReverseMap();
         }
     }
 }

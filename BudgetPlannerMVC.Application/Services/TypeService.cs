@@ -18,18 +18,17 @@ namespace BudgetPlannerMVC.Application.Services
             _typeRepository = typeRepository;
             _mapper = mapper;  
         }
+
         public int AddType(NewTypeVm type)
         {
             var newType = _mapper.Map<Type>(type);
             var id = _typeRepository.AddType(newType);
             return id;
         }
-
         public void DeleteType(int id)
         {
             _typeRepository.DeleteType(id);
         }
-
         public ListTypeForListVm GetAllTypesForList(int pageSize, int pageNo, string searchString)
         {
             var types = _typeRepository.GetAllTypes()
@@ -46,7 +45,6 @@ namespace BudgetPlannerMVC.Application.Services
             };
             return typeList;
         }
-
         public NewTypeVm GetTypeForEdit(int id)
         {
             var types = _typeRepository.GetAllTypes()
@@ -80,7 +78,6 @@ namespace BudgetPlannerMVC.Application.Services
             }
             return dropDownAssigns;
         }
-
         public int GetAssignIdByName(string nameOfAssign)
         {
             var assign = _typeRepository.GetAssigns().First(p => p.Name == nameOfAssign);
