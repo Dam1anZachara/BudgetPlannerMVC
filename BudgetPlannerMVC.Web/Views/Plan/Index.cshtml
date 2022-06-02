@@ -62,7 +62,7 @@
                         </td>
                         <td>
                             @*@Html.ActionLink("Configuration ", "ConfigPlan", new { id = item.Id }, new { @class = "btn btn-warning" })*@
-                            <a class="btn btn-warning" asp-controller="PlanType" asp-action="Index" style="margin-top: 10px" id="">Configuration</a>
+                            <a class="btn btn-warning" asp-controller="PlanType" asp-action="Index" id="">Configuration</a>
                             @Html.ActionLink("Edit", "EditPlan", new { id = item.Id }, new { @class = "btn btn-info" })
                             @Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { @class = "btn btn-danger" })
                         </td>

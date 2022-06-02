@@ -39,7 +39,7 @@ namespace BudgetPlannerMVC.Infrastructure.Repositories
         {
             _context.Attach(planType);
             _context.Entry(planType).Property("Value").IsModified = true;
-            _context.Entry(planType).Property("TypeId").IsModified = true;
+            //_context.Entry(planType).Property("TypeId").IsModified = true;
             _context.SaveChanges();
         }
     }
