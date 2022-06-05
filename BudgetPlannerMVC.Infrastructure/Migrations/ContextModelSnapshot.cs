@@ -98,6 +98,18 @@ namespace BudgetPlannerMVC.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Assigns");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Expense"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Income"
+                        });
                 });
 
             modelBuilder.Entity("BudgetPlannerMVC.Domain.Model.BudgetUser", b =>
@@ -228,6 +240,20 @@ namespace BudgetPlannerMVC.Infrastructure.Migrations
                     b.HasIndex("AssignId");
 
                     b.ToTable("Types");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            AssignId = 1,
+                            Name = "General Expenses"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            AssignId = 2,
+                            Name = "General Incomes"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>

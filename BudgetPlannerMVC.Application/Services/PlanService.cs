@@ -61,5 +61,42 @@ namespace BudgetPlannerMVC.Application.Services
             var plan = _mapper.Map<Plan>(model);
             _planRepository.UpdatePlan(plan);
         }
+        public void UpdateListOfPlans(ListPlanForListVm plans)
+        {
+            foreach (var item in plans.Plans)
+            {
+                var newPlanVm = new NewPlanVm()
+                {
+                    Id = item.Id,
+                    IsActive = item.IsActive,
+                    DateStart = item.DateStart,
+                    DateEnd = item.DateEnd,
+                    Name = item.Name
+                };
+                var plan = _mapper.Map<Plan>(newPlanVm);
+                _planRepository.UpdatePlan(plan);
+            }
+        }
+        public ListPlanForListVm StatusPlan(int id)
+        {
+            var plans = _planRepository.GetAllPlans()
+                .ProjectTo<PlanForListVm>(_mapper.ConfigurationProvider).ToList();
+            foreach (var item in plans)
+            {
+                if (item.Id == id)
+                {
+                    item.IsActive = true;
+                }
+                else
+                {
+                    item.IsActive = false;
+                }
+            }
+            var actualizedPlans = new ListPlanForListVm()
+            {
+                Plans = plans,
+            };
+            return actualizedPlans;
+        } 
     }
 }

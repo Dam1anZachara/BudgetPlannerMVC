@@ -14,5 +14,6 @@ namespace BudgetPlannerMVC.Application.Interfaces
         ListPlanTypesForListVm GetAllPlanTypesForList(int pageSize, int pageNo, string searchString, int planId);
         NewPlanTypeVm GetPlanTypeForEdit(int id);
         void UpdatePlanType(NewPlanTypeVm model);
+        List<string> DropDownTypesForPlan(int id);
     }
 }

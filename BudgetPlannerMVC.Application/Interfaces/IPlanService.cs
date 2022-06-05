@@ -14,5 +14,7 @@ namespace BudgetPlannerMVC.Application.Interfaces
         ListPlanForListVm GetAllPlansForList(int pageSize, int pageNo, string searchString);
         NewPlanVm GetPlanForEdit(int id);
         void UpdatePlan(NewPlanVm model);
+        void UpdateListOfPlans(ListPlanForListVm plans);
+        ListPlanForListVm StatusPlan(int id);
     }
 }

@@ -4,49 +4,92 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1 class="display-4">@Model.PlanName</h1>
 
 <p>
-    <a asp-action="AddPlanType">Add Type to Plan</a>
+    <a class="btn btn-primary" asp-action="AddPlanType" asp-route-id="@Model.PlanId">Add Type to Plan</a>
 </p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                Id
-            </th>
-            <th>
-                PlanId
-            </th>
-            <th>
-                TypeId
-            </th>
-            <th>
-                Value
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model.PlanTypes) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Id)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PlanId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TypeId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Value)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-                @Html.ActionLink("Delete", "Delete", new { id=item.Id })
-            </td>
-        </tr>
+<form asp-action="Index" asp-controller="PlanType" method="post">
+    <div class="form-inline justify-content-start">
+        <div class="d-flex" style="margin:10px 20px 20px 0px">
+            <div class="d-flex">
+                <input class="form-control form-rounded" type="text" asp-for="SearchString" name="searchString" id="searchString" placeholder="Search" />
+            </div>
+            <div class="d-flex">
+                <input class="btn btn-outline-dark ml-2" type="submit" value="Search" />
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        Name
+                    </th>
+                    <th>
+                        Assignment
+                    </th>
+                    <th>
+                        Planned Value
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+        @foreach (var item in Model.PlanTypes) {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Type.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Type.Assign.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Value)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "EditPlanType", new { id=item.Id }) |
+                        @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+                    </td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+      <div class="row">
+            <table>
+                <tr>
+                        @for(int i = 1; i <= Math.Ceiling(Model.Count / (double)Model.PageSize); i++)
+                        {
+                            <td>
+                                
+                                @if (i != Model.CurrentPage)
+                                {
+                                    <a class="badge badge-dark" href="javascript:PagerClick(@i)">@i</a>
+                                }
+                                else
+                                {
+                                    <span class="badge badge-outline-dark">@i</span>
+                                }
+                            </td>
+                        }
+                </tr>
+            </table>
+            <input type="hidden" name="pageNo" id="pageNo" />
+            <input type="hidden" name="pageSize" id="pageSize" value="4" />
+        </div>
+         <div>
+            <a class="btn btn-dark" asp-controller="Plan" asp-action="Index">Back to Plans</a>
+        </div>
+</form>
+@section Scripts
+{
+    <script type="text/javascript">
+        function PagerClick(index)
+        {
+            document.getElementById("pageNo").value = index;
+            document.forms[0].submit();
+        }
+    </script>
 }
-    </tbody>
-</table>

@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BudgetPlannerMVC.Infrastructure.Migrations
 {
     [DbContext(typeof(Context))]
-    [Migration("20220505204506_InitialCreate")]
+    [Migration("20220604185949_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -21,6 +21,41 @@ namespace BudgetPlannerMVC.Infrastructure.Migrations
                 .HasAnnotation("ProductVersion", "5.0.15")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+            modelBuilder.Entity("BudgetPlannerMVC.Domain.Model.Address", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("BudgetUserId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("BuildingNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("City")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Country")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("FlatNumber")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Street")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ZipCode")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BudgetUserId");
+
+                    b.ToTable("Addresses");
+                });
+
             modelBuilder.Entity("BudgetPlannerMVC.Domain.Model.Amount", b =>
                 {
                     b.Property<int>("Id")
@@ -28,19 +63,24 @@ namespace BudgetPlannerMVC.Infrastructure.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int?>("BudgetUserId")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("TypeId")
+                    b.Property<int?>("TypeId")
                         .HasColumnType("int");
 
                     b.Property<decimal>("Value")
                         .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("BudgetUserId");
 
                     b.HasIndex("TypeId");
 
@@ -60,6 +100,125 @@ namespace BudgetPlannerMVC.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Assigns");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Expense"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Income"
+                        });
+                });
+
+            modelBuilder.Entity("BudgetPlannerMVC.Domain.Model.BudgetUser", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("FirstName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LastName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("BudgetUsers");
+                });
+
+            modelBuilder.Entity("BudgetPlannerMVC.Domain.Model.ContactDetail", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("BudgetUserId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ContactDetailInformation")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("ContactDetailTypeId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BudgetUserId");
+
+                    b.HasIndex("ContactDetailTypeId");
+
+                    b.ToTable("ContactDetails");
+                });
+
+            modelBuilder.Entity("BudgetPlannerMVC.Domain.Model.ContactDetailType", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ContactDetailTypes");
+                });
+
+            modelBuilder.Entity("BudgetPlannerMVC.Domain.Model.Plan", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("DateEnd")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("DateStart")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Plans");
+                });
+
+            modelBuilder.Entity("BudgetPlannerMVC.Domain.Model.PlanType", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("PlanId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("TypeId")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("Value")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PlanId");
+
+                    b.HasIndex("TypeId");
+
+                    b.ToTable("PlanTypes");
                 });
 
             modelBuilder.Entity("BudgetPlannerMVC.Domain.Model.Type", b =>
@@ -83,6 +242,20 @@ namespace BudgetPlannerMVC.Infrastructure.Migrations
                     b.HasIndex("AssignId");
 
                     b.ToTable("Types");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            AssignId = 1,
+                            Name = "General Expenses"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            AssignId = 2,
+                            Name = "General Incomes"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -285,13 +458,64 @@ namespace BudgetPlannerMVC.Infrastructure.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("BudgetPlannerMVC.Domain.Model.Amount", b =>
+            modelBuilder.Entity("BudgetPlannerMVC.Domain.Model.Address", b =>
                 {
-                    b.HasOne("BudgetPlannerMVC.Domain.Model.Type", "Type")
-                        .WithMany("Amounts")
-                        .HasForeignKey("TypeId")
+                    b.HasOne("BudgetPlannerMVC.Domain.Model.BudgetUser", "BudgetUser")
+                        .WithMany("Addresses")
+                        .HasForeignKey("BudgetUserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("BudgetUser");
+                });
+
+            modelBuilder.Entity("BudgetPlannerMVC.Domain.Model.Amount", b =>
+                {
+                    b.HasOne("BudgetPlannerMVC.Domain.Model.BudgetUser", "BudgetUser")
+                        .WithMany()
+                        .HasForeignKey("BudgetUserId");
+
+                    b.HasOne("BudgetPlannerMVC.Domain.Model.Type", "Type")
+                        .WithMany("Amounts")
+                        .HasForeignKey("TypeId");
+
+                    b.Navigation("BudgetUser");
+
+                    b.Navigation("Type");
+                });
+
+            modelBuilder.Entity("BudgetPlannerMVC.Domain.Model.ContactDetail", b =>
+                {
+                    b.HasOne("BudgetPlannerMVC.Domain.Model.BudgetUser", "BudgetUser")
+                        .WithMany("ContactDetails")
+                        .HasForeignKey("BudgetUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("BudgetPlannerMVC.Domain.Model.ContactDetailType", "ContactDetailType")
+                        .WithMany()
+                        .HasForeignKey("ContactDetailTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("BudgetUser");
+
+                    b.Navigation("ContactDetailType");
+                });
+
+            modelBuilder.Entity("BudgetPlannerMVC.Domain.Model.PlanType", b =>
+                {
+                    b.HasOne("BudgetPlannerMVC.Domain.Model.Plan", "Plan")
+                        .WithMany("PlanTypes")
+                        .HasForeignKey("PlanId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("BudgetPlannerMVC.Domain.Model.Type", "Type")
+                        .WithMany("PlanTypes")
+                        .HasForeignKey("TypeId");
+
+                    b.Navigation("Plan");
 
                     b.Navigation("Type");
                 });
@@ -363,9 +587,23 @@ namespace BudgetPlannerMVC.Infrastructure.Migrations
                     b.Navigation("Types");
                 });
 
+            modelBuilder.Entity("BudgetPlannerMVC.Domain.Model.BudgetUser", b =>
+                {
+                    b.Navigation("Addresses");
+
+                    b.Navigation("ContactDetails");
+                });
+
+            modelBuilder.Entity("BudgetPlannerMVC.Domain.Model.Plan", b =>
+                {
+                    b.Navigation("PlanTypes");
+                });
+
             modelBuilder.Entity("BudgetPlannerMVC.Domain.Model.Type", b =>
                 {
                     b.Navigation("Amounts");
+
+                    b.Navigation("PlanTypes");
                 });
 #pragma warning restore 612, 618
         }

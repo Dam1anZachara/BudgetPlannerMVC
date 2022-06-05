@@ -60,6 +60,49 @@ namespace BudgetPlannerMVC.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "BudgetUsers",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    FirstName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_BudgetUsers", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ContactDetailTypes",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ContactDetailTypes", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Plans",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false),
+                    DateStart = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    DateEnd = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Plans", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "AspNetRoleClaims",
                 columns: table => new
                 {
@@ -187,6 +230,58 @@ namespace BudgetPlannerMVC.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Addresses",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Street = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    BuildingNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    FlatNumber = table.Column<int>(type: "int", nullable: false),
+                    ZipCode = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    City = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Country = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    BudgetUserId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Addresses", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Addresses_BudgetUsers_BudgetUserId",
+                        column: x => x.BudgetUserId,
+                        principalTable: "BudgetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ContactDetails",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ContactDetailInformation = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ContactDetailTypeId = table.Column<int>(type: "int", nullable: false),
+                    BudgetUserId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ContactDetails", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_ContactDetails_BudgetUsers_BudgetUserId",
+                        column: x => x.BudgetUserId,
+                        principalTable: "BudgetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_ContactDetails_ContactDetailTypes_ContactDetailTypeId",
+                        column: x => x.ContactDetailTypeId,
+                        principalTable: "ContactDetailTypes",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Amounts",
                 columns: table => new
                 {
@@ -195,18 +290,82 @@ namespace BudgetPlannerMVC.Infrastructure.Migrations
                     Date = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Value = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    TypeId = table.Column<int>(type: "int", nullable: false)
+                    TypeId = table.Column<int>(type: "int", nullable: true),
+                    BudgetUserId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Amounts", x => x.Id);
                     table.ForeignKey(
+                        name: "FK_Amounts_BudgetUsers_BudgetUserId",
+                        column: x => x.BudgetUserId,
+                        principalTable: "BudgetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
                         name: "FK_Amounts_Types_TypeId",
                         column: x => x.TypeId,
                         principalTable: "Types",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
+
+            migrationBuilder.CreateTable(
+                name: "PlanTypes",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Value = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    TypeId = table.Column<int>(type: "int", nullable: true),
+                    PlanId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PlanTypes", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_PlanTypes_Plans_PlanId",
+                        column: x => x.PlanId,
+                        principalTable: "Plans",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_PlanTypes_Types_TypeId",
+                        column: x => x.TypeId,
+                        principalTable: "Types",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.InsertData(
+                table: "Assigns",
+                columns: new[] { "Id", "Name" },
+                values: new object[] { 1, "Expense" });
+
+            migrationBuilder.InsertData(
+                table: "Assigns",
+                columns: new[] { "Id", "Name" },
+                values: new object[] { 2, "Income" });
+
+            migrationBuilder.InsertData(
+                table: "Types",
+                columns: new[] { "Id", "AssignId", "Description", "Name" },
+                values: new object[] { 1, 1, null, "General Expenses" });
+
+            migrationBuilder.InsertData(
+                table: "Types",
+                columns: new[] { "Id", "AssignId", "Description", "Name" },
+                values: new object[] { 2, 2, null, "General Incomes" });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Addresses_BudgetUserId",
+                table: "Addresses",
+                column: "BudgetUserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Amounts_BudgetUserId",
+                table: "Amounts",
+                column: "BudgetUserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Amounts_TypeId",
@@ -253,6 +412,26 @@ namespace BudgetPlannerMVC.Infrastructure.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
+                name: "IX_ContactDetails_BudgetUserId",
+                table: "ContactDetails",
+                column: "BudgetUserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ContactDetails_ContactDetailTypeId",
+                table: "ContactDetails",
+                column: "ContactDetailTypeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PlanTypes_PlanId",
+                table: "PlanTypes",
+                column: "PlanId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PlanTypes_TypeId",
+                table: "PlanTypes",
+                column: "TypeId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Types_AssignId",
                 table: "Types",
                 column: "AssignId");
@@ -260,6 +439,9 @@ namespace BudgetPlannerMVC.Infrastructure.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "Addresses");
+
             migrationBuilder.DropTable(
                 name: "Amounts");
 
@@ -279,13 +461,28 @@ namespace BudgetPlannerMVC.Infrastructure.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "Types");
+                name: "ContactDetails");
+
+            migrationBuilder.DropTable(
+                name: "PlanTypes");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "BudgetUsers");
+
+            migrationBuilder.DropTable(
+                name: "ContactDetailTypes");
+
+            migrationBuilder.DropTable(
+                name: "Plans");
+
+            migrationBuilder.DropTable(
+                name: "Types");
 
             migrationBuilder.DropTable(
                 name: "Assigns");
