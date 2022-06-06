@@ -51,15 +51,15 @@
                         <td>
                             @Html.DisplayFor(modelItem => item.Name)
                         </td>
-                        <td>
+                        <td class="form-inline justify-content-start">
                             @if (item.IsActive == true)
                             {
-                                @Html.ActionLink("Active", "Status", new { id = item.Id }, new { @class = "btn btn-success" })
+                                @Html.ActionLink("Active", "Status", new { id = item.Id }, new { @class = "btn btn-success", @style = "width:80px" })
                             }
                             else
-                                @Html.ActionLink("Inactive", "Status", new { id = item.Id }, new { @class = "btn btn-outline-danger" })
+                                @Html.ActionLink("Inactive", "Status", new { id = item.Id }, new { @class = "btn btn-outline-danger", @style = "width:80px" })
                         </td>
-                        <td>
+                        <td style="width:35%">
                             @Html.ActionLink("Configuration", "Index", "PlanType", new { id = item.Id }, new { @class = "btn btn-warning" })
                             @Html.ActionLink("Edit", "EditPlan", new { id = item.Id }, new { @class = "btn btn-info" })
                             @Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { @class = "btn btn-danger" })
