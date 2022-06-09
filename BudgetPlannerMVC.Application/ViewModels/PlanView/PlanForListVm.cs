@@ -15,9 +15,9 @@ namespace BudgetPlannerMVC.Application.ViewModels.PlanView
         public int Id { get; set; }
         public string Name { get; set; }
         public bool IsActive { get; set; }
-        [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}")]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime DateStart { get; set; }
-        [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}")]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime DateEnd { get; set; }
         public void Mapping(Profile profile)
         {

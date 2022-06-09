@@ -20,15 +20,12 @@
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
             <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="IsActive" /> @Html.DisplayNameFor(model => model.IsActive)
-                </label>
+                <input type="hidden" class="form-check-input" asp-for="IsActive" />
             </div>
             <div class="form-group">
                 <label asp-for="DateStart" class="control-label"></label>
-                @*<input asp-for="DateStart" class="form-control" />*@
                 <div class="input-group date" id="datepickerStart">
-                    <input type="text" asp-for="DateStart" class="form-control" id="dateStart" value="@DateTime.Now.ToString("dd.MM.yyyy")"> @*id i value chyba nie potrzebne*@
+                    <input type="text" asp-for="DateStart" class="form-control" value="@DateTime.Now.ToString("dd.MM.yyyy")">
                     <span class="input-group-append">
                         <span class="input-group-text bg-white">
                             <i class="fa fa-calendar"></i>
@@ -39,9 +36,8 @@
             </div>
             <div class="form-group">
                 <label asp-for="DateEnd" class="control-label"></label>
-                @*<input asp-for="DateEnd" class="form-control" />*@
                 <div class="input-group date" id="datepickerEnd">
-                    <input type="text" asp-for="DateEnd" class="form-control" id="dateEnd" value="@DateTime.Now.ToString("dd.MM.yyyy")">
+                    <input type="text" asp-for="DateEnd" class="form-control" value="@DateTime.Now.ToString("dd.MM.yyyy")">
                     <span class="input-group-append">
                         <span class="input-group-text bg-white">
                             <i class="fa fa-calendar"></i>
