@@ -10,7 +10,7 @@ namespace BudgetPlannerMVC.Domain.Model
     {
         public int Id { get; set; }
         public decimal Value { get; set; }
-        public int? TypeId { get; set; }
+        public int TypeId { get; set; }
         public int PlanId { get; set; }
 
         public virtual Type Type { get; set; }

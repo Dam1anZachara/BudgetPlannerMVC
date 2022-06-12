@@ -25,7 +25,7 @@ namespace BudgetPlannerMVC.Application.ViewModels.AmountView
         //[RegularExpression(@"^[0-9]{1,3}([0-9]{3})*\,[0-9]+$", ErrorMessage = "Error")]
         //[DisplayFormat(DataFormatString = "{0:C2}")]
 
-        [DataType(DataType.Currency, ErrorMessage = "...")]
+        [DataType(DataType.Currency)]
         public decimal Value { get; set; }
         public string Description { get; set; }
         public int TypeId { get; set; }

@@ -1,0 +1,39 @@
+﻿@model BudgetPlannerMVC.Application.ViewModels.BudgetStatusView.BudgetStatusVm
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.PlanTypes) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Type.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AmountValues)
+            </td>
+            <td>
+                <div class="progress" style="width: 300px">
+                    <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar" style="width: @Math.Round(item.AmountValues / item.Value * 100)%">
+                        @Math.Round(item.AmountValues / item.Value * 100)%</div>
+                </div>
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Value)
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BudgetPlannerMVC.Application.ViewModels.AmountView
+namespace BudgetPlannerMVC.Application.ViewModels.BudgetStatusView
 {
-    public class SumValuesForListAmountVm
+    public class SumValuesForBudgetStatusVm
     {
         [DataType(DataType.Currency)]
         public decimal SumOfExpenses { get; set; }
@@ -15,5 +15,7 @@ namespace BudgetPlannerMVC.Application.ViewModels.AmountView
         public decimal SumOfIncomes { get; set; }
         [DataType(DataType.Currency)]
         public decimal Balance { get; set; }
+        public decimal SumOfExpOutOfPlan { get; set; }
+        public decimal SumOfIncOutOfPlan { get; set; }
     }
 }

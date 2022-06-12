@@ -12,7 +12,7 @@ namespace BudgetPlannerMVC.Domain.Model
         public DateTime Date { get; set; }
         public decimal Value { get; set; }
         public string Description { get; set; }
-        public int? TypeId { get; set; }
+        public int TypeId { get; set; }
         public int? BudgetUserId { get; set; }
 
         public virtual Type Type { get; set; }
