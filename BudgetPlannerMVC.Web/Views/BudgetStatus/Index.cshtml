@@ -17,20 +17,18 @@
     </thead>
     <tbody>
 @foreach (var item in Model.PlanTypes) {
-        <tr>
-            <td>
+        <tr class="form-inline justify-content-start" style="height: auto">
+            <td class="d-flex">
                 @Html.DisplayFor(modelItem => item.Type.Name)
             </td>
-            <td>
+            <td class="d-flex">
                 @Html.DisplayFor(modelItem => item.AmountValues)
             </td>
-            <td>
-                <div class="progress" style="width: 300px">
+            <td class="d-flex" style="width: 300px">
                     <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar" style="width: @Math.Round(item.AmountValues / item.Value * 100)%">
                         @Math.Round(item.AmountValues / item.Value * 100)%</div>
-                </div>
             </td>
-            <td>
+            <td class="d-flex">
                 @Html.DisplayFor(modelItem => item.Value)
             </td>
         </tr>
