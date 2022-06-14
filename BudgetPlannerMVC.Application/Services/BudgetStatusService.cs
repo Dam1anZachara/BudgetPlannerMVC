@@ -34,7 +34,7 @@ namespace BudgetPlannerMVC.Application.Services
             List<PlanTypeForBudgetStatusVm> planTypes = new List<PlanTypeForBudgetStatusVm>();
             if (plan != null)
             {
-                planTypes = _planTypeRepository.GetAllPlanTypes().Where(pt => pt.PlanId == plan.Id).OrderBy(x => x.TypeId)
+                planTypes = _planTypeRepository.GetAllPlanTypes().Where(pt => pt.PlanId == plan.Id).OrderBy(x => x.Type.AssignId)
                     .ProjectTo<PlanTypeForBudgetStatusVm>(_mapper.ConfigurationProvider).ToList();
                 
                 foreach (var item in planTypes)
@@ -43,6 +43,7 @@ namespace BudgetPlannerMVC.Application.Services
                         .Where(x => x.Date >= plan.DateStart && x.Date <= plan.DateEnd && x.TypeId == item.TypeId)
                         .Sum(v => v.Value);
                     item.AmountValues = sumAmounts;
+                    item.DifferenceValue = item.Value - sumAmounts;
                 }
             }
 

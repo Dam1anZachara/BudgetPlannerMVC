@@ -3,35 +3,128 @@
 @{
     ViewData["Title"] = "Index";
 }
-
-<h1>Index</h1>
-
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model.PlanTypes) {
-        <tr class="form-inline justify-content-start" style="height: auto">
-            <td class="d-flex">
-                @Html.DisplayFor(modelItem => item.Type.Name)
-            </td>
-            <td class="d-flex">
-                @Html.DisplayFor(modelItem => item.AmountValues)
-            </td>
-            <td class="d-flex" style="width: 300px">
-                    <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar" style="width: @Math.Round(item.AmountValues / item.Value * 100)%">
-                        @Math.Round(item.AmountValues / item.Value * 100)%</div>
-            </td>
-            <td class="d-flex">
-                @Html.DisplayFor(modelItem => item.Value)
-            </td>
-        </tr>
+@{
+    var i = 0;
 }
-    </tbody>
-</table>
+@foreach (var item in Model.PlanTypes)
+{
+    if (i == 0)
+    {
+        i++;
+        <h1 class="display-4">@item.Plan.Name</h1>
+        <div style="margin: 20px 0px 20px 0px">
+            <div class="font-weight-bold">
+                Date: @item.Plan.DateStart - @item.Plan.DateEnd
+            </div>
+        </div>
+    }
+    break;
+}
+
+<div class="row">
+    <table class="table">
+        <thead>
+            <tr>
+                <th class="col-2">
+                    Type
+                </th>
+                <th class="col-2">
+                    Assignment
+                </th>
+                <th class="col-2">
+                    Current Value
+                </th>
+                <th class="col-2">
+                    Progress
+                </th>
+                <th class="col-2">
+                    Planned Value
+                </th>
+                <th class="col-2">
+                    Difference
+                </th>
+            </tr>
+
+        </thead>
+        <tbody>
+            @foreach (var item in Model.PlanTypes)
+            {
+                <tr>
+                    @if (item.Type.AssignId == 1)
+                    {
+                        <td class="col-2 text-danger">
+                            @Html.DisplayFor(modelItem => item.Type.Name)
+                        </td>
+                        <td class="col-2 text-danger">
+                            @Html.DisplayFor(modelItem => item.Type.Assign.Name)
+                        </td>
+                        <td class="col-2 text-danger">
+                            @Html.DisplayFor(modelItem => item.AmountValues)
+                        </td>
+                        <td class="col-2" style="margin-left: -20px">
+                            @if (item.AmountValues <= item.Value)
+                            {
+                                <div class="progress">
+                                    <div class="progress-bar bg-success" role="progressbar" style="width: @Math.Round(item.AmountValues / item.Value * 100)%">
+                                        @Math.Round(item.AmountValues / item.Value * 100)%
+                                    </div>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="progress">
+                                    <div class="progress-bar bg-danger" role="progressbar" style="width: @Math.Round(item.AmountValues / item.Value * 100)%">
+                                        @Math.Round(item.AmountValues / item.Value * 100)%
+                                    </div>
+                                </div>
+                            }
+                        </td>
+                        <td class="col-2 text-danger">
+                            @Html.DisplayFor(modelItem => item.Value)
+                        </td>
+                        <td class="col-2 text-danger">
+                            @Html.DisplayFor(modelItem => item.DifferenceValue)
+                        </td>
+                    }
+                    else
+                    {
+                        <td class="col-2 text-success">
+                            @Html.DisplayFor(modelItem => item.Type.Name)
+                        </td>
+                        <td class="col-2 text-success">
+                            @Html.DisplayFor(modelItem => item.Type.Assign.Name)
+                        </td>
+                        <td class="col-2 text-success">
+                            @Html.DisplayFor(modelItem => item.AmountValues)
+                        </td>
+                        <td class="col-2">
+                            @if (item.AmountValues <= item.Value)
+                            {
+                                <div class="progress">
+                                    <div class="progress-bar bg-warning" role="progressbar" style="width: @Math.Round(item.AmountValues / item.Value * 100)%">
+                                        @Math.Round(item.AmountValues / item.Value * 100)%
+                                    </div>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="progress">
+                                    <div class="progress-bar bg-info" role="progressbar" style="width: @Math.Round(item.AmountValues / item.Value * 100)%">
+                                        @Math.Round(item.AmountValues / item.Value * 100)%
+                                    </div>
+                                </div>
+                            }
+                        </td>
+                        <td class="col-2 text-success">
+                            @Html.DisplayFor(modelItem => item.Value)
+                        </td>
+                        <td class="col-2 text-success">
+                            @Html.DisplayFor(modelItem => item.DifferenceValue)
+                        </td>
+                    }
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+

@@ -17,7 +17,10 @@ namespace BudgetPlannerMVC.Application.ViewModels.BudgetStatusView
         public int Id { get; set; }
         [DataType(DataType.Currency)]
         public decimal Value { get; set; }
+        [DataType(DataType.Currency)]
         public decimal AmountValues { get; set; }
+        [DataType(DataType.Currency)]
+        public decimal DifferenceValue { get; set; }
         public int TypeId { get; set; }
         public int PlanId { get; set; }
 
@@ -26,7 +29,8 @@ namespace BudgetPlannerMVC.Application.ViewModels.BudgetStatusView
         public void Mapping(Profile profile)
         {
             profile.CreateMap<PlanType, PlanTypeForBudgetStatusVm>()
-                .ForMember(d => d.AmountValues, opt => opt.Ignore());
+                .ForMember(d => d.AmountValues, opt => opt.Ignore())
+                .ForMember(d => d.DifferenceValue, opt => opt.Ignore());
         }
     }
 }
