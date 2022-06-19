@@ -10,12 +10,22 @@ namespace BudgetPlannerMVC.Application.ViewModels.BudgetStatusView
     public class SumValuesForBudgetStatusVm
     {
         [DataType(DataType.Currency)]
-        public decimal SumOfExpenses { get; set; }
+        public decimal SumOfExpPlan { get; set; }
         [DataType(DataType.Currency)]
-        public decimal SumOfIncomes { get; set; }
+        public decimal SumOfIncPlan { get; set; }
         [DataType(DataType.Currency)]
-        public decimal Balance { get; set; }
+        public decimal BalancePlan { get; set; }
+        [DataType(DataType.Currency)]
         public decimal SumOfExpOutOfPlan { get; set; }
+        [DataType(DataType.Currency)]
         public decimal SumOfIncOutOfPlan { get; set; }
+        [DataType(DataType.Currency)]
+        public decimal BalanceOutOfPlan { get; set; }
+        [DataType(DataType.Currency)]
+        public decimal ExpensesTotal { get; set; }
+        [DataType(DataType.Currency)]
+        public decimal IncomesTotal { get; set; }
+        [DataType(DataType.Currency)]
+        public decimal BalanceTotal { get; set; }
     }
 }

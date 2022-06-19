@@ -6,6 +6,7 @@
 @{
     var i = 0;
 }
+
 @foreach (var item in Model.PlanTypes)
 {
     if (i == 0)
@@ -124,6 +125,68 @@
                     }
                 </tr>
             }
+        </tbody>
+    </table>
+    <table class="table">
+        <thead>
+            <tr>
+                <th class="col-3">
+
+                </th>
+                <th class="col-3">
+                    Expenses
+                </th>
+                <th class="col-3">
+                    Incomes
+                </th>
+                <th class="col-3">
+                    Balance
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+                <tr>
+                    <td class="col-3 font-weight-bold">
+                        In Plan
+                    </td>
+                    <td class="col-3 text-danger">
+                        @Html.DisplayFor(modelItem => Model.SumValues.SumOfExpPlan)
+                    </td>
+                    <td class="col-3 text-success">
+                        @Html.DisplayFor(modelItem => Model.SumValues.SumOfIncPlan)
+                    </td>
+                    <td class="col-3 text-warning">
+                        @Html.DisplayFor(modelItem => Model.SumValues.BalancePlan)
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-3 font-weight-bold">
+                        Out of Plan
+                    </td>
+                    <td class="col-3 text-danger">
+                        @Html.DisplayFor(modelItem => Model.SumValues.SumOfExpOutOfPlan)
+                    </td>
+                    <td class="col-3 text-success">
+                        @Html.DisplayFor(modelItem => Model.SumValues.SumOfIncOutOfPlan)
+                    </td>
+                    <td class="col-3 text-warning">
+                        @Html.DisplayFor(modelItem => Model.SumValues.BalanceOutOfPlan)
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-3 font-weight-bold">
+                        Total
+                    </td>
+                    <td class="col-3 text-danger">
+                        @Html.DisplayFor(modelItem => Model.SumValues.ExpensesTotal)
+                    </td>
+                    <td class="col-3 text-success">
+                        @Html.DisplayFor(modelItem => Model.SumValues.IncomesTotal)
+                    </td>
+                    <td class="col-3 text-warning">
+                        @Html.DisplayFor(modelItem => Model.SumValues.BalanceTotal)
+                    </td>
+                </tr>
         </tbody>
     </table>
 </div>

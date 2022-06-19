@@ -12,7 +12,11 @@ namespace BudgetPlannerMVC.Web.Controllers
         }
         public IActionResult Index()
         {
-            var model = _budgetStatusService.GetBudgetStatusForVm();
+            var plan = _budgetStatusService.GetActivePlanToBudgetStatusVm();    
+            var planTypes = _budgetStatusService.GetPlanTypesOfPlanForBudgetStatusVm(plan);
+            var amounts = _budgetStatusService.GetAmountsOutOfPlan(plan, planTypes);
+            var sumValues = _budgetStatusService.GetSumValuesForBudgetStatusVm(planTypes, amounts);
+            var model = _budgetStatusService.GetBudgetStatusForVm(planTypes, sumValues);
             return View(model);
         }
     }
