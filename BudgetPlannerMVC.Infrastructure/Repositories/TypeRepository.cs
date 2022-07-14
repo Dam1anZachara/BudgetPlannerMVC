@@ -19,10 +19,6 @@ namespace BudgetPlannerMVC.Infrastructure.Repositories
         {
             return _context.Types.OrderBy(p => p.AssignId);
         }
-        public Domain.Model.Type GetType(int typeId) // nieużywane
-        {
-            return _context.Types.FirstOrDefault(p => p.Id == typeId);
-        }
         public int AddType(Domain.Model.Type type)
         {
             _context.Types.Add(type);

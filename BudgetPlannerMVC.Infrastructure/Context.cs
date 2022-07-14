@@ -37,14 +37,12 @@ namespace BudgetPlannerMVC.Infrastructure
                 .HasData(new Domain.Model.Type { Id = 1, AssignId = 1, Name = "General Expenses" });
             builder.Entity<Domain.Model.Type>()
                 .HasData(new Domain.Model.Type { Id = 2, AssignId = 2, Name = "General Incomes" });
-
-
-            //builder.Entity<Amount>()
-            //    .HasOne(a => a.Type).WithMany(t => t.Amounts)
-            //    .HasForeignKey(at => at.TypeId);
-            //builder.Entity<Domain.Model.Type>()
-            //    .HasOne(ta => ta.Assign).WithMany(tp => tp.Types)
-            //    .HasForeignKey(ai => ai.AssignId);
+            builder.Entity<BudgetUser>()
+                .HasData(new BudgetUser { Id = 1, FirstName = "Not assigned" });
+            builder.Entity<ContactDetailType>()
+                .HasData(new ContactDetailType { Id = 1, Name = "Mail" });
+            builder.Entity<ContactDetailType>()
+                .HasData(new ContactDetailType { Id = 2, Name = "Phone Number" });
         }
     }
 }

@@ -4,10 +4,13 @@
     ViewData["Title"] = "EditPlanType";
 }
 
-<h1>Edit PlanType</h1>
+<h1 class="display-4">Edit PlanType</h1>
+<div class="font-weight-bold">
+    @Html.DisplayFor(model => model.Type.Name)
+</div>
 
 <hr />
-<div class="row">
+<div class="row" style="margin-bottom:60px">
     <div class="col-md-4">
         <form asp-action="EditPlanType">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
@@ -20,9 +23,6 @@
                 <span asp-validation-for="Value" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="hidden" asp-for="NameOfType" class="form-control" />
-            </div>
-            <div class="form-group">
                 <input type="hidden" asp-for="TypeId" class="form-control" />
             </div>
             <div class="form-group">
@@ -30,12 +30,9 @@
             </div>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
+                <a class="btn btn-dark" asp-action="Index" asp-route-id="@Model.PlanId">Back to Types</a>
             </div>
         </form>
     </div>
-</div>
-
-<div>
-    <a class="btn btn-dark" asp-action="Index">Back to Plans</a>
 </div>
 

@@ -16,7 +16,7 @@ namespace BudgetPlannerMVC.Web.Controllers
             var planTypes = _budgetStatusService.GetPlanTypesOfPlanForBudgetStatusVm(plan);
             var amounts = _budgetStatusService.GetAmountsOutOfPlan(plan, planTypes);
             var sumValues = _budgetStatusService.GetSumValuesForBudgetStatusVm(planTypes, amounts);
-            var model = _budgetStatusService.GetBudgetStatusForVm(planTypes, sumValues);
+            var model = _budgetStatusService.GetBudgetStatusForVm(planTypes, sumValues, plan);
             return View(model);
         }
     }

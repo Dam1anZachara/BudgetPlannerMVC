@@ -10,9 +10,13 @@ namespace BudgetPlannerMVC.Web.Controllers
     public class AmountController : Controller
     {
         private readonly IAmountService _amountService;
-        public AmountController(IAmountService amountService)
+        private readonly ITypeService _typeService;
+        private readonly IBudgetUserService _budgetUserService;
+        public AmountController(IAmountService amountService, ITypeService typeService, IBudgetUserService budgetUserService)
         {
             _amountService = amountService;
+            _typeService = typeService;
+            _budgetUserService = budgetUserService;
         }
 
         [HttpGet]
@@ -20,97 +24,83 @@ namespace BudgetPlannerMVC.Web.Controllers
         {
             DateTime startDate = new DateTime(year: DateTime.Now.Year, month: DateTime.Now.Month, day: 1);
             DateTime endDate = new DateTime(year: DateTime.Now.Year, month: DateTime.Now.Month, day: DateTime.Now.Day, hour:23, minute: 59, second:59, millisecond:999);
-            var dateSelect = _amountService.GetDateSelect(startDate, endDate);
-
-            var model = _amountService.GetAllAmountsForList(4, 1, "", dateSelect);
-
-            ////TEST FOR INDEX VM without SQL ****************
-            //var assign = new AssignForTypeVm()
-            //{
-            //    Id = 1,
-            //    Name = "ExpenseTest"
-            //};
-            //var type = new TypeForListVm()
-            //{
-            //    Id = 1,
-            //    AssignId = 1,
-            //    Name = "TestNoSQL",
-            //    Assign = assign,
-            //};
-            //var amount = new AmountForListVm()
-            //{
-            //    Id = 1,
-            //    Date = DateTime.Now,
-            //    Type = type,
-            //    TypeId = type.Id,
-            //    Value = 200
-            //};
-            //var listAmount = new List<AmountForListVm>();
-            //listAmount.Add(amount);
-            //var model = new ListAmountForListVm() 
-            //{
-            //    Amounts = listAmount,
-            //    DateSelect = dateSelect
-            //};
-            ////TEST END ************************************
+            var budgetUsers = _budgetUserService.DropDownBudgetUsers();
+            var types = _typeService.DropDownTypes();
+            FilterForAmountForListAmount filterForAmount = new FilterForAmountForListAmount()
+            {
+                SearchTypeId = 0,
+                SearchUserId = 0,
+                BudgetUsers = budgetUsers,
+                Types = types
+            };
+            var dateSelect = _amountService.GetDateSelect(startDate, endDate); 
+            var amounts = _amountService.GetFiltredAmountsForList(filterForAmount, dateSelect);
+            var sumValues = _amountService.GetSumValuesForListAmount(amounts);
+            var typeUserName = _amountService.SelectedUserNameForListAmount(filterForAmount);
+            var model = _amountService.GetAllAmountsForList(6, 1, sumValues, typeUserName, amounts, dateSelect);
+            model.FilterForAmount = filterForAmount;
             return View(model);
         }
         [HttpPost]
-        //public IActionResult Index(int pageSize, int? pageNo, string searchString, DateTime startDate, DateTime endDate)
-        public IActionResult Index(int pageSize, int? pageNo, string searchString, DateSelectForListAmountVm dateSelect)
+        public IActionResult Index(int pageSize, int? pageNo, FilterForAmountForListAmount filterForAmount, DateSelectForListAmountVm dateSelect)
         {
             if (!pageNo.HasValue)
             {
                 pageNo = 1;
             }
-            if (searchString is null)
-            {
-                searchString = String.Empty;
-            }
-            var model = _amountService.GetAllAmountsForList(pageSize, pageNo.Value, searchString, dateSelect);
+            filterForAmount.BudgetUsers = _budgetUserService.DropDownBudgetUsers();
+            filterForAmount.Types = _typeService.DropDownTypes();
+            var amounts = _amountService.GetFiltredAmountsForList(filterForAmount, dateSelect);
+            var sumValues = _amountService.GetSumValuesForListAmount(amounts);
+            var typeUserName = _amountService.SelectedUserNameForListAmount(filterForAmount);
+            var model = _amountService.GetAllAmountsForList(pageSize, pageNo.Value, sumValues, typeUserName, amounts, dateSelect);
+            model.FilterForAmount = filterForAmount;
             return View(model);
         }
         [HttpGet]
         public IActionResult AddAmount()
         {
-            ViewBag.list = _amountService.DropDownTypes();
-            return View(new NewAmountVm());
+            var types = _typeService.DropDownTypes();
+            var budgetUsers = _budgetUserService.DropDownBudgetUsers();
+            var model = new NewAmountVm()
+            {
+                Types = types,
+                BudgetUsers = budgetUsers,
+            };
+            return View(model);
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult AddAmount(NewAmountVm model) // sprawdzić
+        public IActionResult AddAmount(NewAmountVm model)
         {
-            var nameOfType = model.NameOfType;
-            var typeId = _amountService.GetTypeIdByName(nameOfType);
-            model.TypeId = typeId;
             if (ModelState.IsValid)
             {
                 var id = _amountService.AddAmount(model);
                 return RedirectToAction("Index");
             }
-            ViewBag.list = _amountService.DropDownTypes();
+            model.Types = _typeService.DropDownTypes();
+            model.BudgetUsers = _budgetUserService.DropDownBudgetUsers();
             return View(model);
         }
         [HttpGet]
         public IActionResult EditAmount(int id)
         {
-            ViewBag.list = _amountService.DropDownTypes();
             var amount = _amountService.GetAmountForEdit(id);
+            amount.Types = _typeService.DropDownTypes();
+            amount.BudgetUsers = _budgetUserService.DropDownBudgetUsers();
             return View(amount);
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult EditAmount(NewAmountVm model)
         {
-            var nameOfType = model.NameOfType;
-            var typeId = _amountService.GetTypeIdByName(nameOfType);
-            model.TypeId = typeId;
             if (ModelState.IsValid)
             {
                 _amountService.UpdateAmount(model);
                 return RedirectToAction("Index");
             }
-            ViewBag.list = _amountService.DropDownTypes();
+            model.Types = _typeService.DropDownTypes();
+            model.BudgetUsers = _budgetUserService.DropDownBudgetUsers();
             return View(model);
         }
         [HttpGet]

@@ -3,26 +3,19 @@
 @{
     ViewData["Title"] = "Index";
 }
-@{
-    var i = 0;
-}
 
-@foreach (var item in Model.PlanTypes)
-{
-    if (i == 0)
-    {
-        i++;
-        <h1 class="display-4">@item.Plan.Name</h1>
-        <div style="margin: 20px 0px 20px 0px">
-            <div class="font-weight-bold">
-                Date: @item.Plan.DateStart - @item.Plan.DateEnd
-            </div>
+<h1 class="display-4">Plan: @Html.DisplayFor(model => model.ActivePlan.Name)</h1>
+<div style="margin: 20px 0px 20px 0px">
+    <div class="font-weight-bold">
+        <i class="fa fa-calendar" aria-hidden="true"></i>
+        Date: @Html.DisplayFor(model => model.ActivePlan.DateStart) - @Html.DisplayFor(model => model.ActivePlan.DateEnd)
+        <div>
+            <a class="form-inline btn btn-primary" asp-controller="Amount" asp-action="AddAmount" style="margin: 20px 0px 0px 0px">Add Amount</a>
         </div>
-    }
-    break;
-}
+    </div>
+</div>
 
-<div class="row">
+<div class="row" style="margin-bottom:60px">
     <table class="table">
         <thead>
             <tr>
@@ -44,6 +37,9 @@
                 <th class="col-2">
                     Difference
                 </th>
+                <th class="col-2">
+                    Status
+                </th>
             </tr>
 
         </thead>
@@ -62,22 +58,42 @@
                         <td class="col-2 text-danger">
                             @Html.DisplayFor(modelItem => item.AmountValues)
                         </td>
-                        <td class="col-2" style="margin-left: -20px">
-                            @if (item.AmountValues <= item.Value)
+                        <td class="col-2">
+                            @if (item.Value != 0)
                             {
-                                <div class="progress">
-                                    <div class="progress-bar bg-success" role="progressbar" style="width: @Math.Round(item.AmountValues / item.Value * 100)%">
-                                        @Math.Round(item.AmountValues / item.Value * 100)%
+                                @if (item.AmountValues <= item.Value)
+                                {
+                                    <div class="progress" style="margin-top: 6px">
+                                        <div class="progress-bar bg-success" role="progressbar" style="width: @Math.Round(item.AmountValues / item.Value * 100)%">
+                                            @Math.Round(item.AmountValues / item.Value * 100)%
+                                        </div>
                                     </div>
-                                </div>
+                                }
+                                else
+                                {
+                                    <div class="progress" style="margin-top: 6px">
+                                        <div class="progress-bar bg-danger" role="progressbar" style="width: @Math.Round(item.AmountValues / item.Value * 100)%">
+                                            @Math.Round(item.AmountValues / item.Value * 100)%
+                                        </div>
+                                    </div>
+                                }
                             }
                             else
                             {
-                                <div class="progress">
-                                    <div class="progress-bar bg-danger" role="progressbar" style="width: @Math.Round(item.AmountValues / item.Value * 100)%">
-                                        @Math.Round(item.AmountValues / item.Value * 100)%
+                                @if (item.AmountValues <= item.Value)
+                                {
+                                    <div class="progress" style="margin-top: 6px">
+                                        <div class="progress-bar bg-success" role="progressbar" style="width: 100%">
+                                        </div>
                                     </div>
-                                </div>
+                                }
+                                else
+                                {
+                                    <div class="progress" style="margin-top: 6px">
+                                        <div class="progress-bar bg-danger" role="progressbar" style="width: 100%">
+                                        </div>
+                                    </div>
+                                }
                             }
                         </td>
                         <td class="col-2 text-danger">
@@ -86,6 +102,19 @@
                         <td class="col-2 text-danger">
                             @Html.DisplayFor(modelItem => item.DifferenceValue)
                         </td>
+                        @if (item.DifferenceValue >= 0)
+                        {
+                            <td class="col-2">
+                                <i class="fa fa-check-circle-o fa-2x" aria-hidden="true" style="color:green"></i>
+
+                            </td>
+                        }
+                        else
+                        {
+                            <td class="col-2">
+                                <i class="fa fa-times-circle-o fa-2x" aria-hidden="true" style="color:red"></i>
+                            </td>
+                        }
                     }
                     else
                     {
@@ -99,21 +128,41 @@
                             @Html.DisplayFor(modelItem => item.AmountValues)
                         </td>
                         <td class="col-2">
-                            @if (item.AmountValues <= item.Value)
+                            @if (item.Value != 0)
                             {
-                                <div class="progress">
-                                    <div class="progress-bar bg-warning" role="progressbar" style="width: @Math.Round(item.AmountValues / item.Value * 100)%">
-                                        @Math.Round(item.AmountValues / item.Value * 100)%
+                                @if (item.AmountValues < item.Value)
+                                {
+                                    <div class="progress" style="margin-top: 6px">
+                                        <div class="progress-bar bg-danger" role="progressbar" style="width: @Math.Round(item.AmountValues / item.Value * 100)%">
+                                            @Math.Round(item.AmountValues / item.Value * 100)%
+                                        </div>
                                     </div>
-                                </div>
+                                }
+                                else
+                                {
+                                    <div class="progress" style="margin-top: 6px">
+                                        <div class="progress-bar bg-success" role="progressbar" style="width: @Math.Round(item.AmountValues / item.Value * 100)%">
+                                            @Math.Round(item.AmountValues / item.Value * 100)%
+                                        </div>
+                                    </div>
+                                }
                             }
                             else
                             {
-                                <div class="progress">
-                                    <div class="progress-bar bg-info" role="progressbar" style="width: @Math.Round(item.AmountValues / item.Value * 100)%">
-                                        @Math.Round(item.AmountValues / item.Value * 100)%
+                                @if (item.AmountValues < item.Value)
+                                {
+                                    <div class="progress" style="margin-top: 6px">
+                                        <div class="progress-bar bg-danger" role="progressbar" style="width: 100%">
+                                        </div>
                                     </div>
-                                </div>
+                                }
+                                else
+                                {
+                                    <div class="progress" style="margin-top: 6px">
+                                        <div class="progress-bar bg-success" role="progressbar" style="width: 100%">
+                                        </div>
+                                    </div>
+                                }
                             }
                         </td>
                         <td class="col-2 text-success">
@@ -122,6 +171,19 @@
                         <td class="col-2 text-success">
                             @Html.DisplayFor(modelItem => item.DifferenceValue)
                         </td>
+                        @if (item.DifferenceValue <= 0)
+                        {
+                            <td class="col-2">
+                                <i class="fa fa-check-circle-o fa-2x" aria-hidden="true" style="color:green"></i>
+
+                            </td>
+                        }
+                        else
+                        {
+                            <td class="col-2">
+                                <i class="fa fa-times-circle-o fa-2x" aria-hidden="true" style="color:red"></i>
+                            </td>
+                        }
                     }
                 </tr>
             }
@@ -131,7 +193,8 @@
         <thead>
             <tr>
                 <th class="col-3">
-
+                    <i class="fa fa-bar-chart" aria-hidden="true"></i>
+                    BUDGET STATUS
                 </th>
                 <th class="col-3">
                     Expenses
@@ -145,48 +208,48 @@
             </tr>
         </thead>
         <tbody>
-                <tr>
-                    <td class="col-3 font-weight-bold">
-                        In Plan
-                    </td>
-                    <td class="col-3 text-danger">
-                        @Html.DisplayFor(modelItem => Model.SumValues.SumOfExpPlan)
-                    </td>
-                    <td class="col-3 text-success">
-                        @Html.DisplayFor(modelItem => Model.SumValues.SumOfIncPlan)
-                    </td>
-                    <td class="col-3 text-warning">
-                        @Html.DisplayFor(modelItem => Model.SumValues.BalancePlan)
-                    </td>
-                </tr>
-                <tr>
-                    <td class="col-3 font-weight-bold">
-                        Out of Plan
-                    </td>
-                    <td class="col-3 text-danger">
-                        @Html.DisplayFor(modelItem => Model.SumValues.SumOfExpOutOfPlan)
-                    </td>
-                    <td class="col-3 text-success">
-                        @Html.DisplayFor(modelItem => Model.SumValues.SumOfIncOutOfPlan)
-                    </td>
-                    <td class="col-3 text-warning">
-                        @Html.DisplayFor(modelItem => Model.SumValues.BalanceOutOfPlan)
-                    </td>
-                </tr>
-                <tr>
-                    <td class="col-3 font-weight-bold">
-                        Total
-                    </td>
-                    <td class="col-3 text-danger font-weight-bold">
-                        @Html.DisplayFor(modelItem => Model.SumValues.ExpensesTotal)
-                    </td>
-                    <td class="col-3 text-success font-weight-bold">
-                        @Html.DisplayFor(modelItem => Model.SumValues.IncomesTotal)
-                    </td>
-                    <td class="col-3 text-warning font-weight-bold">
-                        @Html.DisplayFor(modelItem => Model.SumValues.BalanceTotal)
-                    </td>
-                </tr>
+            <tr>
+                <td class="col-3 font-weight-bold">
+                    In Plan
+                </td>
+                <td class="col-3 text-danger">
+                    @Html.DisplayFor(modelItem => Model.SumValues.SumOfExpPlan)
+                </td>
+                <td class="col-3 text-success">
+                    @Html.DisplayFor(modelItem => Model.SumValues.SumOfIncPlan)
+                </td>
+                <td class="col-3 text-warning">
+                    @Html.DisplayFor(modelItem => Model.SumValues.BalancePlan)
+                </td>
+            </tr>
+            <tr>
+                <td class="col-3 font-weight-bold">
+                    Out of Plan
+                </td>
+                <td class="col-3 text-danger">
+                    @Html.DisplayFor(modelItem => Model.SumValues.SumOfExpOutOfPlan)
+                </td>
+                <td class="col-3 text-success">
+                    @Html.DisplayFor(modelItem => Model.SumValues.SumOfIncOutOfPlan)
+                </td>
+                <td class="col-3 text-warning">
+                    @Html.DisplayFor(modelItem => Model.SumValues.BalanceOutOfPlan)
+                </td>
+            </tr>
+            <tr>
+                <td class="col-3 font-weight-bold">
+                    Total
+                </td>
+                <td class="col-3 text-danger font-weight-bold">
+                    @Html.DisplayFor(modelItem => Model.SumValues.ExpensesTotal)
+                </td>
+                <td class="col-3 text-success font-weight-bold">
+                    @Html.DisplayFor(modelItem => Model.SumValues.IncomesTotal)
+                </td>
+                <td class="col-3 text-warning font-weight-bold">
+                    @Html.DisplayFor(modelItem => Model.SumValues.BalanceTotal)
+                </td>
+            </tr>
         </tbody>
     </table>
 </div>

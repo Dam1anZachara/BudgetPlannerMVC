@@ -21,25 +21,22 @@ namespace BudgetPlannerMVC.Infrastructure.Repositories
             _context.SaveChanges();
             return planType.Id;
         }
-        public void DeletePlanType(int id)
+        public int DeletePlanType(int id)
         {
             var planType = _context.PlanTypes.Find(id);
+            var planId = planType.PlanId;
             _context.PlanTypes.Remove(planType);
             _context.SaveChanges();
+            return planId;
         }
         public IQueryable<PlanType> GetAllPlanTypes()
         {
             return _context.PlanTypes;
         }
-        public PlanType GetPlanType(int id)
-        {
-            return _context.PlanTypes.FirstOrDefault(p => p.Id == id);
-        }
         public void UpdatePlanType(PlanType planType)
         {
             _context.Attach(planType);
             _context.Entry(planType).Property("Value").IsModified = true;
-            //_context.Entry(planType).Property("TypeId").IsModified = true;
             _context.SaveChanges();
         }
     }

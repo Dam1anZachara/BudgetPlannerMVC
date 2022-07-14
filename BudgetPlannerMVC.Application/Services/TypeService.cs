@@ -57,32 +57,17 @@ namespace BudgetPlannerMVC.Application.Services
             var type = _mapper.Map<Type>(model);
             _typeRepository.UpdateType(type);
         }
-        //public NewTypeVm GetAllAssignsForList(NewTypeVm model)
-        //{
-        //    var assigns = _typeRepository.GetAssigns().
-        //        ProjectTo<AssignForTypeVm>(_mapper.ConfigurationProvider).ToList();
-        //    var assignList = new NewTypeVm()
-        //    {
-        //        Assigns = assigns,
-        //    };
-        //    return assignList;
-        //}
-        public List<string> DropDownAssigns()
+        public IQueryable<TypeVm> DropDownTypes()
         {
-            var assigns = _typeRepository.GetAssigns().
-                ProjectTo<AssignForTypeVm>(_mapper.ConfigurationProvider).ToList();
-            var dropDownAssigns = new List<string>();
-            foreach (var assign in assigns)
-            {
-                dropDownAssigns.Add(assign.Name);
-            }
-            return dropDownAssigns;
+            var types = _typeRepository.GetAllTypes().OrderBy(p => p.Assign.Id)
+                .ProjectTo<TypeVm>(_mapper.ConfigurationProvider);
+            return types;
         }
-        public int GetAssignIdByName(string nameOfAssign)
+        public IQueryable<AssignForTypeVm> DropDownAssigns()
         {
-            var assign = _typeRepository.GetAssigns().First(p => p.Name == nameOfAssign);
-            var result = assign.Id;
-            return result;
+            var assigns = _typeRepository.GetAssigns()
+                .ProjectTo<AssignForTypeVm>(_mapper.ConfigurationProvider);
+            return assigns;
         }
     }
 }

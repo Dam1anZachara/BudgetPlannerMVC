@@ -14,8 +14,5 @@ namespace BudgetPlannerMVC.Domain.Model
         public ContactDetailType ContactDetailType { get; set; }
         public int BudgetUserId { get; set; }
         public BudgetUser BudgetUser { get; set; }
-
-
-
     }
 }

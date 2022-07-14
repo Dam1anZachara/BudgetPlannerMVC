@@ -11,16 +11,15 @@ namespace BudgetPlannerMVC.Web.Controllers
     public class PlanTypeController : Controller
     {
         private readonly IPlanTypeService _planTypeService;
-        private readonly IAmountService _amountService;
-        public PlanTypeController(IPlanTypeService planTypeService, IAmountService amountService)
+
+        public PlanTypeController(IPlanTypeService planTypeService)
         {
             _planTypeService = planTypeService;
-            _amountService = amountService;
         }
         [HttpGet]
         public IActionResult Index(int id)
         {
-            var model = _planTypeService.GetAllPlanTypesForList(4, 1, "", id);
+            var model = _planTypeService.GetAllPlanTypesForList(8, 1, "", id);
             return View(model);
         }
         [HttpPost]
@@ -40,32 +39,28 @@ namespace BudgetPlannerMVC.Web.Controllers
         [HttpGet]
         public IActionResult AddPlanType(int id)
         {
-
-            ViewBag.list = _planTypeService.DropDownTypesForPlan(id); // TYPY bazowe
-            var model = new NewPlanTypeVm(){
-                PlanId = id
+            var planTypes = _planTypeService.DropDownTypesForPlan(id);
+            var model = new NewPlanTypeVm() {
+                PlanId = id,
+                PlanTypes = planTypes
             };
             return View(model);
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult AddPlanType(NewPlanTypeVm model)
+        public IActionResult AddPlanType(NewPlanTypeVm model, int id)
         {
-            var nameOfType = model.NameOfType;
-            var typeId = _amountService.GetTypeIdByName(nameOfType);
-            model.TypeId = typeId;
             if (ModelState.IsValid)
             {
-                var id = _planTypeService.AddPlanType(model);
-                return RedirectToAction("Index", new { id = model.PlanId });
+                var planTypeId = _planTypeService.AddPlanType(model);
+                return RedirectToAction("Index", new { id });
             }
-            ViewBag.list = _planTypeService.DropDownTypesForPlan(model.Plan.Id);
+            model.PlanTypes = _planTypeService.DropDownTypesForPlan(id);
             return View(model);
         }
         [HttpGet]
         public IActionResult EditPlanType(int id)
         {
-            //ViewBag.list = _amountService.DropDownTypes();
             var planType = _planTypeService.GetPlanTypeForEdit(id);
             return View(planType);
         }
@@ -73,15 +68,11 @@ namespace BudgetPlannerMVC.Web.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult EditPlanType(NewPlanTypeVm model)
         {
-            //var nameOfType = model.NameOfType;
-            //var typeId = _amountService.GetTypeIdByName(nameOfType);
-            //model.TypeId = typeId;
             if (ModelState.IsValid)
             {
                 _planTypeService.UpdatePlanType(model);
                 return RedirectToAction("Index", new { id = model.PlanId });
             }
-            //ViewBag.list = _amountService.DropDownTypes();
             return View(model);
         }
         [HttpGet]
@@ -93,13 +84,8 @@ namespace BudgetPlannerMVC.Web.Controllers
         [HttpPost]
         public IActionResult Delete(NewPlanTypeVm model)
         {
-            _planTypeService.DeletePlanType(model.Id);
-            return RedirectToAction("Index", "Plan");
+            var planId = _planTypeService.DeletePlanType(model.Id);
+            return RedirectToAction("Index", new {id = planId});
         }
-        //public IActionResult Details(int id)
-        //{
-        //    var amount = _amountService.GetAmountForEdit(id);
-        //    return View(amount);
-        //}
     }
 }

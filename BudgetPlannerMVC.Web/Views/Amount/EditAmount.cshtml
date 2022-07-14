@@ -7,7 +7,7 @@
 <h1 class="display-4">Edit Amount</h1>
 
 <hr />
-<div class="row">
+<div class="row" style="margin-bottom:60px">
     <div class="col-md-4">
         <form asp-action="EditAmount">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
@@ -16,7 +16,14 @@
             </div>
             <div class="form-group">
                 <label asp-for="Date" class="control-label"></label>
-                <input asp-for="Date" class="form-control" />
+                <div class="input-group date" id="datepickerAdd">
+                    <input type="text" asp-for="Date" class="form-control" id="startDate">
+                    <span class="input-group-append">
+                        <span class="input-group-text bg-white">
+                            <i class="fa fa-calendar"></i>
+                        </span>
+                    </span>
+                </div>
                 <span asp-validation-for="Date" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -25,25 +32,35 @@
                 <span asp-validation-for="Value" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <label class="control-label">Type of Amount</label>
+                @Html.DropDownListFor(model => model.TypeId, new SelectList(Model.Types, "Id", "NameAndAssign"), new { @class = "form-control btn btn-outline-dark dropdown-toggle" })
+                <span asp-validation-for="TypeId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Budget User</label>
+                @Html.DropDownListFor(model => model.BudgetUserID, new SelectList(Model.BudgetUsers, "Id", "FullName"), new { @class = "form-control btn btn-outline-dark dropdown-toggle" })
+                <span asp-validation-for="BudgetUserID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
                 <label asp-for="Description" class="control-label"></label>
-                <input asp-for="Description" class="form-control" />
+                <textarea asp-for="Description" class="form-control"></textarea>
                 <span asp-validation-for="Description" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label class="control-label">Type of Amount</label>
-                @Html.DropDownListFor(model => model.NameOfType, new SelectList(ViewBag.list), new {@class="btn btn-outline-dark dropdown-toggle"})
-            </div>
-            <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
+                <a class="btn btn-dark" asp-action="Index">Back to List</a>
             </div>
         </form>
     </div>
 </div>
 
-<div>
-    <a class="btn btn-dark" asp-action="Index">Back to List</a>
-</div>
-
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+    await Html.RenderPartialAsync("_ValidationScriptsPartial");
+}
+<script type="text/javascript">
+    $(function () {
+        $('#datepickerAdd').datepicker({ format: 'dd.mm.yyyy' });
+    });
+</script>
 }

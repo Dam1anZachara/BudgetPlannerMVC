@@ -10,10 +10,9 @@ namespace BudgetPlannerMVC.Domain.Interfaces
     public interface IAmountRepository
     {
         IQueryable<Amount> GetAllAmounts();
-        Amount GetAmount(int amountId); // nie używane
         int AddAmount(Amount amount);
         void UpdateAmount(Amount amount);
         void DeleteAmount(int id);
-        IQueryable<Domain.Model.Type> GetTypes();
+        public void ChangeBudgetUserInAmountOnDelete(int id);
     }
 }

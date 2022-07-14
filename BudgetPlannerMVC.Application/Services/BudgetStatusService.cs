@@ -27,12 +27,13 @@ namespace BudgetPlannerMVC.Application.Services
             _mapper = mapper;
         }
 
-        public BudgetStatusVm GetBudgetStatusForVm(List<PlanTypeForBudgetStatusVm> planTypes, SumValuesForBudgetStatusVm sumValues)
+        public BudgetStatusVm GetBudgetStatusForVm(List<PlanTypeForBudgetStatusVm> planTypes, SumValuesForBudgetStatusVm sumValues, PlanForListVm plan)
         {
             BudgetStatusVm budgetStatusVm = new BudgetStatusVm()
             {
                 PlanTypes = planTypes,
-                SumValues = sumValues
+                SumValues = sumValues,
+                ActivePlan = plan
             };
             return budgetStatusVm;
         }

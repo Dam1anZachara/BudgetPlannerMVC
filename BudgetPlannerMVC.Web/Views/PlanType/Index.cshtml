@@ -9,7 +9,7 @@
 <p>
     <a class="btn btn-primary" asp-action="AddPlanType" asp-route-id="@Model.PlanId">Add Type to Plan</a>
 </p>
-<form asp-action="Index" asp-controller="PlanType" method="post">
+<form asp-action="Index" asp-controller="PlanType" method="post" style="margin-bottom:60px">
     <div class="form-inline justify-content-start">
         <div class="d-flex" style="margin:10px 20px 20px 0px">
             <div class="d-flex">
@@ -37,59 +37,75 @@
                 </tr>
             </thead>
             <tbody>
-        @foreach (var item in Model.PlanTypes) {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Type.Name)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Type.Assign.Name)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Value)
-                    </td>
-                    <td>
-                        @Html.ActionLink("Edit", "EditPlanType", new { id=item.Id }, new { @class = "btn btn-info" })
-                        @Html.ActionLink("Delete", "Delete", new { id=item.Id }, new { @class = "btn btn-danger" })
-                    </td>
-                </tr>
+                @foreach (var item in Model.PlanTypes)
+                {
+                    <tr>
+                        @if (item.Type.AssignId == 1)
+                        {
+                            <td class="text-danger">
+                                @Html.DisplayFor(modelItem => item.Type.Name)
+                            </td>
+                            <td class="text-danger">
+                                @Html.DisplayFor(modelItem => item.Type.Assign.Name)
+                            </td>
+                            <td class="text-danger">
+                                @Html.DisplayFor(modelItem => item.Value)
+                            </td>
+                        }
+                        else
+                        {
+                            <td class="text-success">
+                                @Html.DisplayFor(modelItem => item.Type.Name)
+                            </td>
+                            <td class="text-success">
+                                @Html.DisplayFor(modelItem => item.Type.Assign.Name)
+                            </td>
+                            <td class="text-success">
+                                @Html.DisplayFor(modelItem => item.Value)
+                            </td>
+                        }
+                        <td>
+                            @Html.ActionLink("Edit", "EditPlanType", new { id=item.Id }, new { @class = "btn btn-info" })
+                            @Html.ActionLink("Delete", "Delete", new { id=item.Id }, new { @class = "btn btn-danger" })
+                        </td>
+                    </tr>
                 }
             </tbody>
         </table>
     </div>
-      <div class="row">
-            <table>
-                <tr>
-                        @for(int i = 1; i <= Math.Ceiling(Model.Count / (double)Model.PageSize); i++)
+    <div class="row">
+        <table>
+            <tr>
+                @for (int i = 1; i <= Math.Ceiling(Model.Count / (double)Model.PageSize); i++)
+                {
+                    <td>
+
+                        @if (i != Model.CurrentPage)
                         {
-                            <td>
-                                
-                                @if (i != Model.CurrentPage)
-                                {
-                                    <a class="badge badge-dark" href="javascript:PagerClick(@i)">@i</a>
-                                }
-                                else
-                                {
-                                    <span class="badge badge-outline-dark">@i</span>
-                                }
-                            </td>
+                            <a class="badge badge-dark" href="javascript:PagerClick(@i)">@i</a>
                         }
-                </tr>
-            </table>
-            <input type="hidden" name="pageNo" id="pageNo" />
-            <input type="hidden" name="pageSize" id="pageSize" value="4" />
-        </div>
-         <div>
-            <a class="btn btn-dark" asp-controller="Plan" asp-action="Index">Back to Plans</a>
-        </div>
+                        else
+                        {
+                            <span class="badge badge-outline-dark">@i</span>
+                        }
+                    </td>
+                }
+            </tr>
+        </table>
+        <input type="hidden" name="pageNo" id="pageNo" />
+        <input type="hidden" name="pageSize" id="pageSize" value="8" />
+    </div>
+    <div>
+        <a class="btn btn-dark" asp-controller="Plan" asp-action="Index">Back to Plans</a>
+    </div>
 </form>
 @section Scripts
 {
-    <script type="text/javascript">
-        function PagerClick(index)
-        {
-            document.getElementById("pageNo").value = index;
-            document.forms[0].submit();
-        }
-    </script>
+<script type="text/javascript">
+    function PagerClick(index)
+    {
+        document.getElementById("pageNo").value = index;
+        document.forms[0].submit();
+    }
+</script>
 }

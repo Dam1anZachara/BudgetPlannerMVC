@@ -2,6 +2,7 @@
 using AutoMapper.QueryableExtensions;
 using BudgetPlannerMVC.Application.Interfaces;
 using BudgetPlannerMVC.Application.ViewModels.AmountView;
+using BudgetPlannerMVC.Application.ViewModels.BudgetUserView;
 using BudgetPlannerMVC.Application.ViewModels.TypeView;
 using BudgetPlannerMVC.Domain.Interfaces;
 using BudgetPlannerMVC.Domain.Model;
@@ -17,12 +18,14 @@ namespace BudgetPlannerMVC.Application.Services
     {
         private readonly IAmountRepository _amountRepository;
         private readonly ITypeRepository _typeRepository;
+        private readonly IBudgetUserRepository _budgetUserRepository;
         private readonly IMapper _mapper;
 
-        public AmountService(IAmountRepository amountRepository, ITypeRepository typeRepository, IMapper mapper)
+        public AmountService(IAmountRepository amountRepository, ITypeRepository typeRepository, IBudgetUserRepository budgetUserRepository, IMapper mapper)
         {
             _amountRepository = amountRepository;
             _typeRepository = typeRepository;
+            _budgetUserRepository = budgetUserRepository;
             _mapper = mapper;
         }
 
@@ -36,28 +39,65 @@ namespace BudgetPlannerMVC.Application.Services
         {
             _amountRepository.DeleteAmount(id);
         }
-        public List<string> DropDownTypes()
-        {
-            //var types = _amountRepository.GetTypes().OrderBy(p => p.Assign.Id).
-            var types = _typeRepository.GetAllTypes().OrderBy(p => p.Assign.Id).
-                ProjectTo<TypeForListVm>(_mapper.ConfigurationProvider).ToList();
-            var dropDownTypes = new List<string>();
-            foreach (var type in types)
-            {
-                dropDownTypes.Add(type.Name + " - " + type.Assign.Name);
-            }
-            return dropDownTypes;
-        }
-        public ListAmountForListVm GetAllAmountsForList(int pageSize, int pageNo, string searchString, DateSelectForListAmountVm dateSelect)
+
+        public List<AmountForListVm> GetFiltredAmountsForList(FilterForAmountForListAmount filterForAmount, DateSelectForListAmountVm dateSelect)
         {
             var startDate = dateSelect.StartDate;
             var endDate = dateSelect.EndDate.AddHours(23).AddMinutes(59).AddSeconds(59).AddMilliseconds(999);
-
-            var amounts = _amountRepository.GetAllAmounts().Where(p => p.Type.Name.StartsWith(searchString))
-                .Where(t => t.Date >= startDate && t.Date <= endDate).OrderBy(d => d.Date)
+            var amounts = _amountRepository.GetAllAmounts()
+                .Where(t => t.Date >= startDate && t.Date <= endDate).OrderByDescending(d => d.Date)
                 .ProjectTo<AmountForListVm>(_mapper.ConfigurationProvider).ToList();
-            var amountsToShow = amounts.Skip(pageSize * (pageNo - 1)).Take(pageSize).ToList();
 
+            var amountsFiltered = new List<AmountForListVm>();
+            if (filterForAmount.SearchTypeId == 0 && filterForAmount.SearchUserId == 0)
+            {
+                amountsFiltered = amounts;  
+            }
+            else if (filterForAmount.SearchTypeId != 0 && filterForAmount.SearchUserId == 0)
+            {
+                amountsFiltered = amounts
+                    .Where(p => p.TypeId == filterForAmount.SearchTypeId).ToList();
+            }
+            else if (filterForAmount.SearchTypeId == 0 && filterForAmount.SearchUserId != 0)
+            {
+                amountsFiltered = amounts.Where(p => p.BudgetUserId == filterForAmount.SearchUserId).ToList();
+            }
+            else
+            {
+                amountsFiltered = amounts.Where(p => p.BudgetUserId == filterForAmount.SearchUserId
+                && p.TypeId == filterForAmount.SearchTypeId).ToList();
+            }
+            return amountsFiltered;
+        }
+        public TypeAndUserSelectedForListAmount SelectedUserNameForListAmount(FilterForAmountForListAmount filterForAmount)
+        {
+            var budgetUser = _budgetUserRepository.GetBudgetUser(filterForAmount.SearchUserId);
+            var budgetUserVm = _mapper.Map<BudgetUserVm>(budgetUser);
+            var budgetUserNameVm = "All Budget Users";
+            if (budgetUserVm != null)
+            {
+                budgetUserNameVm = budgetUserVm.FullName;
+            }
+
+            var types = _typeRepository.GetAllTypes().OrderBy(p => p.Assign.Id)
+                .ProjectTo<TypeVm>(_mapper.ConfigurationProvider);
+            var typeVm = types.FirstOrDefault(t => t.Id == filterForAmount.SearchTypeId);
+
+            var typeNameVm = "All Types";
+            if (typeVm != null)
+            {
+                typeNameVm = typeVm.NameAndAssign;
+            }
+
+            var typeUserName = new TypeAndUserSelectedForListAmount()
+            {
+                SelectedUserName = budgetUserNameVm,
+                SelectedTypeName = typeNameVm
+            };
+            return typeUserName;
+        }
+        public SumValuesForListAmountVm GetSumValuesForListAmount(List<AmountForListVm> amounts)
+        {
             var sumExpenses = amounts.Where(et => et.Type.AssignId == 1).Sum(se => se.Value);
             var sumIncomes = amounts.Where(et => et.Type.AssignId == 2).Sum(se => se.Value);
             var sumValues = new SumValuesForListAmountVm()
@@ -66,18 +106,21 @@ namespace BudgetPlannerMVC.Application.Services
                 SumOfIncomes = sumIncomes,
                 Balance = sumIncomes - sumExpenses
             };
+            return sumValues;
+        }
+        public ListAmountForListVm GetAllAmountsForList(int pageSize, int pageNo, SumValuesForListAmountVm sumValues, TypeAndUserSelectedForListAmount typeUserName, List<AmountForListVm> amounts, DateSelectForListAmountVm dateSelect)
+        {
+            var amountsToShow = amounts.Skip(pageSize * (pageNo - 1)).Take(pageSize).ToList();
 
             var amountList = new ListAmountForListVm()
             {
                 PageSize = pageSize,
                 CurrentPage = pageNo,
-                SearchString = searchString,
                 Amounts = amountsToShow,
                 Count = amounts.Count,
                 DateSelect = dateSelect,
-                //StartDate = startDate,
-                //EndDate = endDate,
-                SumValues = sumValues
+                SumValues = sumValues,
+                TypeUserName = typeUserName
             };
             return amountList;
         }
@@ -95,16 +138,7 @@ namespace BudgetPlannerMVC.Application.Services
                 StartDate = startDate,
                 EndDate = endDate
             };
-            return dateSelect; 
-        }
-        public int GetTypeIdByName(string nameOfType)
-        {
-            var indexOfAssignment = nameOfType.IndexOf("-");
-            var nameOfTypeTrimmed = nameOfType.Remove(indexOfAssignment);
-            //var type = _amountRepository.GetTypes().First(p => p.Name == nameOfTypeTrimmed);
-            var type = _typeRepository.GetAllTypes().First(p => p.Name == nameOfTypeTrimmed);
-            var result = type.Id;
-            return result;
+            return dateSelect;
         }
         public void UpdateAmount(NewAmountVm model)
         {

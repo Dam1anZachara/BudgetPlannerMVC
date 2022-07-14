@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using BudgetPlannerMVC.Application.Interfaces;
+using BudgetPlannerMVC.Application.ViewModels.PlanTypeView;
 using BudgetPlannerMVC.Application.ViewModels.PlanView;
 using BudgetPlannerMVC.Application.ViewModels.TypeView;
 using BudgetPlannerMVC.Domain.Interfaces;
@@ -34,9 +35,10 @@ namespace BudgetPlannerMVC.Application.Services
             var id = _planTypeRepository.AddPlanType(newPlanType);
             return id;
         }
-        public void DeletePlanType(int id)
+        public int DeletePlanType(int id)
         {
-            _planTypeRepository.DeletePlanType(id);
+            var planId = _planTypeRepository.DeletePlanType(id);
+            return planId;
         }
         public ListPlanTypesForListVm GetAllPlanTypesForList(int pageSize, int pageNo, string searchString, int planId)
         {
@@ -45,8 +47,12 @@ namespace BudgetPlannerMVC.Application.Services
                 .ProjectTo<PlanTypeForListVm>(_mapper.ConfigurationProvider).ToList();
             var planTypesToShow = planTypes.Skip(pageSize * (pageNo - 1)).Take(pageSize).ToList();
 
-            var planName = _planRepository.GetPlan(planId).Name;
-
+            var planName = String.Empty;
+            if (planId != 0)
+            {
+                planName = _planRepository.GetPlan(planId).Name;
+            }
+            
             var planTypeList = new ListPlanTypesForListVm()
             {
                 PageSize = pageSize,
@@ -71,14 +77,15 @@ namespace BudgetPlannerMVC.Application.Services
             var planType = _mapper.Map<PlanType>(model);
             _planTypeRepository.UpdatePlanType(planType);
         }
-        public List<string> DropDownTypesForPlan(int id)
+        public List<PlanTypeVm> DropDownTypesForPlan(int id)
         {
             var types = _typeRepository.GetAllTypes().OrderBy(p => p.Assign.Id)
                 .ProjectTo<TypeForListVm>(_mapper.ConfigurationProvider).ToList();
 
             var planTypes = _planTypeRepository.GetAllPlanTypes().Where(p => p.PlanId == id)
-                .ProjectTo<NewPlanTypeVm>(_mapper.ConfigurationProvider).ToList(); ;
-            var dropDownTypes = new List<string>();
+                .ProjectTo<NewPlanTypeVm>(_mapper.ConfigurationProvider).ToList();
+
+            var dropDownTypes = new List<PlanTypeVm>();
 
             foreach (var type in types)
             {
@@ -92,7 +99,10 @@ namespace BudgetPlannerMVC.Application.Services
                 }
                 if (counter == 0)
                 {
-                    dropDownTypes.Add(type.Name + " - " + type.Assign.Name);
+                    var selectedType = _typeRepository.GetAllTypes()
+                        .ProjectTo<PlanTypeVm>(_mapper.ConfigurationProvider);
+                    var selectedTypeVm = selectedType.FirstOrDefault(p => p.Id == type.Id);
+                    dropDownTypes.Add(selectedTypeVm);
                 }
             }
             return dropDownTypes;

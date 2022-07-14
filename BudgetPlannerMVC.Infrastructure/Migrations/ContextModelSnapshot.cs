@@ -128,6 +128,13 @@ namespace BudgetPlannerMVC.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("BudgetUsers");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            FirstName = "Not assigned"
+                        });
                 });
 
             modelBuilder.Entity("BudgetPlannerMVC.Domain.Model.ContactDetail", b =>
@@ -168,6 +175,18 @@ namespace BudgetPlannerMVC.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("ContactDetailTypes");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Mail"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Phone Number"
+                        });
                 });
 
             modelBuilder.Entity("BudgetPlannerMVC.Domain.Model.Plan", b =>

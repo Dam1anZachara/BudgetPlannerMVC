@@ -24,7 +24,15 @@ namespace BudgetPlannerMVC.Application.Services
 
         public int AddPlan(NewPlanVm plan)
         {
-            var newPlan = _mapper.Map<Plan>(plan);
+            NewPlanVm planVm = new NewPlanVm()
+            {
+                Id = plan.Id,
+                Name = plan.Name,
+                IsActive = plan.IsActive,
+                DateStart = plan.DateStart,
+                DateEnd = plan.DateEnd.AddHours(23).AddMinutes(59).AddSeconds(59).AddMilliseconds(999),
+            };
+            var newPlan = _mapper.Map<Plan>(planVm);
             var id = _planRepository.AddPlan(newPlan);
             return id;
         }
@@ -58,7 +66,15 @@ namespace BudgetPlannerMVC.Application.Services
         }
         public void UpdatePlan(NewPlanVm model)
         {
-            var plan = _mapper.Map<Plan>(model);
+            NewPlanVm planVm = new NewPlanVm()
+            {
+                Id = model.Id,
+                Name = model.Name,
+                DateStart = model.DateStart,
+                DateEnd = model.DateEnd.AddHours(23).AddMinutes(59).AddSeconds(59).AddMilliseconds(999),
+                IsActive = model.IsActive,
+            };
+            var plan = _mapper.Map<Plan>(planVm);
             _planRepository.UpdatePlan(plan);
         }
         public void UpdateListOfPlans(ListPlanForListVm plans)

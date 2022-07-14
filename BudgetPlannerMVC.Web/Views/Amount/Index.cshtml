@@ -8,18 +8,13 @@
 
 <p>
     <a class="form-inline btn btn-primary" asp-action="AddAmount" style="margin-top: 10px">Add Amount</a>
-
 </p>
 
-<form asp-action="Index" asp-controller="Amount" method="post">
+<form asp-action="Index" asp-controller="Amount" method="post" style="margin-bottom:60px">
     <div class="form-inline justify-content-start">
         <div class="d-flex" style="margin:10px 20px 20px 0px">
-            @*<div class="d-flex" style="margin-right:15px">
-                    <a class="btn btn-primary" asp-action="AddAmount">Add Amount</a>
-                </div>*@
             <div class="d-flex" style="margin-inline:5px">
                 <label class="my-auto mr-1">From:</label>
-                @*<input type="datetime" asp-for="DateSelect.StartDate" class="form-control" asp-format="{0:yyyy-MM-dd}" id="startDate" />*@
                 <div class="input-group date" id="datepickerStart">
                     <input type="text" asp-for="DateSelect.StartDate" class="form-control" id="startDate" value="@Model.DateSelect.StartDate.ToString("dd.MM.yyyy")">
                     <span class="input-group-append">
@@ -31,7 +26,6 @@
             </div>
             <div class="d-flex" style="margin-inline:5px">
                 <label class="my-auto mr-1">To:</label>
-                @*<input type="datetime" asp-for="DateSelect.EndDate" class="form-control" asp-format="{0:yyyy-MM-dd}" id="endDate" />*@
                 <div class="input-group date" id="datepickerEnd">
                     <input type="text" asp-for="DateSelect.EndDate" class="form-control" id="endDate" value="@Model.DateSelect.EndDate.ToString("dd.MM.yyyy")">
                     <span class="input-group-append">
@@ -41,11 +35,20 @@
                     </span>
                 </div>
             </div>
-            <div class="d-flex text-left" style="margin-left:20px">
-                <input class="form-control form-rounded" type="text" asp-for="SearchString" name="searchString" id="searchString" placeholder="Search by Type" />
+            <div class="d-flex" style="margin-left:20px">
+                <select name="filterForAmount.SearchUserId" id="filterForAmount.SearchUserId" class="form-control btn btn-outline-dark dropdown-toggle" asp-items="@(new SelectList(Model.FilterForAmount.BudgetUsers,"Id", "FullName"))">
+                    <option disabled selected hidden>@Model.TypeUserName.SelectedUserName</option>
+                    <option>All Budget Users</option>
+                </select>
+            </div>
+            <div class="d-flex" style="margin-left:20px">
+                <select name="filterForAmount.SearchTypeId" id="filterForAmount.SearchTypeId" class="form-control btn btn-outline-dark dropdown-toggle" asp-items="@(new SelectList(Model.FilterForAmount.Types,"Id", "NameAndAssign"))">
+                    <option disabled selected hidden>@Model.TypeUserName.SelectedTypeName</option>
+                    <option>All Types</option>
+                </select>
             </div>
             <div class="d-flex" style="margin-inline:5px">
-                <input class="btn btn-outline-dark ml-2" type="submit" value="Search" />
+                <input class="btn btn-outline-dark ml-2" type="submit" value="Find" />
             </div>
         </div>
     </div>
@@ -103,7 +106,7 @@
                             </td>
                         }
 
-                        <td style="width:35%">
+                        <td>
                             @Html.ActionLink("Edit", "EditAmount", new { id = item.Id }, new { @class = "btn btn-info" })
                             @Html.ActionLink("Details", "Details", new { id = item.Id }, new { @class = "btn btn-warning" })
                             @Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { @class = "btn btn-danger" })
@@ -132,53 +135,53 @@
             </tr>
         </table>
         <input type="hidden" name="pageNo" id="pageNo" />
-        <input type="hidden" name="pageSize" id="pageSize" value="4" />
+        <input type="hidden" name="pageSize" id="pageSize" value="6" />
     </div>
     <div class="row">
         <table class="table">
-        <thead>
-            <tr>
-                <th>
-                    Expenses Total
-                </th>
-                <th>
-                    Incomes Total
-                </th>
-                <th>
-                    Balance Total
-                </th>
-            </tr>
-        </thead>
-        <tbody >
-            <tr >
-                <td class="text-danger">
-                    @Html.DisplayFor(model => Model.SumValues.SumOfExpenses)
-                </td>
-                <td class="text-success">
-                    @Html.DisplayFor(model => Model.SumValues.SumOfIncomes)
-                </td>
-                <td class="text-warning">
-                    @Html.DisplayFor(model => Model.SumValues.Balance)
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    </div> 
+            <thead>
+                <tr>
+                    <th>
+                        Expenses Total
+                    </th>
+                    <th>
+                        Incomes Total
+                    </th>
+                    <th>
+                        Balance Total
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="text-danger">
+                        @Html.DisplayFor(model => Model.SumValues.SumOfExpenses)
+                    </td>
+                    <td class="text-success">
+                        @Html.DisplayFor(model => Model.SumValues.SumOfIncomes)
+                    </td>
+                    <td class="text-warning">
+                        @Html.DisplayFor(model => Model.SumValues.Balance)
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 </form>
 
 @section Scripts
 {
-    <script type="text/javascript">
-        function PagerClick(index) {
-            document.getElementById("pageNo").value = index;
-            document.forms[0].submit();
-        }
-    </script>
+<script type="text/javascript">
+    function PagerClick(index) {
+        document.getElementById("pageNo").value = index;
+        document.forms[0].submit();
+    }
+</script>
 
-    <script type="text/javascript">
-        $(function () {
-            $('#datepickerStart').datepicker({ format: 'dd.mm.yyyy' });
-            $('#datepickerEnd').datepicker({ format: 'dd.mm.yyyy' });
-        });
-    </script>
+<script type="text/javascript">
+    $(function () {
+        $('#datepickerStart').datepicker({ format: 'dd.mm.yyyy' });
+        $('#datepickerEnd').datepicker({ format: 'dd.mm.yyyy' });
+    });
+</script>
 }

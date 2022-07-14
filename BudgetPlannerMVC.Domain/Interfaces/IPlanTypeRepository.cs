@@ -10,9 +10,8 @@ namespace BudgetPlannerMVC.Domain.Interfaces
     public interface IPlanTypeRepository
     {
         int AddPlanType(PlanType planType);
-        void DeletePlanType(int id);
+        int DeletePlanType(int id);
         IQueryable<PlanType> GetAllPlanTypes();
-        PlanType GetPlanType(int id);
         void UpdatePlanType(PlanType planType);
     }
 }

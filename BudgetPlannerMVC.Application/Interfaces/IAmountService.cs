@@ -9,13 +9,14 @@ namespace BudgetPlannerMVC.Application.Interfaces
 {
     public interface IAmountService
     {
-        ListAmountForListVm GetAllAmountsForList(int pageSize, int pageNo, string searchString, DateSelectForListAmountVm dateSelect);
         int AddAmount(NewAmountVm amount);
-        List<string> DropDownTypes();
-        int GetTypeIdByName(string nameOfType);
+        void DeleteAmount(int id);
+        List<AmountForListVm> GetFiltredAmountsForList(FilterForAmountForListAmount filterForAmount, DateSelectForListAmountVm dateSelect);
+        TypeAndUserSelectedForListAmount SelectedUserNameForListAmount(FilterForAmountForListAmount filterForAmount);
+        SumValuesForListAmountVm GetSumValuesForListAmount(List<AmountForListVm> amounts);
+        ListAmountForListVm GetAllAmountsForList(int pageSize, int pageNo, SumValuesForListAmountVm sumValues, TypeAndUserSelectedForListAmount typeUserName, List<AmountForListVm> amounts, DateSelectForListAmountVm dateSelect);
         NewAmountVm GetAmountForEdit(int id);
         void UpdateAmount(NewAmountVm amount);
-        void DeleteAmount(int id);
         DateSelectForListAmountVm GetDateSelect(DateTime startDate, DateTime endDate);
     }
 }

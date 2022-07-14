@@ -46,7 +46,7 @@ namespace BudgetPlannerMVC.Web
             {
                 //fv.DisableDataAnnotationsValidation = true;
                 //fv.ConfigureClientsideValidation(enabled: true);
-                //fv.ImplicitlyValidateChildProperties = false;
+                //fv.ImplicitlyValidateChildProperties = true;
             });
         }
 

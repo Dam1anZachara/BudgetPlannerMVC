@@ -17,7 +17,7 @@ namespace BudgetPlannerMVC.Web.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-            var model = _typeService.GetAllTypesForList(2, 1, "");
+            var model = _typeService.GetAllTypesForList(8, 1, "");
             return View(model);
         }
         [HttpPost]
@@ -38,44 +38,42 @@ namespace BudgetPlannerMVC.Web.Controllers
         [HttpGet]
         public IActionResult AddType()
         {
-            ViewBag.list = _typeService.DropDownAssigns();
-            return View(new NewTypeVm());
+            var assigns = _typeService.DropDownAssigns();
+            var model = new NewTypeVm()
+            {
+                Assigns = assigns
+            };
+            return View(model);
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult AddType(NewTypeVm model)
         {
-            var nameOfAssign = model.NameOfAssign;
-            var assignId = _typeService.GetAssignIdByName(nameOfAssign);
-            model.AssignId = assignId;
             if (ModelState.IsValid)
             {
                 var id = _typeService.AddType(model);
                 return RedirectToAction("Index");
             }
-            ViewBag.list = _typeService.DropDownAssigns();
+            model.Assigns = _typeService.DropDownAssigns();
             return View(model);
         }
         [HttpGet]
         public IActionResult EditType(int id)
         {
-            ViewBag.list = _typeService.DropDownAssigns();
             var type = _typeService.GetTypeForEdit(id);
+            type.Assigns = _typeService.DropDownAssigns();
             return View(type);
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult EditType(NewTypeVm model)
         {
-            var nameOfAssign = model.NameOfAssign;
-            var assignId = _typeService.GetAssignIdByName(nameOfAssign);
-            model.AssignId = assignId;
             if (ModelState.IsValid)
             {
                 _typeService.UpdateType(model);
                 return RedirectToAction("Index");
             }
-            ViewBag.list = _typeService.DropDownAssigns();
+            model.Assigns = _typeService.DropDownAssigns();
             return View(model);
         }
         [HttpGet]

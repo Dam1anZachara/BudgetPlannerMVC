@@ -31,14 +31,14 @@ namespace BudgetPlannerMVC.Infrastructure.Repositories
         {
             return _context.Amounts;
         }
-
-        public Amount GetAmount(int id)
+        public void ChangeBudgetUserInAmountOnDelete(int id)
         {
-            return _context.Amounts.FirstOrDefault(p => p.Id == id);
-        }
-        public IQueryable<Domain.Model.Type> GetTypes()
-        {
-            return _context.Types;
+            var amounts = _context.Amounts.Where(p => p.BudgetUserId == id).ToList();
+            foreach (var amount in amounts)
+            {
+                amount.BudgetUserId = 1;
+                _context.SaveChanges();
+            }
         }
         public void UpdateAmount(Amount amount)
         {
@@ -47,6 +47,7 @@ namespace BudgetPlannerMVC.Infrastructure.Repositories
             _context.Entry(amount).Property("Value").IsModified = true;
             _context.Entry(amount).Property("Description").IsModified = true;
             _context.Entry(amount).Property("TypeId").IsModified = true;
+            _context.Entry(amount).Property("BudgetUserId").IsModified = true;
             _context.SaveChanges();
         }
     }

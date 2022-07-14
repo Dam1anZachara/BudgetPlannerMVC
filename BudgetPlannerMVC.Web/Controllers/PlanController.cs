@@ -15,7 +15,7 @@ namespace BudgetPlannerMVC.Web.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-            var model = _planService.GetAllPlansForList(4, 1, "");
+            var model = _planService.GetAllPlansForList(8, 1, "");
             return View(model);
         }
         [HttpPost]
@@ -35,28 +35,22 @@ namespace BudgetPlannerMVC.Web.Controllers
         [HttpGet]
         public IActionResult AddPlan()
         {
-            //ViewBag.list = _typeService.DropDownAssigns();
             return View(new NewPlanVm());
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult AddPlan(NewPlanVm model)
         {
-            //var nameOfAssign = model.NameOfAssign;
-            //var assignId = _typeService.GetAssignIdByName(nameOfAssign);
-            //model.AssignId = assignId;
             if (ModelState.IsValid)
             {
                 var id = _planService.AddPlan(model);
                 return RedirectToAction("Index");
             }
-            //ViewBag.list = _typeService.DropDownAssigns();
             return View(model);
         }
         [HttpGet]
         public IActionResult EditPlan(int id)
         {
-            //ViewBag.list = _typeService.DropDownAssigns();
             var plan = _planService.GetPlanForEdit(id);
             return View(plan);
         }
@@ -64,15 +58,11 @@ namespace BudgetPlannerMVC.Web.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult EditPlan(NewPlanVm model)
         {
-            //var nameOfAssign = model.NameOfAssign;
-            //var assignId = _typeService.GetAssignIdByName(nameOfAssign);
-            //model.AssignId = assignId;
             if (ModelState.IsValid)
             {
                 _planService.UpdatePlan(model);
                 return RedirectToAction("Index");
             }
-            //ViewBag.list = _typeService.DropDownAssigns();
             return View(model);
         }
         [HttpGet]

@@ -12,5 +12,6 @@ namespace BudgetPlannerMVC.Application.ViewModels.BudgetStatusView
     {
         public SumValuesForBudgetStatusVm SumValues { get; set; }
         public List<PlanTypeForBudgetStatusVm> PlanTypes { get; set; }
+        public PlanForListVm ActivePlan { get; set; }
     }
 }

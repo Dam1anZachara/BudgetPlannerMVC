@@ -3,6 +3,7 @@ using BudgetPlannerMVC.Application.Mapping;
 using FluentValidation;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace BudgetPlannerMVC.Application.ViewModels.TypeView
 {
@@ -12,9 +13,8 @@ namespace BudgetPlannerMVC.Application.ViewModels.TypeView
         public string Name { get; set; }
         public string Description { get; set; }
         public int AssignId { get; set; }
-        public string NameOfAssign { get; set; }
         public AssignForTypeVm Assign { get; set; }
-        //public List<AssignForTypeVm> Assigns { get; set; } // do usunięcia?
+        public IQueryable<AssignForTypeVm> Assigns { get; set; }
         public void Mapping(Profile profile)
         {
             profile.CreateMap<NewTypeVm, Domain.Model.Type>().ReverseMap();
@@ -25,11 +25,8 @@ namespace BudgetPlannerMVC.Application.ViewModels.TypeView
     {
         public NewTypeValidation()
         {
-            RuleFor(x => x.Id).NotNull();
-            When(x => x.Name == null, () => { RuleFor(x => x.Name).NotEmpty().WithMessage("Name can't be empty"); })
-                .Otherwise(() => RuleFor(x => x.Name)
-                .Must(name => !name.Contains("-")).WithMessage("Name can't contains \"-\"")
-                .MaximumLength(20).WithMessage("Name can't be more than 20 characters"));
+            RuleFor(x => x.Name).NotEmpty().WithMessage("Name can't be empty")
+                .MaximumLength(26).WithMessage("Name can't be more than 26 characters");
             RuleFor(x => x.Description).MaximumLength(255).WithMessage("Description can't be more than 255 characters");
             RuleFor(x => x.AssignId).NotNull();
         }

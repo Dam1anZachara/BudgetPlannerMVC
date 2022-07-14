@@ -15,10 +15,11 @@ namespace BudgetPlannerMVC.Application.ViewModels.AmountView
     {
         public int Id { get; set; }
         public DateTime Date { get; set; }
-        [DataType(DataType.Currency, ErrorMessage = "...")]
+        [DataType(DataType.Currency)]
         public decimal Value { get; set; }
         public string Description { get; set; }
         public int TypeId { get; set; }
+        public int? BudgetUserId { get; set; }
         public TypeForListVm Type { get; set; }
         public void Mapping(Profile profile)
         {

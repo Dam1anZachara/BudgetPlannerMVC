@@ -11,7 +11,7 @@ namespace BudgetPlannerMVC.Application.Interfaces
 {
     public interface IBudgetStatusService
     {
-        BudgetStatusVm GetBudgetStatusForVm(List<PlanTypeForBudgetStatusVm> planTypes, SumValuesForBudgetStatusVm sumValues);
+        BudgetStatusVm GetBudgetStatusForVm(List<PlanTypeForBudgetStatusVm> planTypes, SumValuesForBudgetStatusVm sumValues, PlanForListVm plan);
         PlanForListVm GetActivePlanToBudgetStatusVm();
         List<PlanTypeForBudgetStatusVm> GetPlanTypesOfPlanForBudgetStatusVm(PlanForListVm plan);
         SumValuesForBudgetStatusVm GetSumValuesForBudgetStatusVm(List<PlanTypeForBudgetStatusVm> planTypes, List<AmountForListVm> amounts);

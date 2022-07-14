@@ -7,7 +7,7 @@
 <h1 class="display-4">Add Type</h1>
 
 <hr />
-<div class="row">
+<div class="row" style="margin-bottom:60px">
     <div class="col-md-4">
         <form asp-action="AddType">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
@@ -21,8 +21,8 @@
             </div>
             <div class="form-group">
                 <label class="control-label">Assignment</label>
-                @*<select asp-for="AssignId" class="form-control" asp-items="@(new SelectList(Model.Assigns,"Id", "Name"))"></select>*@
-                @Html.DropDownListFor(model => model.NameOfAssign, new SelectList(ViewBag.list), new { @class = "btn btn-outline-dark dropdown-toggle" })
+                @Html.DropDownListFor(model => model.AssignId, new SelectList(Model.Assigns, "Id", "Name"), new { @class = "form-control btn btn-outline-dark dropdown-toggle" })
+                <span asp-validation-for="AssignId" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Description" class="control-label"></label>
@@ -31,15 +31,14 @@
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
+                <a class="btn btn-dark" asp-action="Index">Back to Configuration</a>
             </div>
         </form>
     </div>
 </div>
 
-<div>
-    <a class="btn btn-dark" asp-action="Index">Back to Configuration</a>
-</div>
-
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+    await Html.RenderPartialAsync("_ValidationScriptsPartial");
+}
 }
