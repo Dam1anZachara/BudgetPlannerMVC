@@ -26,13 +26,7 @@ namespace BudgetPlannerMVC.Application.Services
         }
         public int AddBudgetUser(NewBudgetUserVm budgetUser)
         {
-            var newBudgetUser = new BudgetUser()
-            {
-                Id = budgetUser.Id,
-                FirstName = budgetUser.FirstName,
-                LastName = budgetUser.LastName,
-            };
-            //var newBudgetUser = _mapper.Map<BudgetUser>(budgetUser); // nie działa mapa // map doesn't work
+            var newBudgetUser = _mapper.Map<BudgetUser>(budgetUser);
             var id = _budgetUserRepository.AddBudgetUser(newBudgetUser);
             return id;
         }
@@ -42,21 +36,6 @@ namespace BudgetPlannerMVC.Application.Services
             var newAddress = _mapper.Map<Address>(budgetUser.Address);
             var addressId = _budgetUserRepository.AddAddres(newAddress);
             return addressId;
-        }
-        public void AddContactDetailsForBudgetUserAdd(NewBudgetUserVm budgetUser, int budgetUserId)
-        {
-            foreach (var contactDetail in budgetUser.ContactDetails)
-            {
-                var newContactDetail = new ContactDetail()
-                {
-                    BudgetUserId = budgetUserId,
-                    ContactDetailTypeId = contactDetail.ContactDetailTypeId,
-                    ContactDetailInformation = contactDetail.ContactDetailInformation,
-                };
-                //contactDetail.BudgetUserId = budgetUserId;
-                //var newContactDetail = _mapper.Map<ContactDetail>(contactDetail); // nie działa mapa // map doesn't work
-                var contactId = _budgetUserRepository.AddContactDetail(newContactDetail);
-            }
         }
         public int CountContactDetailsForAddBudgetUser(NewBudgetUserVm budgetUser, string addContact, string removeContact)
         {
@@ -115,19 +94,10 @@ namespace BudgetPlannerMVC.Application.Services
         }
         public void UpdateBudgetUser(NewBudgetUserVm model)
         {
-            var budgetUser = new BudgetUser()
-            {
-                Id = model.Id,
-                FirstName = model.FirstName,
-                LastName = model.LastName,
-            };
-            //var budgetUser = _mapper.Map<BudgetUser>(model);
+            var budgetUser = _mapper.Map<BudgetUser>(model);
             _budgetUserRepository.UpdateBudgetUser(budgetUser);
-        }
-        public void UpdateAdressForBudgetUser(NewBudgetUserVm model)
-        {
-            var address = _mapper.Map<Address>(model.Address);
-            _budgetUserRepository.UpdateAddressForBudgetUser(address);
+            UpdateAdressForBudgetUser(model);
+            AddDeleteContactDetailsForBudgetUserEdit(model);
         }
         public IQueryable<ContactDetailTypeVm> DropDownContactDetailTypes()
         {
@@ -135,19 +105,25 @@ namespace BudgetPlannerMVC.Application.Services
                 .ProjectTo<ContactDetailTypeVm>(_mapper.ConfigurationProvider);
             return detailTypesVm;
         }
-        public void AddDeleteUpdateContactDetailsForBudgetUserEdit(NewBudgetUserVm model)
+        private void UpdateAdressForBudgetUser(NewBudgetUserVm model)
         {
-            var allContactDetails = _budgetUserRepository.GetAllContactDetails().Where(p => p.BudgetUserId == model.Id)
-                .ProjectTo<ContactDetailVm>(_mapper.ConfigurationProvider).ToList();
+            var address = _mapper.Map<Address>(model.Address);
+            _budgetUserRepository.UpdateAddressForBudgetUser(address);
+        }
+        private void AddDeleteContactDetailsForBudgetUserEdit(NewBudgetUserVm model)
+        {
+            var allContactDetails = AllContactDetailsForBudgetUserEdit(model);
             if (model.ContactDetails.Count != allContactDetails.Count)
             {
                 DeleteContactDetailsForBudgetUserEdit(allContactDetails);
                 AddContactDetailsForBudgetUserEdit(model);
             }
-            else
-            {
-                UpdateContactDetailsForBudgetUserEdit(model);
-            }
+        }
+        private List<ContactDetailVm> AllContactDetailsForBudgetUserEdit(NewBudgetUserVm model)
+        {
+            var allContactDetails = _budgetUserRepository.GetAllContactDetails().Where(p => p.BudgetUserId == model.Id)
+                .ProjectTo<ContactDetailVm>(_mapper.ConfigurationProvider).ToList();
+            return allContactDetails;
         }
         private void DeleteContactDetailsForBudgetUserEdit(List<ContactDetailVm> allContactDetails)
         {
@@ -160,27 +136,10 @@ namespace BudgetPlannerMVC.Application.Services
         {
             foreach (var newContact in model.ContactDetails)
             {
-                var newContactDetail = new ContactDetail()
-                {
-                    BudgetUserId = model.Id,
-                    ContactDetailTypeId = newContact.ContactDetailTypeId,
-                    ContactDetailInformation = newContact.ContactDetailInformation,
-                };
+                newContact.Id = 0;
+                newContact.BudgetUserId = model.Id;
+                var newContactDetail = _mapper.Map<ContactDetail>(newContact);
                 var contactId = _budgetUserRepository.AddContactDetail(newContactDetail);
-            }
-        }
-        private void UpdateContactDetailsForBudgetUserEdit(NewBudgetUserVm model)
-        {
-            foreach (var item in model.ContactDetails)
-            {
-                var contactDetail = new ContactDetail()
-                {
-                    Id = item.Id,
-                    BudgetUserId = model.Id,
-                    ContactDetailTypeId = item.ContactDetailTypeId,
-                    ContactDetailInformation = item.ContactDetailInformation,
-                };
-                _budgetUserRepository.UpdateContactDetailsForBudgetUser(contactDetail);
             }
         }
     }

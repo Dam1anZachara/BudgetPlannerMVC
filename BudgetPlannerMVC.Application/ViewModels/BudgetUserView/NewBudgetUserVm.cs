@@ -25,10 +25,7 @@ namespace BudgetPlannerMVC.Application.ViewModels.BudgetUserView
         public void Mapping(Profile profile)
         {
             profile.CreateMap<NewBudgetUserVm, BudgetUser>().ReverseMap()
-                .ForMember(d => d.CountContactDetailsType, opt => opt.Ignore());
-            //.ForMember(d => d.Address, opt => opt.MapFrom(s => s.Addresses.First(p => p.BudgetUserId == Id)));
-            //.ForMember(d => d.ContactDetails, opt => opt.Ignore())
-            //.ForMember(d => d.ContactDetailTypes, opt => opt.Ignore());    
+                .ForMember(d => d.CountContactDetailsType, opt => opt.Ignore()); 
         }
         public class NewBudgetUserValidation : AbstractValidator<NewBudgetUserVm>
         {

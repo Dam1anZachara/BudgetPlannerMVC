@@ -1,5 +1,6 @@
 ﻿using BudgetPlannerMVC.Domain.Interfaces;
 using BudgetPlannerMVC.Domain.Model;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -37,7 +38,6 @@ namespace BudgetPlannerMVC.Infrastructure.Repositories
         {
             return _context.BudgetUsers;
         }
-
         public BudgetUser GetBudgetUser(int id)
         {
             return _context.BudgetUsers.FirstOrDefault(p => p.Id == id);
@@ -47,6 +47,11 @@ namespace BudgetPlannerMVC.Infrastructure.Repositories
             _context.Attach(budgetUser);
             _context.Entry(budgetUser).Property("FirstName").IsModified = true;
             _context.Entry(budgetUser).Property("LastName").IsModified = true;
+            foreach (var item in budgetUser.ContactDetails)
+            {
+                _context.Entry(item).Property("ContactDetailInformation").IsModified = true;
+                _context.Entry(item).Property("ContactDetailTypeId").IsModified = true;
+            }
             _context.SaveChanges();
         }
         public IQueryable<ContactDetail> GetAllContactDetails()
@@ -79,13 +84,6 @@ namespace BudgetPlannerMVC.Infrastructure.Repositories
             _context.ContactDetails.Add(contactDetail);
             _context.SaveChanges();
             return contactDetail.Id;
-        }
-        public void UpdateContactDetailsForBudgetUser(ContactDetail contactDetail)
-        {
-            _context.Attach(contactDetail);
-            _context.Entry(contactDetail).Property("ContactDetailInformation").IsModified = true;
-            _context.Entry(contactDetail).Property("ContactDetailTypeId").IsModified = true;
-            _context.SaveChanges();
         }
     }
 }

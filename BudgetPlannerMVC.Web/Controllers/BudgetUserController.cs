@@ -52,7 +52,6 @@ namespace BudgetPlannerMVC.Web.Controllers
             {
                 var id = _budgetUserService.AddBudgetUser(model);
                 var addressId = _budgetUserService.AddAddressForBudgetUser(model, id);
-                _budgetUserService.AddContactDetailsForBudgetUserAdd(model, id);
                 return RedirectToAction("Index");
             }
             var allContactTypes = _budgetUserService.CountContactDetailsForAddBudgetUser(model, addContact, removeContact);
@@ -75,8 +74,6 @@ namespace BudgetPlannerMVC.Web.Controllers
             if (ModelState.IsValid && addContact == null && removeContact == null)
             {
                 _budgetUserService.UpdateBudgetUser(model);
-                _budgetUserService.UpdateAdressForBudgetUser(model);
-                _budgetUserService.AddDeleteUpdateContactDetailsForBudgetUserEdit(model);
                 return RedirectToAction("Index");
             }
             var allContactTypes = _budgetUserService.CountContactDetailsForAddBudgetUser(model, addContact, removeContact);

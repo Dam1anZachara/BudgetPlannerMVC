@@ -22,7 +22,6 @@ namespace BudgetPlannerMVC.Application.ViewModels.BudgetUserView
         public void Mapping(Profile profile)
         {
             profile.CreateMap<ContactDetailVm, ContactDetail>().ReverseMap();
-            //.ForMember(d => d.Type, opt => opt.Ignore());
         }
         public class NewContactDetailValidation : AbstractValidator<ContactDetailVm>
         {

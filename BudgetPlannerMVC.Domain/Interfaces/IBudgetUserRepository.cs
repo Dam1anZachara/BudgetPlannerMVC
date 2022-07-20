@@ -20,6 +20,5 @@ namespace BudgetPlannerMVC.Domain.Interfaces
         int AddAddres(Address address);
         void UpdateAddressForBudgetUser(Address address);
         int AddContactDetail(ContactDetail contactDetail);
-        void UpdateContactDetailsForBudgetUser(ContactDetail contactDetail);
     }
 }
