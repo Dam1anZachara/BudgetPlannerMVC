@@ -29,8 +29,6 @@ namespace BudgetPlannerMVC.Application.ViewModels.AmountView
         public void Mapping(Profile profile)
         {
             profile.CreateMap<NewAmountVm, Amount>().ReverseMap();
-            //.ForMember(d => d.NameOfType, opt => opt.Ignore())
-            //.ForMember(d => d.Type, opt => opt.Ignore());
         }
         public class NewAmountValidation : AbstractValidator<NewAmountVm>
         {
@@ -38,7 +36,8 @@ namespace BudgetPlannerMVC.Application.ViewModels.AmountView
             {
                 RuleFor(x => x.Id).NotNull();
                 RuleFor(x => x.Date).NotNull();
-                RuleFor(x => x.Value).NotEmpty().WithMessage("Value can't be empty");
+                RuleFor(x => x.Value).NotEmpty().WithMessage("Value can't be empty")
+                    .ScalePrecision(2, 18, true).WithMessage("Wrong format for \"Value\"");
                 RuleFor(x => x.Description).MaximumLength(255).WithMessage("Description can't be more than 255 characters");
                 RuleFor(x => x.TypeId).NotNull();
             }

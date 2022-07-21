@@ -31,13 +31,11 @@
                 string valueContactType = $"Contact Type {i + 1}";
                 <div class="form-group">
                     <label class="control-label">@valueContactType</label>
-@*                    <input type="hidden" asp-for="ContactDetails[i].Id" class="form-control" />*@
                     @Html.DropDownListFor(model => model.ContactDetails[i].ContactDetailTypeId, new SelectList(Model.ContactDetailTypes, "Id", "Name"), new { @class = "form-control btn btn-outline-dark dropdown-toggle" })
                     <input asp-for="ContactDetails[i].ContactDetailInformation" class="form-control" placeholder="Write contact information" style="margin-top: 20px" />
                     <span asp-validation-for="ContactDetails[i].ContactDetailInformation" class="text-danger"></span>
                 </div>
             }
-
             <div class="form-group">
                 <input type="hidden" asp-for="CountContactDetailsType" class="form-control" id="countContactType" value="@Model.CountContactDetailsType">
                 <input asp-action="AddBudgetUser" type="submit" class="btn btn-info" name="addContact" value="Add Contact" />

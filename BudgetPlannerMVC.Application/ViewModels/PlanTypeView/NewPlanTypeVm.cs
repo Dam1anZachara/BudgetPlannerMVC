@@ -31,7 +31,7 @@ namespace BudgetPlannerMVC.Application.ViewModels.PlanView
         {
             public NewPlanTypeValidation()
             {
-                //RuleFor(x => x.Value).NotNull().WithMessage("Value can't be empty");
+                RuleFor(x => x.Value).ScalePrecision(2, 18, true).WithMessage("Wrong format for \"Value\"");
             }
         }
     }
