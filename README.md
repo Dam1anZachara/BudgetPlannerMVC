@@ -6,7 +6,7 @@
 
 In **_"Budget Configuration"_** we can create, edit and delete types to which we will assign amounts, e.g. "Food, cosmetics, clothes, work, etc." and assign them to "Expenses" or to "Incomes".
 <br> By default, the program creates **_"General Expenses"_** and **_"General Incomes"_**. </br>
-![IndexConfiguration](https://user-images.githubusercontent.com/95985120/179177404-26e5557b-e715-438f-8bff-ac9bc74b15be.png)
+![IndexConfiguration2](https://user-images.githubusercontent.com/95985120/180277342-15a841d1-9012-4a77-b31d-1e7731fc4669.png)
 
 ### **2.	Budget Users**
 
