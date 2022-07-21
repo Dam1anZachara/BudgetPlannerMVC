@@ -19,7 +19,7 @@ In **_"Budget Users"_** we can add, delete, edit, users who will use the budget.
 
 In the tab **_"Plan"_** we can create, edit, delete a plan in any time range.
 <br> It can be a plan for each month or, for example, annual or quarterly. </br>
-![IndexPlan](https://user-images.githubusercontent.com/95985120/179177962-4a5e43a8-4225-4136-a569-c73bb8cb1b8b.png)
+![IndexPlan2](https://user-images.githubusercontent.com/95985120/180275174-65a381f8-741b-4060-87b4-502fb6d5db5c.png)
 <br> After entering the button **_"Configuration"_** in a given plan, we can add, delete, edit the types of expenses that have been created in the **_"Budget Configuration"_** tab and enter the value of the amount we want to allocate for this expense. </br>
 ![IndexPlanTypeConfiguration](https://user-images.githubusercontent.com/95985120/179178008-5c15e227-2a96-43b8-b905-285224015f66.png)
 
@@ -40,7 +40,7 @@ In the **_"Budget Status"_** tab, the active plan created in **_"Plan"_** is dis
 ![BudgetStatus1](https://user-images.githubusercontent.com/95985120/179179472-a85dc5ad-a9ae-4d5d-9acf-65454cd4e6a3.jpg)
 
 If we exceed the expenses in the plan, the status red **_"X"_** will be displayed.
-![BudgetStatusUndone](https://user-images.githubusercontent.com/95985120/179179517-2b6476e4-1c92-4145-bb43-eac942c58f3d.png)
+![BudgetStatus2](https://user-images.githubusercontent.com/95985120/180275284-9b992d77-fad4-44bd-8676-6409a289f0d6.png)
 <br> The opposite is true for incomes. Red is displayed **_"X"_** until we reach the planned income. </br>
 
 Below the plan, the total of expenses, incomes, and balance sheet for the plan **_"In Plan"_** are displayed.
