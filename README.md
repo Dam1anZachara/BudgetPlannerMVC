@@ -28,11 +28,11 @@ When browsing the list of created plans, we can set the status of only one of th
 
 ### **4.	Amounts**
 
-In the **_"Amounts"_** tab, a list of amounts is displayed. We can add, delete and edit amounts. By adding the amount, we can choose the time, the type of expense that we created in **_"Budget Configuration"_** and assign the amount to the user from **_"Budget Users"_**.
+In the **_"Amounts"_** tab, a list of amounts is displayed. We can add, delete and edit amounts. By adding the amount, we can choose the date, the type of expense that we created in **_"Budget Configuration"_** and assign the amount to the user from **_"Budget Users"_**.
 ![IndexAmounts](https://user-images.githubusercontent.com/95985120/179178919-807249af-1bb0-4808-8ec6-ff09df37dd19.png)
 ![AddAmount](https://user-images.githubusercontent.com/95985120/179178952-766d48ee-33b4-4859-86b6-8c93103a274a.png)
 
-<br> Amounts can be filtered in a given time period, by expense type and by budget user. </br>
+<br> Amounts can be filtered in a selected date range, by expense type and by budget user. </br>
 ![IndexAmountsFind](https://user-images.githubusercontent.com/95985120/179178969-4513a2e6-435e-4fe4-93c7-895649430b89.png)
 
 ### **5.	Budget Status**
