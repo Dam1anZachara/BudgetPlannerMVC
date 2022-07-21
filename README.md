@@ -1,6 +1,6 @@
 # BudgetPlannerMVC
 
-## The BudgetPlannerMVC application is used for budget planning and documentation. <br> The application consists of five main functions ie _Budget Status, Amounts, Budget Configuration, Plan and Budget Users_.
+## The BudgetPlannerMVC application is used for budget planning and documentation. <br> The application consists of five main functions _Budget Status, Amounts, Budget Configuration, Plan and Budget Users_.
 
 ### **1.	Budget Configuration** 
 
