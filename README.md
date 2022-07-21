@@ -1,4 +1,4 @@
-# Budget Planner MVC
+# Budget Planner MVC application
 
 ## The Budget Planner MVC application is used for budget planning and documentation. <br> The application consists of five main functions _Budget Status, Amounts, Budget Configuration, Plan and Budget Users_.
 
