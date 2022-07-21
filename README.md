@@ -42,7 +42,7 @@ In the **_"Budget Status"_** tab, the active plan created in **_"Plan"_** is dis
 
 If we exceed the expenses in the plan, the status red **_"X"_** will be displayed.
 ![BudgetStatus2](https://user-images.githubusercontent.com/95985120/180275284-9b992d77-fad4-44bd-8676-6409a289f0d6.png)
-<br> The opposite is true for incomes. Red is displayed **_"X"_** until we reach the planned income. </br>
+<br> The opposite is true for incomes. Red **_"X"_** is displayed until we reach the planned income. </br>
 
 Below the plan, the total of expenses, incomes, and balance sheet for the plan **_"In Plan"_** are displayed.
 <br> For amounts with types that are not included in the plan, sums of expenses, incomes and balance are displayed **_"Out of Plan"_**. </br>
