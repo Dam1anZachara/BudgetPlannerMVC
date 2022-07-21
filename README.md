@@ -14,6 +14,7 @@ In **_"Budget Users"_** we can add, delete, edit, users who will use the budget.
 <br> By default, the user **_"Not Assigned"_** is created. </br>
 ![IndexBudgetUsers](https://user-images.githubusercontent.com/95985120/179177552-7f387477-cb68-4b96-b957-f188b4993ad1.png)
 ![AddBudgetUser](https://user-images.githubusercontent.com/95985120/179177597-dfabfaec-9603-4a54-bd82-c2ec7eb43aee.png)
+![DetailsBudgetUser](https://user-images.githubusercontent.com/95985120/180276489-c8d10265-a490-40b9-90ca-292a262e5747.png)
 
 ### **3.	Plan**
 
