@@ -1,7 +1,38 @@
 # Budget Planner MVC application
 
-## The Budget Planner MVC application is used for budget planning and documentation. <br> The application consists of five main functions _Budget Status, Amounts, Budget Configuration, Plan and Budget Users_.
+## Table of contents
+I. [Information](#information)
 
+II. [Technology Used](#technology-used)
+
+III. [Presentation of the application](#presentation-of-the-application) 
+1. [Budget Configuration](#1budget-configuration)
+2. [Budget Users](#2budget-users)
+3. [Plan](#3plan)
+4. [Amounts](#4amounts)
+5. [Budget Status](#5budget-status)
+## Information
+The Budget Planner MVC application is used for budget planning and documentation. <br> The application consists of five main functions _Budget Status, Amounts, Budget Configuration, Plan and Budget Users_.
+
+
+## Technology Used
+* .NET Core 5.0
+* ASP.NET Core MVC
+* Entity Framework Core 5.0.15
+* Clean Architecture
+* Repository-Service Pattern
+* Dependency Injection
+* LINQ
+* Fluent Validation 11.0.1
+* Fluent Validation.AspNetCore 11.0.1
+* Fluent Validation.DependencyInjectionExtensions 11.0.1
+* AutoMapper 11.0.1
+* AutoMapper.Extensions.Microsoft.DependencyInjection 11.0.0
+* MSSQL
+* HTML5
+* CSS
+* Java Script
+## Presentation of the application
 ### **1.	Budget Configuration** 
 
 In **_"Budget Configuration"_** we can create, edit and delete types to which we will assign amounts, e.g. "Food, cosmetics, clothes, work, etc." and assign them to "Expenses" or to "Incomes".
@@ -21,14 +52,14 @@ In **_"Budget Users"_** we can add, delete, edit, users who will use the budget.
 In the tab **_"Plan"_** we can create, edit, delete a plan in any time range.
 <br> It can be a plan for each month or, for example, annual or quarterly. </br>
 ![IndexPlan2](https://user-images.githubusercontent.com/95985120/180275174-65a381f8-741b-4060-87b4-502fb6d5db5c.png)
-<br> After entering the button **_"Configuration"_** in a given plan, we can add, delete, edit the types of expenses or incomes that have been created in the **_"Budget Configuration"_** tab and enter the value of the amount we want to allocate for this type. </br>
+<br> After "clicking" the button **_"Configuration"_** in a given plan, we can add, delete, edit the types of expenses or incomes that have been created in the **_"Budget Configuration"_** tab and enter the value of the amount we want to allocate for this type. </br>
 ![IndexPlanTypeConfiguration](https://user-images.githubusercontent.com/95985120/179178008-5c15e227-2a96-43b8-b905-285224015f66.png)
 
 When browsing the list of created plans, we can set the status of only one of them to **_"Active"_**. A plan with this status will be displayed in the **_"Budget Status"_** tab.
 
 ### **4.	Amounts**
 
-In the **_"Amounts"_** tab, a list of amounts is displayed. We can add, delete and edit amounts. By adding the amount, we can choose the date, the type of expense that we created in **_"Budget Configuration"_** and assign the amount to the user from **_"Budget Users"_**.
+In the **_"Amounts"_** tab, a list of amounts is displayed. We can add, delete and edit amounts. By adding the amount, we can choose the date, the type that we created in **_"Budget Configuration"_** and assign the amount to the user from **_"Budget Users"_**.
 ![IndexAmounts](https://user-images.githubusercontent.com/95985120/179178919-807249af-1bb0-4808-8ec6-ff09df37dd19.png)
 ![AddAmount](https://user-images.githubusercontent.com/95985120/179178952-766d48ee-33b4-4859-86b6-8c93103a274a.png)
 
