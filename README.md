@@ -21,7 +21,7 @@ In **_"Budget Users"_** we can add, delete, edit, users who will use the budget.
 In the tab **_"Plan"_** we can create, edit, delete a plan in any time range.
 <br> It can be a plan for each month or, for example, annual or quarterly. </br>
 ![IndexPlan2](https://user-images.githubusercontent.com/95985120/180275174-65a381f8-741b-4060-87b4-502fb6d5db5c.png)
-<br> After entering the button **_"Configuration"_** in a given plan, we can add, delete, edit the types of expenses that have been created in the **_"Budget Configuration"_** tab and enter the value of the amount we want to allocate for this expense. </br>
+<br> After entering the button **_"Configuration"_** in a given plan, we can add, delete, edit the types of expenses or incomes that have been created in the **_"Budget Configuration"_** tab and enter the value of the amount we want to allocate for this type. </br>
 ![IndexPlanTypeConfiguration](https://user-images.githubusercontent.com/95985120/179178008-5c15e227-2a96-43b8-b905-285224015f66.png)
 
 When browsing the list of created plans, we can set the status of only one of them to **_"Active"_**. A plan with this status will be displayed in the **_"Budget Status"_** tab.
