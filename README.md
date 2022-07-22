@@ -12,7 +12,7 @@ III. [Presentation of the application](#presentation-of-the-application)
 4. [Amounts](#4amounts)
 5. [Budget Status](#5budget-status)
 ## Information
-The Budget Planner MVC application is used for budget planning and documentation. <br> The application consists of five main functions _Budget Status, Amounts, Budget Configuration, Plan and Budget Users_.
+The Budget Planner MVC application is used for budget planning and documentation your expenses and incomes. <br> The application consists of five main functions _Budget Status, Amounts, Budget Configuration, Plan and Budget Users_.
 
 
 ## Technology Used
