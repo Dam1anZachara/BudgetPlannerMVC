@@ -5,14 +5,15 @@ I. [Information](#information)
 
 II. [Technology Used](#technology-used)
 
-III. [Presentation of the application](#presentation-of-the-application) 
-1. [Budget Configuration](#1budget-configuration)
+III. [Presentation of the application](#presentation-of-the-application)
+1. [Registration Panel](#1registration-panel)
 2. [Budget Users](#2budget-users)
-3. [Plan](#3plan)
-4. [Amounts](#4amounts)
-5. [Budget Status](#5budget-status)
+3. [Budget Configuration](#3budget-configuration)
+4. [Plan](#4plan)
+5. [Amounts](#5amounts)
+6. [Budget Status](#6budget-status)
 ## Information
-The Budget Planner MVC application is used for budget planning and documentation your expenses and incomes. <br> The application consists of five main functions _Budget Status, Amounts, Budget Configuration, Plan and Budget Users_.
+The Budget Planner MVC application is used for budget planning and documentation your expenses and incomes. <br> The application consists of five main functions _Registration Panel, Budget Status, Amounts, Budget Configuration, Plan and Budget Users_.
 
 
 ## Technology Used
@@ -33,13 +34,19 @@ The Budget Planner MVC application is used for budget planning and documentation
 * CSS
 * Java Script
 ## Presentation of the application
-### **1.	Budget Configuration** 
 
-In **_"Budget Configuration"_** we can create, edit and delete types to which we will assign amounts, e.g. "Food, cosmetics, clothes, work, etc." and assign them to "Expenses" or to "Incomes".
-<br> By default, the program creates **_"General Expenses"_** and **_"General Incomes"_**. </br>
-![IndexConfiguration2](https://user-images.githubusercontent.com/95985120/180277342-15a841d1-9012-4a77-b31d-1e7731fc4669.png)
+### **1.	Registration Panel**
+
+After user registration the new budget user is created.
+![RegisterPanel](https://user-images.githubusercontent.com/95985120/184502174-cd2ecf82-b9d3-4636-a383-f3bc212076fd.png)
 
 ### **2.	Budget Users**
+
+After registration user gains role "PreUser". In **_"Budget Users"_** logged in user must create its profile.
+![PreUserPanel](https://user-images.githubusercontent.com/95985120/184502402-7251f4e0-e86c-45b5-86ae-1c3858d3209d.png)
+![CreateProfileAsPreUser](https://user-images.githubusercontent.com/95985120/184502414-5e633b91-22db-4dc1-a935-eca722dd6b00.png)
+<br> When profil is created first user gains role "Admin". If minimum one user with role "Admin" exists, next user gains role "User". </br>
+
 
 In **_"Budget Users"_** we can add, delete, edit, users who will use the budget.
 <br> By default, the user **_"Not Assigned"_** is created. </br>
@@ -47,7 +54,13 @@ In **_"Budget Users"_** we can add, delete, edit, users who will use the budget.
 ![AddBudgetUser](https://user-images.githubusercontent.com/95985120/179177597-dfabfaec-9603-4a54-bd82-c2ec7eb43aee.png)
 ![DetailsBudgetUser](https://user-images.githubusercontent.com/95985120/180276489-c8d10265-a490-40b9-90ca-292a262e5747.png)
 
-### **3.	Plan**
+### **3.	Budget Configuration** 
+
+In **_"Budget Configuration"_** we can create, edit and delete types to which we will assign amounts, e.g. "Food, cosmetics, clothes, work, etc." and assign them to "Expenses" or to "Incomes".
+<br> By default, the program creates **_"General Expenses"_** and **_"General Incomes"_**. </br>
+![IndexConfiguration2](https://user-images.githubusercontent.com/95985120/180277342-15a841d1-9012-4a77-b31d-1e7731fc4669.png)
+
+### **4.	Plan**
 
 In the tab **_"Plan"_** we can create, edit, delete a plan in any time range.
 <br> It can be a plan for each month or, for example, annual or quarterly. </br>
@@ -57,7 +70,7 @@ In the tab **_"Plan"_** we can create, edit, delete a plan in any time range.
 
 When browsing the list of created plans, we can set the status of only one of them to **_"Active"_**. A plan with this status will be displayed in the **_"Budget Status"_** tab.
 
-### **4.	Amounts**
+### **5.	Amounts**
 
 In the **_"Amounts"_** tab, a list of amounts is displayed. We can add, delete and edit amounts. By adding the amount, we can choose the date, the type that we created in **_"Budget Configuration"_** and assign the amount to the user from **_"Budget Users"_**.
 ![IndexAmounts](https://user-images.githubusercontent.com/95985120/179178919-807249af-1bb0-4808-8ec6-ff09df37dd19.png)
@@ -66,7 +79,7 @@ In the **_"Amounts"_** tab, a list of amounts is displayed. We can add, delete a
 <br> Amounts can be filtered in a selected date range, by expense type and by budget user. </br>
 ![IndexAmountsFind](https://user-images.githubusercontent.com/95985120/179178969-4513a2e6-435e-4fe4-93c7-895649430b89.png)
 
-### **5.	Budget Status**
+### **6.	Budget Status**
 
 In the **_"Budget Status"_** tab, the active plan created in **_"Plan"_** is displayed.
 ![BudgetStatus1](https://user-images.githubusercontent.com/95985120/179179472-a85dc5ad-a9ae-4d5d-9acf-65454cd4e6a3.jpg)
