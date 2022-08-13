@@ -39,8 +39,8 @@
             </div>
             <div class="form-group">
                 <label class="control-label">Budget User</label>
-                @Html.DropDownListFor(model => model.BudgetUserID, new SelectList(Model.BudgetUsers, "Id", "FullName"), new { @class = "form-control btn btn-outline-dark dropdown-toggle" })
-                <span asp-validation-for="BudgetUserID" class="text-danger"></span>
+                @Html.DropDownListFor(model => model.BudgetUserId, new SelectList(Model.BudgetUsers, "Id", "FullName"), new { @class = "form-control btn btn-outline-dark dropdown-toggle" })
+                <span asp-validation-for="BudgetUserId" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Description" class="control-label"></label>

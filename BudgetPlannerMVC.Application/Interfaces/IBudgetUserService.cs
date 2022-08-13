@@ -10,15 +10,17 @@ namespace BudgetPlannerMVC.Application.Interfaces
 {
     public interface IBudgetUserService
     {
-        int AddBudgetUser(NewBudgetUserVm budgetUser);
-        public int AddAddressForBudgetUser(NewBudgetUserVm budgetUser, int budgetUserId);
+        int AddBudgetUserAfterEmailConfirm(string userId, string userName, string mainMail);
+        int AddAddressForBudgetUserAfterEmailConfirm(int budgetUserId);
         int CountContactDetailsForAddBudgetUser(NewBudgetUserVm budgetUser, string addContact, string removeContact);
         void DeleteBudgetUser(int id);
+        void DeleteBudgetUserAfterDeletePersonalData(string userId);
         IQueryable<BudgetUserVm> DropDownBudgetUsers();
         ListBudgetUserForListVm GetAllBudgetUsersForList(int pageSize, int pageNo, string searchString);
         NewBudgetUserVm GetBudgetUserForEdit(int id);
         void UpdateBudgetUser(NewBudgetUserVm model);
         IQueryable<ContactDetailTypeVm> DropDownContactDetailTypes();
-
+        NewBudgetUserVm GetBudgetUserForCreateProfile(string id);
+        int GetBudgetUserIdLoggedIn(string userId);
     }
 }

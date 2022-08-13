@@ -5,6 +5,7 @@ using BudgetPlannerMVC.Application.ViewModels.BudgetUserView;
 using BudgetPlannerMVC.Application.ViewModels.PlanView;
 using BudgetPlannerMVC.Application.ViewModels.TypeView;
 using FluentValidation;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -31,6 +32,8 @@ namespace BudgetPlannerMVC.Application
             services.AddTransient<IPlanTypeService, PlanTypeService>();
             services.AddTransient<IBudgetStatusService, BudgetStatusService>();
             services.AddTransient<IBudgetUserService, BudgetUserService>();
+            services.AddTransient<IUserRoleService, UserRoleService>();
+            services.AddTransient<IHttpContextAccessor, HttpContextAccessor>();
 
             services.AddAutoMapper(Assembly.GetExecutingAssembly());
 

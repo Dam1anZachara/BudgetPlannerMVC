@@ -2,18 +2,31 @@
 @model BudgetPlannerMVC.Application.ViewModels.BudgetUserView.NewBudgetUserVm
 
 @{
-    ViewData["Title"] = "AddBudgetUser";
+    ViewData["Title"] = "CreateBudgetUserProfile";
 }
 
-<h1 class="display-4">Add Budget User</h1>
+<h1 class="display-4">Create Profile</h1>
 
 <hr />
 <div class="row" style="margin-bottom:60px">
     <div class="col-md-4">
-        <form asp-action="AddBudgetUser">
+        <form asp-action="CreateBudgetUserProfile">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <input type="hidden" asp-for="Id" class="form-control" />
+            </div>
+            <div class="form-group">
+                <input type="hidden" asp-for="UserId" class="form-control" />
+            </div>
+            <div class="form-group">
+                <input type="hidden" asp-for="UserName" class="form-control" />
+            </div>
+            <div class="form-group">
+                <input type="hidden" asp-for="MainMail" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label class="control-label">User Name</label>
+                <input asp-for="UserName" class="form-control", disabled="disabled" />
             </div>
             <div class="form-group">
                 <label class="control-label">First Name</label>
@@ -38,11 +51,17 @@
             }
             <div class="form-group">
                 <input type="hidden" asp-for="CountContactDetailsType" class="form-control" id="countContactType" value="@Model.CountContactDetailsType">
-                <input asp-action="AddBudgetUser" type="submit" class="btn btn-info" name="addContact" value="Add Contact" />
+                <input asp-action="CreateBudgetUserProfile" type="submit" class="btn btn-info" name="addContact" value="Add Contact" />
                 @if (@Model.CountContactDetailsType != 0)
                 {
-                    <input asp-action="AddBudgetUser" type="submit" class="btn btn-warning" name="removeContact" value="Remove Contact" />
+                    <input asp-action="CreateBudgetUserProfile" type="submit" class="btn btn-warning" name="removeContact" value="Remove Contact" />
                 }
+            </div>
+            <div class="form-group">
+                <input type="hidden" asp-for="Address.Id" class="form-control" />
+            </div>
+            <div class="form-group">
+                <input type="hidden" asp-for="Address.BudgetUserId" class="form-control" />
             </div>
             <div class="form-group">
                 <label asp-for="Address.Street" class="control-label"></label>

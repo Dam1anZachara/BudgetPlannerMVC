@@ -4,14 +4,16 @@ using BudgetPlannerMVC.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace BudgetPlannerMVC.Infrastructure.Migrations
 {
     [DbContext(typeof(Context))]
-    partial class ContextModelSnapshot : ModelSnapshot
+    [Migration("20220809122141_InitialCreate8")]
+    partial class InitialCreate8
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -318,30 +320,23 @@ namespace BudgetPlannerMVC.Infrastructure.Migrations
                         new
                         {
                             Id = "Admin",
-                            ConcurrencyStamp = "af77c64b-202b-4025-ad68-97d125b5bb3a",
+                            ConcurrencyStamp = "e1717d79-6251-4fb1-83b3-1ef5cc85c83e",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
                             Id = "User",
-                            ConcurrencyStamp = "470ea227-a8d4-417f-a3b6-7684f7f9666e",
+                            ConcurrencyStamp = "451c4c04-ba2a-47e1-bffe-7f5976cc6a5c",
                             Name = "User",
                             NormalizedName = "USER"
                         },
                         new
                         {
                             Id = "PreUser",
-                            ConcurrencyStamp = "22d4b1f4-d8d4-49cd-9acd-361fb8344880",
+                            ConcurrencyStamp = "a1202ac2-0342-43fd-a4a0-cc51c6531265",
                             Name = "PreUser",
                             NormalizedName = "PREUSER"
-                        },
-                        new
-                        {
-                            Id = "Banned",
-                            ConcurrencyStamp = "1cc3a98d-8a05-485b-afd9-bdff063c7c99",
-                            Name = "Banned",
-                            NormalizedName = "BANNED"
                         });
                 });
 

@@ -1,5 +1,6 @@
 ﻿using BudgetPlannerMVC.Domain.Interfaces;
 using BudgetPlannerMVC.Domain.Model;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -44,9 +45,11 @@ namespace BudgetPlannerMVC.Infrastructure.Repositories
         }
         public void UpdateBudgetUser(BudgetUser budgetUser)
         {
+            budgetUser.ProfileCreated = true;
             _context.Attach(budgetUser);
             _context.Entry(budgetUser).Property("FirstName").IsModified = true;
             _context.Entry(budgetUser).Property("LastName").IsModified = true;
+            _context.Entry(budgetUser).Property("ProfileCreated").IsModified = true;  
             foreach (var item in budgetUser.ContactDetails)
             {
                 _context.Entry(item).Property("ContactDetailInformation").IsModified = true;

@@ -4,14 +4,16 @@ using BudgetPlannerMVC.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace BudgetPlannerMVC.Infrastructure.Migrations
 {
     [DbContext(typeof(Context))]
-    partial class ContextModelSnapshot : ModelSnapshot
+    [Migration("20220808131424_InitialCreate7")]
+    partial class InitialCreate7
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -119,6 +121,9 @@ namespace BudgetPlannerMVC.Infrastructure.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("AspNetUserId")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("FirstName")
                         .HasColumnType("nvarchar(max)");
 
@@ -130,9 +135,6 @@ namespace BudgetPlannerMVC.Infrastructure.Migrations
 
                     b.Property<bool>("ProfileCreated")
                         .HasColumnType("bit");
-
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("UserName")
                         .HasColumnType("nvarchar(max)");
@@ -318,30 +320,23 @@ namespace BudgetPlannerMVC.Infrastructure.Migrations
                         new
                         {
                             Id = "Admin",
-                            ConcurrencyStamp = "af77c64b-202b-4025-ad68-97d125b5bb3a",
+                            ConcurrencyStamp = "50ed201b-7269-462c-9646-b39bf761fab2",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
                             Id = "User",
-                            ConcurrencyStamp = "470ea227-a8d4-417f-a3b6-7684f7f9666e",
+                            ConcurrencyStamp = "3829c234-a5a0-4be8-9921-d62cb9f6998c",
                             Name = "User",
                             NormalizedName = "USER"
                         },
                         new
                         {
                             Id = "PreUser",
-                            ConcurrencyStamp = "22d4b1f4-d8d4-49cd-9acd-361fb8344880",
+                            ConcurrencyStamp = "3409b56b-ff11-4f1c-8b45-723b8ef5dc9a",
                             Name = "PreUser",
                             NormalizedName = "PREUSER"
-                        },
-                        new
-                        {
-                            Id = "Banned",
-                            ConcurrencyStamp = "1cc3a98d-8a05-485b-afd9-bdff063c7c99",
-                            Name = "Banned",
-                            NormalizedName = "BANNED"
                         });
                 });
 

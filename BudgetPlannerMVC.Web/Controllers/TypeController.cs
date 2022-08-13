@@ -1,11 +1,13 @@
 ﻿using BudgetPlannerMVC.Application.Interfaces;
 using BudgetPlannerMVC.Application.ViewModels.TypeView;
 using BudgetPlannerMVC.Domain.Model;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 
 namespace BudgetPlannerMVC.Web.Controllers
 {
+    [Authorize]
     public class TypeController : Controller
     {
         private readonly ITypeService _typeService;
@@ -15,12 +17,14 @@ namespace BudgetPlannerMVC.Web.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin, User")]
         public IActionResult Index()
         {
             var model = _typeService.GetAllTypesForList(8, 1, "");
             return View(model);
         }
         [HttpPost]
+        [Authorize(Roles = "Admin, User")]
         public IActionResult Index(int pageSize, int? pageNo, string searchString)
         {
             if (!pageNo.HasValue)
@@ -36,6 +40,7 @@ namespace BudgetPlannerMVC.Web.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin, User")]
         public IActionResult AddType()
         {
             var assigns = _typeService.DropDownAssigns();
@@ -47,6 +52,7 @@ namespace BudgetPlannerMVC.Web.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin, User")]
         public IActionResult AddType(NewTypeVm model)
         {
             if (ModelState.IsValid)
@@ -58,6 +64,7 @@ namespace BudgetPlannerMVC.Web.Controllers
             return View(model);
         }
         [HttpGet]
+        [Authorize(Roles = "Admin, User")]
         public IActionResult EditType(int id)
         {
             var type = _typeService.GetTypeForEdit(id);
@@ -66,6 +73,7 @@ namespace BudgetPlannerMVC.Web.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin, User")]
         public IActionResult EditType(NewTypeVm model)
         {
             if (ModelState.IsValid)
@@ -77,17 +85,21 @@ namespace BudgetPlannerMVC.Web.Controllers
             return View(model);
         }
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public IActionResult Delete(int id)
         {
             var type = _typeService.GetTypeForEdit(id);
             return View(type);
         }
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public IActionResult Delete(NewTypeVm model)
         {
             _typeService.DeleteType(model.Id);
             return RedirectToAction("Index");
         }
+        [HttpGet]
+        [Authorize(Roles = "Admin, User")]
         public IActionResult Details(int id)
         {
             var type = _typeService.GetTypeForEdit(id);

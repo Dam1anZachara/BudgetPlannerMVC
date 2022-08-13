@@ -1,4 +1,5 @@
 ﻿using BudgetPlannerMVC.Domain.Model;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -33,16 +34,29 @@ namespace BudgetPlannerMVC.Infrastructure
 
             builder.Entity<Assign>()
                 .HasData(new Assign { Id = 1, Name = "Expense" } , new Assign { Id = 2, Name = "Income"});
+
             builder.Entity<Domain.Model.Type>()
-                .HasData(new Domain.Model.Type { Id = 1, AssignId = 1, Name = "General Expenses" });
-            builder.Entity<Domain.Model.Type>()
-                .HasData(new Domain.Model.Type { Id = 2, AssignId = 2, Name = "General Incomes" });
+                .HasData(
+                new Domain.Model.Type { Id = 1, AssignId = 1, Name = "General Expenses" },
+                new Domain.Model.Type { Id = 2, AssignId = 2, Name = "General Incomes" }
+                );
+
             builder.Entity<BudgetUser>()
-                .HasData(new BudgetUser { Id = 1, FirstName = "Not assigned" });
+                .HasData(new BudgetUser { Id = 1, FirstName = "Not assigned", ProfileCreated = true });
+
             builder.Entity<ContactDetailType>()
-                .HasData(new ContactDetailType { Id = 1, Name = "Mail" });
-            builder.Entity<ContactDetailType>()
-                .HasData(new ContactDetailType { Id = 2, Name = "Phone Number" });
+                .HasData(
+                new ContactDetailType { Id = 1, Name = "Mail" },
+                new ContactDetailType { Id = 2, Name = "Phone Number" }
+                );
+
+            builder.Entity<IdentityRole>()
+                .HasData(
+                new IdentityRole { Id = "Admin", Name = "Admin", NormalizedName = "ADMIN"},
+                new IdentityRole { Id = "User", Name = "User", NormalizedName = "USER"},
+                new IdentityRole { Id = "PreUser", Name = "PreUser", NormalizedName = "PREUSER"},
+                new IdentityRole { Id = "Banned", Name = "Banned", NormalizedName = "BANNED"}
+                );
         }
     }
 }

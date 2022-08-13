@@ -6,6 +6,7 @@ using BudgetPlannerMVC.Domain.Interfaces;
 using BudgetPlannerMVC.Infrastructure;
 using BudgetPlannerMVC.Infrastructure.Repositories;
 using BudgetPlannerMVC.Web.Controllers;
+using BudgetPlannerMVC.Web.StartupConfig;
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
@@ -37,6 +38,7 @@ namespace BudgetPlannerMVC.Web
             services.AddDatabaseDeveloperPageExceptionFilter();
 
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+                .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<Context>();
 
             services.AddApplication();
@@ -60,12 +62,7 @@ namespace BudgetPlannerMVC.Web
                 options.User.RequireUniqueEmail = true;
             });
 
-            services.AddAuthentication().AddGoogle(options =>
-            {
-                IConfiguration googleAuthNSection = Configuration.GetSection("Authentication:Google");
-                options.ClientId = googleAuthNSection["ClientId"];
-                options.ClientSecret = googleAuthNSection["ClientSecret"];
-            });
+            services.AddExternalServices(Configuration);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

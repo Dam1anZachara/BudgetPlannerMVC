@@ -1,10 +1,12 @@
 ﻿using BudgetPlannerMVC.Application.Interfaces;
 using BudgetPlannerMVC.Application.ViewModels.PlanView;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 
 namespace BudgetPlannerMVC.Web.Controllers
 {
+    [Authorize]
     public class PlanController : Controller
     {
         private readonly IPlanService _planService;
@@ -13,12 +15,14 @@ namespace BudgetPlannerMVC.Web.Controllers
             _planService = planService;
         }
         [HttpGet]
+        [Authorize(Roles = "Admin, User")]
         public IActionResult Index()
         {
             var model = _planService.GetAllPlansForList(8, 1, "");
             return View(model);
         }
         [HttpPost]
+        [Authorize(Roles = "Admin, User")]
         public IActionResult Index(int pageSize, int? pageNo, string searchString)
         {
             if (!pageNo.HasValue)
@@ -33,12 +37,14 @@ namespace BudgetPlannerMVC.Web.Controllers
             return View(model);
         }
         [HttpGet]
+        [Authorize(Roles = "Admin, User")]
         public IActionResult AddPlan()
         {
             return View(new NewPlanVm());
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin, User")]
         public IActionResult AddPlan(NewPlanVm model)
         {
             if (ModelState.IsValid)
@@ -49,6 +55,7 @@ namespace BudgetPlannerMVC.Web.Controllers
             return View(model);
         }
         [HttpGet]
+        [Authorize(Roles = "Admin, User")]
         public IActionResult EditPlan(int id)
         {
             var plan = _planService.GetPlanForEdit(id);
@@ -56,6 +63,7 @@ namespace BudgetPlannerMVC.Web.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin, User")]
         public IActionResult EditPlan(NewPlanVm model)
         {
             if (ModelState.IsValid)
@@ -66,17 +74,20 @@ namespace BudgetPlannerMVC.Web.Controllers
             return View(model);
         }
         [HttpGet]
+        [Authorize(Roles = "Admin, User")]
         public IActionResult Delete(int id)
         {
             var plan = _planService.GetPlanForEdit(id);
             return View(plan);
         }
         [HttpPost]
+        [Authorize(Roles = "Admin, User")]
         public IActionResult Delete(NewPlanVm model)
         {
             _planService.DeletePlan(model.Id);
             return RedirectToAction("Index");
         }
+        [Authorize(Roles = "Admin, User")]
         public IActionResult Status(int id)
         {
             var plans = _planService.StatusPlan(id);

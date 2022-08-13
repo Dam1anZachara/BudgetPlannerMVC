@@ -51,7 +51,26 @@
                             <p>
                                 @foreach (var provider in Model.ExternalLogins)
                                 {
-                                    <button type="submit" class="btn btn-primary" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account">@provider.DisplayName</button>
+                                    @if (provider.Name == "Google")
+                                    {
+                                        <button type="submit" class="btn btn-danger" value="@provider.Name"
+                                            title="Log in using your @provider.DisplayName account" name="provider">
+                                            <i class="fa fa-google-plus-square fa-lg" aria-hidden="true"></i>
+                                            Sign up with @provider.DisplayName
+                                        </button>
+                                    }
+                                    else if (provider.Name == "Facebook")
+                                    {
+                                        <button type="submit" class="btn btn-primary" value="@provider.Name"
+                                            title="Log in using your @provider.DisplayName account" name="provider">
+                                            <i class="fa fa-facebook-square fa-lg" aria-hidden="true"></i>
+                                            Sign up with @provider.DisplayName
+                                        </button>
+                                    }
+                                    else
+                                    {
+                                        <button type="submit" class="btn btn-primary" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account">@provider.DisplayName</button>
+                                    }
                                 }
                             </p>
                         </div>
@@ -63,5 +82,8 @@
 </div>
 
 @section Scripts {
-    <partial name="_ValidationScriptsPartial" />
+<partial name="_ValidationScriptsPartial" />
 }
+
+
+

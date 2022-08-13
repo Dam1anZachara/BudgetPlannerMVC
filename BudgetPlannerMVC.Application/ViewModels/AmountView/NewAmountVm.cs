@@ -23,7 +23,7 @@ namespace BudgetPlannerMVC.Application.ViewModels.AmountView
         public int TypeId { get; set; }
         public TypeForListVm Type { get; set; }
         public IQueryable<TypeVm> Types { get; set; }
-        public int BudgetUserID { get; set; }
+        public int BudgetUserId { get; set; }
         public BudgetUserVm BudgetUser { get; set; }
         public IQueryable<BudgetUserVm> BudgetUsers { get; set; }
         public void Mapping(Profile profile)
