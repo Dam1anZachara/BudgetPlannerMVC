@@ -42,50 +42,57 @@ After user registration the new budget user is created.
 
 ### **2.	Budget Users**
 
-After registration user gains role "PreUser". In **_"Budget Users"_** logged in user must create its profile.
+## **PreUser Panel** ##
+After registration user gains role **_"PreUser"_**. In **_"Budget Users"_** logged in user must create its profile. **_"PreUser"_** can see data of the other users by click on **_"Details"_** button.
 ![PreUserPanel](https://user-images.githubusercontent.com/95985120/184502402-7251f4e0-e86c-45b5-86ae-1c3858d3209d.png)
 ![CreateProfileAsPreUser](https://user-images.githubusercontent.com/95985120/184502414-5e633b91-22db-4dc1-a935-eca722dd6b00.png)
-<br> When profil is created first user gains role "Admin". If minimum one user with role "Admin" exists, next user gains role "User". </br>
+<br> When profil is created the first user gains role **_"Admin"_**. If minimum one user with role **_"Admin"_** exists, the next user gains role **_"User"_**. </br>
 
+## **Admin Panel** ##
+![AdminPanel2](https://user-images.githubusercontent.com/95985120/184503026-9e940adf-5332-44e9-83f4-a6c8541283e6.png)
+**_"Admin"_** can edit users roles in edit panel after click button **_"User permissions"_**. 
+If there is one user with role **_"Admin"_**, that user can't downgrade himself from his **_"Admin"_** role. Can do it if the other user is promoted to **_"Admin"_**.
+![EditRolePanel](https://user-images.githubusercontent.com/95985120/184503698-80e2810e-1c3b-4a61-8741-8e32d29c7775.png)
+<br> **_"Admin"_** user can edit other users by click on **_"Edit"_** and can delete the other users profiles and accounts by click on **_"Delete"_** button. </br>
 
-In **_"Budget Users"_** we can add, delete, edit, users who will use the budget.
-<br> By default, the user **_"Not Assigned"_** is created. </br>
-![IndexBudgetUsers](https://user-images.githubusercontent.com/95985120/179177552-7f387477-cb68-4b96-b957-f188b4993ad1.png)
-![AddBudgetUser](https://user-images.githubusercontent.com/95985120/179177597-dfabfaec-9603-4a54-bd82-c2ec7eb43aee.png)
-![DetailsBudgetUser](https://user-images.githubusercontent.com/95985120/180276489-c8d10265-a490-40b9-90ca-292a262e5747.png)
+## **User Panel** ##
+**_"User"_** can edit self profile by click button **_"Edit"_** and can see users data by click buttons **_"Details"_**.
+![UserPanel](https://user-images.githubusercontent.com/95985120/184503847-3d3b6403-29a8-4f86-9614-d5dac5f72f30.png)
 
 ### **3.	Budget Configuration** 
 
 In **_"Budget Configuration"_** we can create, edit and delete types to which we will assign amounts, e.g. "Food, cosmetics, clothes, work, etc." and assign them to "Expenses" or to "Incomes".
 <br> By default, the program creates **_"General Expenses"_** and **_"General Incomes"_**. </br>
-![IndexConfiguration2](https://user-images.githubusercontent.com/95985120/180277342-15a841d1-9012-4a77-b31d-1e7731fc4669.png)
+![IndexConfiguration3](https://user-images.githubusercontent.com/95985120/184504093-8b3399b0-1013-4e90-b6c4-88d00e3687c0.png)
 
 ### **4.	Plan**
 
 In the tab **_"Plan"_** we can create, edit, delete a plan in any time range.
 <br> It can be a plan for each month or, for example, annual or quarterly. </br>
-![IndexPlan2](https://user-images.githubusercontent.com/95985120/180275174-65a381f8-741b-4060-87b4-502fb6d5db5c.png)
+![obraz](https://user-images.githubusercontent.com/95985120/184504197-da76e4a3-35ac-4ba2-a89f-3ed2201b4aaa.png)
 <br> After "clicking" the button **_"Configuration"_** in a given plan, we can add, delete, edit the types of expenses or incomes that have been created in the **_"Budget Configuration"_** tab and enter the value of the amount we want to allocate for this type. </br>
-![IndexPlanTypeConfiguration](https://user-images.githubusercontent.com/95985120/179178008-5c15e227-2a96-43b8-b905-285224015f66.png)
+![IndexPlanConfiguration2](https://user-images.githubusercontent.com/95985120/184504573-c772308a-d5ec-4da1-81a2-f2642b6e5b96.png)
+
 
 When browsing the list of created plans, we can set the status of only one of them to **_"Active"_**. A plan with this status will be displayed in the **_"Budget Status"_** tab.
 
 ### **5.	Amounts**
 
 In the **_"Amounts"_** tab, a list of amounts is displayed. We can add, delete and edit amounts. By adding the amount, we can choose the date, the type that we created in **_"Budget Configuration"_** and assign the amount to the user from **_"Budget Users"_**.
-![IndexAmounts](https://user-images.githubusercontent.com/95985120/179178919-807249af-1bb0-4808-8ec6-ff09df37dd19.png)
-![AddAmount](https://user-images.githubusercontent.com/95985120/179178952-766d48ee-33b4-4859-86b6-8c93103a274a.png)
+![IndexAmounts2](https://user-images.githubusercontent.com/95985120/184504932-ccc028f0-c53f-47bc-91cf-024a5ef3de74.png)
+![AddAmount2](https://user-images.githubusercontent.com/95985120/184504938-8f4dd656-c289-42ce-9fe4-654b405d54e3.png)
 
 <br> Amounts can be filtered in a selected date range, by expense type and by budget user. </br>
-![IndexAmountsFind](https://user-images.githubusercontent.com/95985120/179178969-4513a2e6-435e-4fe4-93c7-895649430b89.png)
+![IndexAmountsFind2](https://user-images.githubusercontent.com/95985120/184504945-fe75a820-06dd-451b-96cd-0b6a0aa47e17.png)
 
 ### **6.	Budget Status**
 
 In the **_"Budget Status"_** tab, the active plan created in **_"Plan"_** is displayed.
-![BudgetStatus1](https://user-images.githubusercontent.com/95985120/179179472-a85dc5ad-a9ae-4d5d-9acf-65454cd4e6a3.jpg)
+![BudgetStatus1 2](https://user-images.githubusercontent.com/95985120/184505161-e332f67b-cd74-4177-b660-b98a6b88fc6c.png)
 
 If we exceed the expenses in the plan, the status red **_"X"_** will be displayed.
-![BudgetStatus2](https://user-images.githubusercontent.com/95985120/180275284-9b992d77-fad4-44bd-8676-6409a289f0d6.png)
+![BudgetStatus2 2](https://user-images.githubusercontent.com/95985120/184505169-051d613d-0196-4503-8c8f-8d4062686a54.png)
+
 <br> The opposite is true for incomes. Red **_"X"_** is displayed until we reach the planned income. </br>
 
 Below the plan, the total of expenses, incomes, and balance sheet for the plan **_"In Plan"_** are displayed.
