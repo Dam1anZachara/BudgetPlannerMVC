@@ -13,7 +13,7 @@ III. [Presentation of the application](#presentation-of-the-application)
 5. [Amounts](#5amounts)
 6. [Budget Status](#6budget-status)
 ## Information
-The Budget Planner MVC application is used for budget planning and documentation your expenses and incomes. <br> The application consists of five main functions _Registration Panel, Budget Status, Amounts, Budget Configuration, Plan and Budget Users_.
+The Budget Planner MVC application is used for budget planning and documenting your expenses and incomes. <br> The application consists of five main functions _Registration Panel, Budget Status, Amounts, Budget Configuration, Plan and Budget Users_.
 
 
 ## Technology Used
@@ -37,26 +37,26 @@ The Budget Planner MVC application is used for budget planning and documentation
 
 ### **1.	Registration Panel**
 
-After user registration the new budget user is created.
+After the user registration, the new budget user is created.
 ![RegisterPanel](https://user-images.githubusercontent.com/95985120/184502174-cd2ecf82-b9d3-4636-a383-f3bc212076fd.png)
 
 ### **2.	Budget Users**
 
 ## **PreUser Panel** ##
-After registration user gains role **_"PreUser"_**. In **_"Budget Users"_** logged in user must create its profile. **_"PreUser"_** can see data of the other users by click on **_"Details"_** button.
+After registration, the user gains role **_"PreUser"_**. In **_"Budget Users"_**, logged in user must create its profile. **_"PreUser"_** can see data of the other users by clicking on **_"Details"_** button.
 ![PreUserPanel](https://user-images.githubusercontent.com/95985120/184502402-7251f4e0-e86c-45b5-86ae-1c3858d3209d.png)
 ![CreateProfileAsPreUser](https://user-images.githubusercontent.com/95985120/184502414-5e633b91-22db-4dc1-a935-eca722dd6b00.png)
-<br> When profil is created the first user gains role **_"Admin"_**. If minimum one user with role **_"Admin"_** exists, the next user gains role **_"User"_**. </br>
+<br> When a profile is created, the first user gains role **_"Admin"_**. If minimum one user with role **_"Admin"_** exists, the next user gains role **_"User"_**. </br>
 
 ## **Admin Panel** ##
 ![AdminPanel2](https://user-images.githubusercontent.com/95985120/184503026-9e940adf-5332-44e9-83f4-a6c8541283e6.png)
-**_"Admin"_** can edit users roles in edit panel after click button **_"User permissions"_**. 
-If there is one user with role **_"Admin"_**, that user can't downgrade himself from his **_"Admin"_** role. Can do it if the other user is promoted to **_"Admin"_**.
+**_"Admin"_** can edit users' roles in edit panel after clicking button **_"User permissions"_**. 
+If there is one user with role **_"Admin"_**, that user can't downgrade himself from his **_"Admin"_** role. **_"Admin"_** can do it, if the other user is promoted to **_"Admin"_** role.
 ![EditRolePanel](https://user-images.githubusercontent.com/95985120/184503698-80e2810e-1c3b-4a61-8741-8e32d29c7775.png)
-<br> **_"Admin"_** user can edit other users by click on **_"Edit"_** and can delete the other users profiles and accounts by click on **_"Delete"_** button. </br>
+<br> **_"Admin"_** user can edit other users data by clicking on **_"Edit"_** and can delete the other users' profiles and accounts by clicking on **_"Delete"_** button. </br>
 
 ## **User Panel** ##
-**_"User"_** can edit self profile by click button **_"Edit"_** and can see users data by click buttons **_"Details"_**.
+**_"User"_** can edit self profile by clicking button **_"Edit"_** and can see users data by clicking button **_"Details"_**.
 ![UserPanel](https://user-images.githubusercontent.com/95985120/184503847-3d3b6403-29a8-4f86-9614-d5dac5f72f30.png)
 
 ### **3.	Budget Configuration** 
