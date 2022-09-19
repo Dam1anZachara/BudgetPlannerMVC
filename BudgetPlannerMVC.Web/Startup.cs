@@ -17,6 +17,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using System;
 
 namespace BudgetPlannerMVC.Web
 {
@@ -41,15 +42,6 @@ namespace BudgetPlannerMVC.Web
                 .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<Context>();
 
-            services.AddApplication();
-            services.AddInfrastructure();
-
-            services.AddControllersWithViews().AddFluentValidation(fv =>
-            {
-                //fv.DisableDataAnnotationsValidation = true;
-                //fv.ConfigureClientsideValidation(enabled: true);
-                //fv.ImplicitlyValidateChildProperties = true;
-            });
             services.Configure<IdentityOptions>(options =>
             {
                 options.Password.RequireDigit = true;
@@ -58,8 +50,18 @@ namespace BudgetPlannerMVC.Web
                 options.Password.RequireUppercase = true;
                 options.Password.RequiredUniqueChars = 1;
 
-                options.SignIn.RequireConfirmedEmail = false;
+                options.SignIn.RequireConfirmedEmail = true;
                 options.User.RequireUniqueEmail = true;
+            });
+
+            services.AddApplication();
+            services.AddInfrastructure();
+
+            services.AddControllersWithViews().AddFluentValidation(fv =>
+            {
+                //fv.DisableDataAnnotationsValidation = true;
+                //fv.ConfigureClientsideValidation(enabled: true);
+                //fv.ImplicitlyValidateChildProperties = true;
             });
 
             services.AddExternalServices(Configuration);

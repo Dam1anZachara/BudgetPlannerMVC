@@ -2,6 +2,7 @@
 using BudgetPlannerMVC.Application.ViewModels.TypeView;
 using BudgetPlannerMVC.Domain.Model;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System;
 
@@ -11,9 +12,11 @@ namespace BudgetPlannerMVC.Web.Controllers
     public class TypeController : Controller
     {
         private readonly ITypeService _typeService;
-        public TypeController(ITypeService typeService)
+        private readonly SignInManager<IdentityUser> _signInManager;
+        public TypeController(ITypeService typeService, SignInManager<IdentityUser> signInManager)
         {
             _typeService = typeService;
+            _signInManager = signInManager;
         }
 
         [HttpGet]
