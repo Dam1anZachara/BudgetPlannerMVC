@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.32228.343
+# Visual Studio Version 17
+VisualStudioVersion = 17.1.32407.343
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BudgetPlannerMVC.Web", "BudgetPlannerMVC.Web\BudgetPlannerMVC.Web.csproj", "{AD567A56-80F7-4A86-AD55-8D9D8B51D0FA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BudgetPlannerMVC.Web", "BudgetPlannerMVC.Web\BudgetPlannerMVC.Web.csproj", "{AD567A56-80F7-4A86-AD55-8D9D8B51D0FA}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Application", "Application", "{9725B5DB-EEA7-4F0F-92FD-D17833B4E08E}"
 EndProject
@@ -15,13 +15,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{5A592639-E
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UI", "UI", "{D7757675-2704-4976-8721-B6056277E767}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BudgetPlannerMVC.Application", "BudgetPlannerMVC.Application\BudgetPlannerMVC.Application.csproj", "{51C6940B-8D62-4A80-91D5-9529A751C380}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BudgetPlannerMVC.Application", "BudgetPlannerMVC.Application\BudgetPlannerMVC.Application.csproj", "{51C6940B-8D62-4A80-91D5-9529A751C380}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BudgetPlannerMVC.Domain", "BudgetPlannerMVC.Domain\BudgetPlannerMVC.Domain.csproj", "{672EB27A-74AB-4255-835F-768E7F64F606}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BudgetPlannerMVC.Domain", "BudgetPlannerMVC.Domain\BudgetPlannerMVC.Domain.csproj", "{672EB27A-74AB-4255-835F-768E7F64F606}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BudgetPlannerMVC.Infrastructure", "BudgetPlannerMVC.Infrastructure\BudgetPlannerMVC.Infrastructure.csproj", "{8359099A-9964-49D2-A848-FAC3EDADECCB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BudgetPlannerMVC.Infrastructure", "BudgetPlannerMVC.Infrastructure\BudgetPlannerMVC.Infrastructure.csproj", "{8359099A-9964-49D2-A848-FAC3EDADECCB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BudgetPlannerMVC.Tests", "BudgetPlannerMVC.Tests\BudgetPlannerMVC.Tests.csproj", "{E025D476-0A41-4763-A123-6605651E1316}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BudgetPlannerMVC.Tests", "BudgetPlannerMVC.Tests\BudgetPlannerMVC.Tests.csproj", "{E025D476-0A41-4763-A123-6605651E1316}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BudgetPlannerAPI", "BudgetPlannerAPI\BudgetPlannerAPI.csproj", "{9B8622B5-4A12-4DDA-A4A5-ADBC11E9693D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -49,6 +51,10 @@ Global
 		{E025D476-0A41-4763-A123-6605651E1316}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E025D476-0A41-4763-A123-6605651E1316}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E025D476-0A41-4763-A123-6605651E1316}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9B8622B5-4A12-4DDA-A4A5-ADBC11E9693D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9B8622B5-4A12-4DDA-A4A5-ADBC11E9693D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9B8622B5-4A12-4DDA-A4A5-ADBC11E9693D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9B8622B5-4A12-4DDA-A4A5-ADBC11E9693D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -59,6 +65,7 @@ Global
 		{672EB27A-74AB-4255-835F-768E7F64F606} = {5492E1CA-8976-468F-9EBA-B499587396B2}
 		{8359099A-9964-49D2-A848-FAC3EDADECCB} = {B4F32A60-183C-45B2-A88F-B87272721676}
 		{E025D476-0A41-4763-A123-6605651E1316} = {5A592639-E2EC-4469-BA48-5A028C043A5A}
+		{9B8622B5-4A12-4DDA-A4A5-ADBC11E9693D} = {D7757675-2704-4976-8721-B6056277E767}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {52A014BF-ED4E-4416-91B6-16C4087EF4E2}
