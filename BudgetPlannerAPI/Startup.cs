@@ -16,6 +16,8 @@ using System.Text;
 using System.Threading.Tasks;
 using BudgetPlannerMVC.Infrastructure;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using BudgetPlannerMVC.Application;
 
 namespace BudgetPlannerAPI
 {
@@ -34,11 +36,23 @@ namespace BudgetPlannerAPI
             services.AddDbContext<Context>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
-            services.AddDatabaseDeveloperPageExceptionFilter();
+            //services.AddDatabaseDeveloperPageExceptionFilter();
 
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<Context>();
+
+            //services.Configure<IdentityOptions>(options =>
+            //{
+            //    options.Password.RequireDigit = true;
+            //    options.Password.RequiredLength = 8;
+            //    options.Password.RequireLowercase = true;
+            //    options.Password.RequireUppercase = true;
+            //    options.Password.RequiredUniqueChars = 1;
+
+            //    options.SignIn.RequireConfirmedEmail = true;
+            //    options.User.RequireUniqueEmail = true;
+            //});
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>
@@ -55,10 +69,36 @@ namespace BudgetPlannerAPI
                     };
                 });
 
+            services.AddApplication();
+            services.AddInfrastructure();
+
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "BudgetPlannerAPI", Version = "v1" });
+                c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+                {
+                    Type = SecuritySchemeType.Http,
+                    BearerFormat = "JWT",
+                    In = ParameterLocation.Header,
+                    Scheme = "bearer",
+                    Description = "Please insert JWT token into filed"
+                });
+
+                c.AddSecurityRequirement(new OpenApiSecurityRequirement
+                {
+                    {
+                        new OpenApiSecurityScheme
+                        {
+                            Reference = new OpenApiReference
+                            {
+                                Type = ReferenceType.SecurityScheme,
+                                Id = "Bearer"
+                            }
+                        },
+                        new string[] {}
+                    }
+                });
             });
         }
 

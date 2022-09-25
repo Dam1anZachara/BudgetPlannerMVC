@@ -12,11 +12,10 @@ namespace BudgetPlannerMVC.Web.Controllers
     public class TypeController : Controller
     {
         private readonly ITypeService _typeService;
-        private readonly SignInManager<IdentityUser> _signInManager;
-        public TypeController(ITypeService typeService, SignInManager<IdentityUser> signInManager)
+
+        public TypeController(ITypeService typeService)
         {
             _typeService = typeService;
-            _signInManager = signInManager;
         }
 
         [HttpGet]
