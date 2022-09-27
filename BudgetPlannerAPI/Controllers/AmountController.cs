@@ -24,7 +24,7 @@ namespace BudgetPlannerAPI.Controllers
 
         //[Authorize(Roles = "Admin, User")]
         [HttpGet]  
-        public IActionResult GetAmount(int pageSize, int? pageNo, DateTime startDate, DateTime endDate)
+        public IActionResult GetAmounts(int pageSize, int? pageNo, DateTime startDate, DateTime endDate)
         {
             FilterForAmountForListAmount filterForAmount = new();
             DateSelectForListAmountVm dateSelect = new()
@@ -45,13 +45,20 @@ namespace BudgetPlannerAPI.Controllers
             model.FilterForAmount = filterForAmount;
             return Ok(model);
         }
-
+        [HttpGet("{id}")]
+        //[Authorize(Roles = "Admin, User")]
+        public IActionResult GetAmountDetails(int id)
+        {
+            var amount = _amountService.GetAmountForEdit(id);
+            return Ok(amount);
+        }
         [HttpPost]
         //[ValidateAntiForgeryToken]
         //[Authorize(Roles = "Admin, User")]
         public IActionResult AddAmount(NewAmountVm model)
         {
             var id = _amountService.AddAmount(model);
+            model.Id = id;
             return Created("", model);
         }
         [HttpPut]

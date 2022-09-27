@@ -32,12 +32,20 @@ namespace BudgetPlannerAPI.Controllers
             var model = _typeService.GetAllTypesForList(pageSize, pageNo.Value, searchString);
             return Ok(model);
         }
+        [HttpGet("{id}")]
+        //[Authorize(Roles = "Admin, User")]
+        public IActionResult GetTypeDetails(int id)
+        {
+            var type = _typeService.GetTypeForEdit(id);
+            return Ok(type);
+        }
         [HttpPost]
         //[ValidateAntiForgeryToken]
         //[Authorize(Roles = "Admin, User")]
         public IActionResult AddType(NewTypeVm model)
         {
             var id = _typeService.AddType(model);
+            model.Id = id;
             return Created("", model);
         }
         [HttpPut]

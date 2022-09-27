@@ -10,16 +10,16 @@ namespace BudgetPlannerAPI.Controllers
     //[Authorize]
     [Route("api/[controller]")]
     [ApiController]
-    public class PlanTypeController : ControllerBase
+    public class PlanController : ControllerBase
     {
-        private readonly IPlanTypeService _planTypeService;
-        public PlanTypeController(IPlanTypeService planTypeService)
+        private readonly IPlanService _planService;
+        public PlanController(IPlanService planService)
         {
-            _planTypeService = planTypeService;
+            _planService = planService;
         }
         [HttpGet]
         //[Authorize(Roles = "Admin, User")]
-        public IActionResult GetPlanTypes(int pageSize, int? pageNo, string searchString, int planId)
+        public IActionResult GetPlans(int pageSize, int? pageNo, string searchString)
         {
             if (!pageNo.HasValue)
             {
@@ -29,31 +29,39 @@ namespace BudgetPlannerAPI.Controllers
             {
                 searchString = String.Empty;
             }
-            var model = _planTypeService.GetAllPlanTypesForList(pageSize, pageNo.Value, searchString, planId);
+            var model = _planService.GetAllPlansForList(pageSize, pageNo.Value, searchString);
             return Ok(model);
         }
         [HttpPost]
         //[ValidateAntiForgeryToken]
         //[Authorize(Roles = "Admin, User")]
-        public IActionResult AddPlanType(NewPlanTypeVm model)
+        public IActionResult AddPlan(NewPlanVm model)
         {
-            var planTypeId = _planTypeService.AddPlanType(model);
-            model.Id = planTypeId;
+            var id = _planService.AddPlan(model);
+            model.Id = id;  
             return Created("", model);
         }
         [HttpPut]
         //[ValidateAntiForgeryToken]
         //[Authorize(Roles = "Admin, User")]
-        public IActionResult EditPlanType(NewPlanTypeVm model)
+        public IActionResult EditPlan(NewPlanVm model)
         {
-            _planTypeService.UpdatePlanType(model);
+            _planService.UpdatePlan(model);
+            return NoContent();
+        }
+        [HttpPut("{id}")]
+        //[Authorize(Roles = "Admin, User")]
+        public IActionResult Status(int id)
+        {
+            var plans = _planService.StatusPlan(id);
+            _planService.UpdateListOfPlans(plans);
             return NoContent();
         }
         [HttpDelete("{id}")]
-        //[Authorize(Roles = "Admin")]
+        //[Authorize(Roles = "Admin, User")]
         public IActionResult Delete(int id)
         {
-            var planId = _planTypeService.DeletePlanType(id);
+            _planService.DeletePlan(id);
             return NoContent();
         }
     }
