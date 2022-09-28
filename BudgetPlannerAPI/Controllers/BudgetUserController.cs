@@ -1,5 +1,6 @@
 ﻿using BudgetPlannerMVC.Application.Interfaces;
 using BudgetPlannerMVC.Application.ViewModels.BudgetUserView;
+using BudgetPlannerMVC.Application.ViewModels.UserRoleView;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -45,6 +46,13 @@ namespace BudgetPlannerAPI.Controllers
             model.CurrentUserId = currentUserId;
             return Ok(model);
         }
+        [HttpGet("{id}")]
+        //[Authorize(Roles = "Admin, User, PreUser")]
+        public IActionResult Details(int id)
+        {
+            var budgetUser = _budgetUserService.GetBudgetUserForEdit(id);
+            return Ok(budgetUser);
+        }
         [HttpPut]
         //[ValidateAntiForgeryToken]
         //[Authorize(Roles = "PreUser")]
@@ -65,6 +73,33 @@ namespace BudgetPlannerAPI.Controllers
             if (User.IsInRole("Admin") || (User.IsInRole("User") && model.UserId == currentUserId))
             {
                 _budgetUserService.UpdateBudgetUser(model);
+                return NoContent();
+            }
+            return BadRequest();
+        }
+        [Route("Role/Edit")]
+        [HttpPut]
+        //[ValidateAntiForgeryToken]
+        //[Authorize(Roles = "Admin")]
+        public async Task<IActionResult> EditUserRoleAsync(EditUserRoleVm editUserRoleVm)
+        {
+            _userRoleService.UpdateUserRole(editUserRoleVm.UserId, editUserRoleVm.UserRoleId);
+            if (editUserRoleVm.UserRoleId == "Admin")
+            {
+                await _signInManager.SignOutAsync();
+            }
+            return NoContent();
+        }
+        [HttpDelete]
+        //[Authorize(Roles = "Admin")]
+        public async Task<IActionResult> DeleteAsync(int id)
+        {
+            var budgetUser = _budgetUserService.GetBudgetUserForEdit(id);
+            var user = await _userManager.FindByIdAsync(budgetUser.UserId);
+            var result = await _userManager.DeleteAsync(user);
+            if (result.Succeeded)
+            {
+                _budgetUserService.DeleteBudgetUser(id);
                 return NoContent();
             }
             return BadRequest();
