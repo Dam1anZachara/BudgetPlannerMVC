@@ -7,7 +7,7 @@ using System;
 
 namespace BudgetPlannerAPI.Controllers
 {
-    //[Authorize]
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class PlanTypeController : ControllerBase
@@ -18,7 +18,7 @@ namespace BudgetPlannerAPI.Controllers
             _planTypeService = planTypeService;
         }
         [HttpGet]
-        //[Authorize(Roles = "Admin, User")]
+        [Authorize(Roles = "Admin, User")]
         public IActionResult GetPlanTypes(int pageSize, int? pageNo, string searchString, int planId)
         {
             if (!pageNo.HasValue)
@@ -33,8 +33,7 @@ namespace BudgetPlannerAPI.Controllers
             return Ok(model);
         }
         [HttpPost]
-        //[ValidateAntiForgeryToken]
-        //[Authorize(Roles = "Admin, User")]
+        [Authorize(Roles = "Admin, User")]
         public IActionResult AddPlanType(NewPlanTypeVm model)
         {
             var planTypeId = _planTypeService.AddPlanType(model);
@@ -42,15 +41,14 @@ namespace BudgetPlannerAPI.Controllers
             return Created("", model);
         }
         [HttpPut]
-        //[ValidateAntiForgeryToken]
-        //[Authorize(Roles = "Admin, User")]
+        [Authorize(Roles = "Admin, User")]
         public IActionResult EditPlanType(NewPlanTypeVm model)
         {
             _planTypeService.UpdatePlanType(model);
             return NoContent();
         }
         [HttpDelete("{id}")]
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         public IActionResult Delete(int id)
         {
             var planId = _planTypeService.DeletePlanType(id);

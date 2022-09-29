@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace BudgetPlannerAPI.Controllers
 {
-    //[Authorize]
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class BudgetStatusController : ControllerBase
@@ -16,7 +16,7 @@ namespace BudgetPlannerAPI.Controllers
             _budgetStatusService = budgetStatusService;
         }
         [HttpGet]
-        //[Authorize(Roles = "Admin, User")]
+        [Authorize(Roles = "Admin, User")]
         public IActionResult Get()
         {
             var plan = _budgetStatusService.GetActivePlanToBudgetStatusVm();

@@ -7,7 +7,7 @@ using System;
 
 namespace BudgetPlannerAPI.Controllers
 {
-    //[Authorize]
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class TypeController : ControllerBase
@@ -18,7 +18,7 @@ namespace BudgetPlannerAPI.Controllers
             _typeService = typeService;
         }
         [HttpGet]
-        //[Authorize(Roles = "Admin, User")]
+        [Authorize(Roles = "Admin, User")]
         public IActionResult GetTypes(int pageSize, int? pageNo, string searchString)
         {
             if (!pageNo.HasValue)
@@ -33,15 +33,14 @@ namespace BudgetPlannerAPI.Controllers
             return Ok(model);
         }
         [HttpGet("{id}")]
-        //[Authorize(Roles = "Admin, User")]
+        [Authorize(Roles = "Admin, User")]
         public IActionResult GetTypeDetails(int id)
         {
             var type = _typeService.GetTypeForEdit(id);
             return Ok(type);
         }
         [HttpPost]
-        //[ValidateAntiForgeryToken]
-        //[Authorize(Roles = "Admin, User")]
+        [Authorize(Roles = "Admin, User")]
         public IActionResult AddType(NewTypeVm model)
         {
             var id = _typeService.AddType(model);
@@ -49,15 +48,14 @@ namespace BudgetPlannerAPI.Controllers
             return Created("", model);
         }
         [HttpPut]
-        //[ValidateAntiForgeryToken] //kod 400 jeśli pomijana jest autoryzacja
-        //[Authorize(Roles = "Admin, User")]
+        [Authorize(Roles = "Admin, User")]
         public IActionResult EditType(NewTypeVm model)
         {
             _typeService.UpdateType(model);
             return NoContent();
         }
         [HttpDelete("{id}")]
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         public IActionResult Delete(int id)
         {
             _typeService.DeleteType(id);

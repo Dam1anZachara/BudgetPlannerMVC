@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace BudgetPlannerAPI.Controllers
 {
-    //[Authorize]
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class BudgetUserController : ControllerBase
@@ -30,7 +30,7 @@ namespace BudgetPlannerAPI.Controllers
             _userManager = userManager;
         }
         [HttpGet]
-        //[Authorize(Roles = "Admin, User, PreUser")]
+        [Authorize(Roles = "Admin, User, PreUser")]
         public IActionResult GetBudgetUsers(int pageSize, int? pageNo, string searchString)
         {
             if (!pageNo.HasValue)
@@ -47,15 +47,14 @@ namespace BudgetPlannerAPI.Controllers
             return Ok(model);
         }
         [HttpGet("{id}")]
-        //[Authorize(Roles = "Admin, User, PreUser")]
+        [Authorize(Roles = "Admin, User, PreUser")]
         public IActionResult Details(int id)
         {
             var budgetUser = _budgetUserService.GetBudgetUserForEdit(id);
             return Ok(budgetUser);
         }
         [HttpPut]
-        //[ValidateAntiForgeryToken]
-        //[Authorize(Roles = "PreUser")]
+        [Authorize(Roles = "PreUser")]
         public async Task<IActionResult> CreateBudgetUserProfileAsync(NewBudgetUserVm model)
         {
             _budgetUserService.UpdateBudgetUser(model);
@@ -65,8 +64,7 @@ namespace BudgetPlannerAPI.Controllers
         }
         [Route("Edit")]
         [HttpPut]
-        //[ValidateAntiForgeryToken]
-        //[Authorize(Roles = "Admin, User")]
+        [Authorize(Roles = "Admin, User")]
         public IActionResult EditBudgetUser(NewBudgetUserVm model)
         {
             var currentUserId = _userRoleService.GetCurrentUserId();
@@ -79,8 +77,7 @@ namespace BudgetPlannerAPI.Controllers
         }
         [Route("Role/Edit")]
         [HttpPut]
-        //[ValidateAntiForgeryToken]
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> EditUserRoleAsync(EditUserRoleVm editUserRoleVm)
         {
             _userRoleService.UpdateUserRole(editUserRoleVm.UserId, editUserRoleVm.UserRoleId);
@@ -91,7 +88,7 @@ namespace BudgetPlannerAPI.Controllers
             return NoContent();
         }
         [HttpDelete]
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteAsync(int id)
         {
             var budgetUser = _budgetUserService.GetBudgetUserForEdit(id);

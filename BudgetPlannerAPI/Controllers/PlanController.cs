@@ -7,7 +7,7 @@ using System;
 
 namespace BudgetPlannerAPI.Controllers
 {
-    //[Authorize]
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class PlanController : ControllerBase
@@ -18,7 +18,7 @@ namespace BudgetPlannerAPI.Controllers
             _planService = planService;
         }
         [HttpGet]
-        //[Authorize(Roles = "Admin, User")]
+        [Authorize(Roles = "Admin, User")]
         public IActionResult GetPlans(int pageSize, int? pageNo, string searchString)
         {
             if (!pageNo.HasValue)
@@ -33,8 +33,7 @@ namespace BudgetPlannerAPI.Controllers
             return Ok(model);
         }
         [HttpPost]
-        //[ValidateAntiForgeryToken]
-        //[Authorize(Roles = "Admin, User")]
+        [Authorize(Roles = "Admin, User")]
         public IActionResult AddPlan(NewPlanVm model)
         {
             var id = _planService.AddPlan(model);
@@ -42,15 +41,14 @@ namespace BudgetPlannerAPI.Controllers
             return Created("", model);
         }
         [HttpPut]
-        //[ValidateAntiForgeryToken]
-        //[Authorize(Roles = "Admin, User")]
+        [Authorize(Roles = "Admin, User")]
         public IActionResult EditPlan(NewPlanVm model)
         {
             _planService.UpdatePlan(model);
             return NoContent();
         }
         [HttpPut("{id}")]
-        //[Authorize(Roles = "Admin, User")]
+        [Authorize(Roles = "Admin, User")]
         public IActionResult Status(int id)
         {
             var plans = _planService.StatusPlan(id);
@@ -58,7 +56,7 @@ namespace BudgetPlannerAPI.Controllers
             return NoContent();
         }
         [HttpDelete("{id}")]
-        //[Authorize(Roles = "Admin, User")]
+        [Authorize(Roles = "Admin, User")]
         public IActionResult Delete(int id)
         {
             _planService.DeletePlan(id);

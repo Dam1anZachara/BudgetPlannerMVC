@@ -7,7 +7,7 @@ using System;
 
 namespace BudgetPlannerAPI.Controllers
 {
-    //[Authorize]
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class AmountController : ControllerBase
@@ -22,7 +22,7 @@ namespace BudgetPlannerAPI.Controllers
             _budgetUserService = budgetUserService;
         }
 
-        //[Authorize(Roles = "Admin, User")]
+        [Authorize(Roles = "Admin, User")]
         [HttpGet]  
         public IActionResult GetAmounts(int pageSize, int? pageNo, DateTime startDate, DateTime endDate)
         {
@@ -46,15 +46,14 @@ namespace BudgetPlannerAPI.Controllers
             return Ok(model);
         }
         [HttpGet("{id}")]
-        //[Authorize(Roles = "Admin, User")]
+        [Authorize(Roles = "Admin, User")]
         public IActionResult GetAmountDetails(int id)
         {
             var amount = _amountService.GetAmountForEdit(id);
             return Ok(amount);
         }
         [HttpPost]
-        //[ValidateAntiForgeryToken]
-        //[Authorize(Roles = "Admin, User")]
+        [Authorize(Roles = "Admin, User")]
         public IActionResult AddAmount(NewAmountVm model)
         {
             var id = _amountService.AddAmount(model);
@@ -62,15 +61,14 @@ namespace BudgetPlannerAPI.Controllers
             return Created("", model);
         }
         [HttpPut]
-        //[ValidateAntiForgeryToken]
-        //[Authorize(Roles = "Admin, User")]
+        [Authorize(Roles = "Admin, User")]
         public IActionResult EditAmount(NewAmountVm model)
         {
             _amountService.UpdateAmount(model);
             return NoContent();
         }
         [HttpDelete("{id}")]
-        //[Authorize(Roles = "Admin, User")]
+        [Authorize(Roles = "Admin, User")]
         public IActionResult Delete(int id)
         {
             _amountService.DeleteAmount(id);
