@@ -3,6 +3,7 @@ using BudgetPlannerMVC.Application.ViewModels.PlanView;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Swashbuckle.AspNetCore.Annotations;
 using System;
 
 namespace BudgetPlannerAPI.Controllers
@@ -17,8 +18,9 @@ namespace BudgetPlannerAPI.Controllers
         {
             _planTypeService = planTypeService;
         }
-        [HttpGet]
+        [SwaggerOperation("Operation gets filtered plan types")]
         [Authorize(Roles = "Admin, User")]
+        [HttpGet]
         public IActionResult GetPlanTypes(int pageSize, int? pageNo, string searchString, int planId)
         {
             if (!pageNo.HasValue)
@@ -32,23 +34,26 @@ namespace BudgetPlannerAPI.Controllers
             var model = _planTypeService.GetAllPlanTypesForList(pageSize, pageNo.Value, searchString, planId);
             return Ok(model);
         }
-        [HttpPost]
+        [SwaggerOperation("Operation adds plan type to plan")]
         [Authorize(Roles = "Admin, User")]
+        [HttpPost]
         public IActionResult AddPlanType(NewPlanTypeVm model)
         {
             var planTypeId = _planTypeService.AddPlanType(model);
             model.Id = planTypeId;
             return Created("", model);
         }
-        [HttpPut]
+        [SwaggerOperation("Operation edits plan type")]
         [Authorize(Roles = "Admin, User")]
+        [HttpPut]
         public IActionResult EditPlanType(NewPlanTypeVm model)
         {
             _planTypeService.UpdatePlanType(model);
             return NoContent();
         }
-        [HttpDelete("{id}")]
+        [SwaggerOperation("Operation deletes plan type by id")]
         [Authorize(Roles = "Admin")]
+        [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
             var planId = _planTypeService.DeletePlanType(id);

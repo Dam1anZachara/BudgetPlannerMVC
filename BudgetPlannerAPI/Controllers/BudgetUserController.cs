@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Swashbuckle.AspNetCore.Annotations;
 using System;
 using System.Threading.Tasks;
 
@@ -29,8 +30,9 @@ namespace BudgetPlannerAPI.Controllers
             _signInManager = signInManager;
             _userManager = userManager;
         }
-        [HttpGet]
+        [SwaggerOperation("Operation gets filtered budget users")]
         [Authorize(Roles = "Admin, User, PreUser")]
+        [HttpGet]
         public IActionResult GetBudgetUsers(int pageSize, int? pageNo, string searchString)
         {
             if (!pageNo.HasValue)
@@ -46,15 +48,17 @@ namespace BudgetPlannerAPI.Controllers
             model.CurrentUserId = currentUserId;
             return Ok(model);
         }
-        [HttpGet("{id}")]
+        [SwaggerOperation("Operation gets specific budget user by id")]
         [Authorize(Roles = "Admin, User, PreUser")]
+        [HttpGet("{id}")]
         public IActionResult Details(int id)
         {
             var budgetUser = _budgetUserService.GetBudgetUserForEdit(id);
             return Ok(budgetUser);
         }
-        [HttpPut]
+        [SwaggerOperation("Operation creates budget user profile")]
         [Authorize(Roles = "PreUser")]
+        [HttpPut]
         public async Task<IActionResult> CreateBudgetUserProfileAsync(NewBudgetUserVm model)
         {
             _budgetUserService.UpdateBudgetUser(model);
@@ -62,33 +66,32 @@ namespace BudgetPlannerAPI.Controllers
             await _signInManager.SignOutAsync();
             return NoContent();
         }
+        [SwaggerOperation("Operation edits budget user")]
         [Route("Edit")]
-        [HttpPut]
         [Authorize(Roles = "Admin, User")]
+        [HttpPut]
         public IActionResult EditBudgetUser(NewBudgetUserVm model)
         {
-            var currentUserId = _userRoleService.GetCurrentUserId();
-            if (User.IsInRole("Admin") || (User.IsInRole("User") && model.UserId == currentUserId))
+            if (User.IsInRole("Admin") || User.IsInRole("User"))
             {
                 _budgetUserService.UpdateBudgetUser(model);
                 return NoContent();
             }
             return BadRequest();
         }
+        [SwaggerOperation("Operation edits budget user's role")]
         [Route("Role/Edit")]
-        [HttpPut]
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> EditUserRoleAsync(EditUserRoleVm editUserRoleVm)
+        [HttpPut]
+        public IActionResult EditUserRoleAsync(EditUserRoleVm editUserRoleVm)
         {
             _userRoleService.UpdateUserRole(editUserRoleVm.UserId, editUserRoleVm.UserRoleId);
-            if (editUserRoleVm.UserRoleId == "Admin")
-            {
-                await _signInManager.SignOutAsync();
-            }
             return NoContent();
         }
-        [HttpDelete]
+
+        [SwaggerOperation("Operation deletes budget user")]
         [Authorize(Roles = "Admin")]
+        [HttpDelete]
         public async Task<IActionResult> DeleteAsync(int id)
         {
             var budgetUser = _budgetUserService.GetBudgetUserForEdit(id);

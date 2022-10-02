@@ -3,6 +3,7 @@ using BudgetPlannerMVC.Application.ViewModels.AmountView;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Swashbuckle.AspNetCore.Annotations;
 using System;
 
 namespace BudgetPlannerAPI.Controllers
@@ -21,7 +22,7 @@ namespace BudgetPlannerAPI.Controllers
             _typeService = typeService;
             _budgetUserService = budgetUserService;
         }
-
+        [SwaggerOperation("Gets filtered list of amounts")]
         [Authorize(Roles = "Admin, User")]
         [HttpGet]  
         public IActionResult GetAmounts(int pageSize, int? pageNo, DateTime startDate, DateTime endDate)
@@ -45,30 +46,34 @@ namespace BudgetPlannerAPI.Controllers
             model.FilterForAmount = filterForAmount;
             return Ok(model);
         }
-        [HttpGet("{id}")]
+        [SwaggerOperation("Operation gets specific amount by id")]
         [Authorize(Roles = "Admin, User")]
+        [HttpGet("{id}")]
         public IActionResult GetAmountDetails(int id)
         {
             var amount = _amountService.GetAmountForEdit(id);
             return Ok(amount);
         }
-        [HttpPost]
+        [SwaggerOperation("Operation adds new amount")]
         [Authorize(Roles = "Admin, User")]
+        [HttpPost]
         public IActionResult AddAmount(NewAmountVm model)
         {
             var id = _amountService.AddAmount(model);
             model.Id = id;
             return Created("", model);
         }
-        [HttpPut]
+        [SwaggerOperation("Operation edits amount")]
         [Authorize(Roles = "Admin, User")]
+        [HttpPut]
         public IActionResult EditAmount(NewAmountVm model)
         {
             _amountService.UpdateAmount(model);
             return NoContent();
         }
-        [HttpDelete("{id}")]
+        [SwaggerOperation("Operation deletes amount")]
         [Authorize(Roles = "Admin, User")]
+        [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
             _amountService.DeleteAmount(id);

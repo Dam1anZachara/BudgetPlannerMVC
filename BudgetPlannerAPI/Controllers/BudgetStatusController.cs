@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace BudgetPlannerAPI.Controllers
 {
@@ -15,8 +16,9 @@ namespace BudgetPlannerAPI.Controllers
         {
             _budgetStatusService = budgetStatusService;
         }
-        [HttpGet]
+        [SwaggerOperation("Operation gets active budget status")]
         [Authorize(Roles = "Admin, User")]
+        [HttpGet]
         public IActionResult Get()
         {
             var plan = _budgetStatusService.GetActivePlanToBudgetStatusVm();

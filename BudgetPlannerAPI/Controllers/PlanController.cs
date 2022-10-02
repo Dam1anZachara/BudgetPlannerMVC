@@ -3,6 +3,7 @@ using BudgetPlannerMVC.Application.ViewModels.PlanView;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Swashbuckle.AspNetCore.Annotations;
 using System;
 
 namespace BudgetPlannerAPI.Controllers
@@ -17,8 +18,9 @@ namespace BudgetPlannerAPI.Controllers
         {
             _planService = planService;
         }
-        [HttpGet]
+        [SwaggerOperation("Operation gets filtered plans")]
         [Authorize(Roles = "Admin, User")]
+        [HttpGet]
         public IActionResult GetPlans(int pageSize, int? pageNo, string searchString)
         {
             if (!pageNo.HasValue)
@@ -32,6 +34,7 @@ namespace BudgetPlannerAPI.Controllers
             var model = _planService.GetAllPlansForList(pageSize, pageNo.Value, searchString);
             return Ok(model);
         }
+        [SwaggerOperation("Operation adds new plan")]
         [HttpPost]
         [Authorize(Roles = "Admin, User")]
         public IActionResult AddPlan(NewPlanVm model)
@@ -40,23 +43,26 @@ namespace BudgetPlannerAPI.Controllers
             model.Id = id;  
             return Created("", model);
         }
-        [HttpPut]
+        [SwaggerOperation("Operation edits plan")]
         [Authorize(Roles = "Admin, User")]
+        [HttpPut]
         public IActionResult EditPlan(NewPlanVm model)
         {
             _planService.UpdatePlan(model);
             return NoContent();
         }
-        [HttpPut("{id}")]
+        [SwaggerOperation("Operation sets status of specific plan to \"Active\"")]
         [Authorize(Roles = "Admin, User")]
+        [HttpPut("{id}")]
         public IActionResult Status(int id)
         {
             var plans = _planService.StatusPlan(id);
             _planService.UpdateListOfPlans(plans);
             return NoContent();
         }
-        [HttpDelete("{id}")]
+        [SwaggerOperation("Operation deletes plan by id")]
         [Authorize(Roles = "Admin, User")]
+        [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
             _planService.DeletePlan(id);

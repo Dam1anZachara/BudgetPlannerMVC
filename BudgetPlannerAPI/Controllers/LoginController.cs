@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
+using Swashbuckle.AspNetCore.Annotations;
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
@@ -30,6 +31,7 @@ namespace BudgetPlannerAPI.Controllers
             _userRoleService = userRoleService;
             _config = config;
         }
+        [SwaggerOperation("Operation logins the registered user")]
         [AllowAnonymous]
         [HttpPost]
         public IActionResult Login([FromBody] UserModel loginModel)

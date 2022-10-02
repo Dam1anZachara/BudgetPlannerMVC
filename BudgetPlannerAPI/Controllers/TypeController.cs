@@ -3,6 +3,7 @@ using BudgetPlannerMVC.Application.ViewModels.TypeView;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Swashbuckle.AspNetCore.Annotations;
 using System;
 
 namespace BudgetPlannerAPI.Controllers
@@ -17,8 +18,9 @@ namespace BudgetPlannerAPI.Controllers
         {
             _typeService = typeService;
         }
-        [HttpGet]
+        [SwaggerOperation("Operation gets filtered types")]
         [Authorize(Roles = "Admin, User")]
+        [HttpGet]
         public IActionResult GetTypes(int pageSize, int? pageNo, string searchString)
         {
             if (!pageNo.HasValue)
@@ -32,30 +34,34 @@ namespace BudgetPlannerAPI.Controllers
             var model = _typeService.GetAllTypesForList(pageSize, pageNo.Value, searchString);
             return Ok(model);
         }
-        [HttpGet("{id}")]
+        [SwaggerOperation("Operation gets specific type by id")]
         [Authorize(Roles = "Admin, User")]
+        [HttpGet("{id}")]
         public IActionResult GetTypeDetails(int id)
         {
             var type = _typeService.GetTypeForEdit(id);
             return Ok(type);
         }
-        [HttpPost]
+        [SwaggerOperation("Operation adds new type")]
         [Authorize(Roles = "Admin, User")]
+        [HttpPost]
         public IActionResult AddType(NewTypeVm model)
         {
             var id = _typeService.AddType(model);
             model.Id = id;
             return Created("", model);
         }
-        [HttpPut]
+        [SwaggerOperation("Operation edits type")]
         [Authorize(Roles = "Admin, User")]
+        [HttpPut]
         public IActionResult EditType(NewTypeVm model)
         {
             _typeService.UpdateType(model);
             return NoContent();
         }
-        [HttpDelete("{id}")]
+        [SwaggerOperation("Operation deletes type by id")]
         [Authorize(Roles = "Admin")]
+        [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
             _typeService.DeleteType(id);
