@@ -12,6 +12,9 @@ III. [Presentation of the application](#presentation-of-the-application)
 4. [Plan](#4plan)
 5. [Amounts](#5amounts)
 6. [Budget Status](#6budget-status)
+
+IV. [Web API Project](#web-api-project)
+
 ## Information
 The Budget Planner MVC application is used for budget planning and documenting your expenses and incomes. <br> The application consists of six main functions _Registration Panel, Budget Status, Amounts, Budget Configuration, Plan and Budget Users_.
 
@@ -100,3 +103,12 @@ If we exceed the expenses in the plan, the status red **_"X"_** will be displaye
 Below the plan, the total of expenses, incomes, and balance sheet for the plan **_"In Plan"_** are displayed.
 <br> For amounts with types that are not included in the plan, sums of expenses, incomes and balance are displayed **_"Out of Plan"_**. </br>
 **_"Total"_** it is the sum of expenses, incomes and balance including **_"In Plan"_** and **_"Out of Plan"_**.
+
+## Web API Project
+
+All the functionalities from the MVC part were made available in the web API project.
+![Swagger1](https://user-images.githubusercontent.com/95985120/193462126-106afada-0f59-4e59-b3cd-773d21072f2c.png)
+![Swagger2](https://user-images.githubusercontent.com/95985120/193462135-6f20ca68-da4e-4334-b165-2e7c40886b52.png)
+![Swagger3](https://user-images.githubusercontent.com/95985120/193462206-66218e5b-88cd-40f2-89b7-0597479b1399.png)
+An example of getting a list of amounts
+![SwaggerAmountList](https://user-images.githubusercontent.com/95985120/193462213-9df2cb26-28d6-4014-97f5-ac28e304e139.png)
