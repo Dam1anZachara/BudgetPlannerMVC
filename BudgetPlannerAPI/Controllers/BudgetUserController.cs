@@ -59,11 +59,10 @@ namespace BudgetPlannerAPI.Controllers
         [SwaggerOperation("Operation creates budget user profile")]
         [Authorize(Roles = "PreUser")]
         [HttpPut]
-        public async Task<IActionResult> CreateBudgetUserProfileAsync(NewBudgetUserVm model)
+        public IActionResult CreateBudgetUserProfileAsync(NewBudgetUserVm model)
         {
             _budgetUserService.UpdateBudgetUser(model);
             _userRoleService.UpdateUserRole(model.UserId);
-            await _signInManager.SignOutAsync();
             return NoContent();
         }
         [SwaggerOperation("Operation edits budget user")]
@@ -72,12 +71,8 @@ namespace BudgetPlannerAPI.Controllers
         [HttpPut]
         public IActionResult EditBudgetUser(NewBudgetUserVm model)
         {
-            if (User.IsInRole("Admin") || User.IsInRole("User"))
-            {
-                _budgetUserService.UpdateBudgetUser(model);
-                return NoContent();
-            }
-            return BadRequest();
+            _budgetUserService.UpdateBudgetUser(model);
+            return NoContent();
         }
         [SwaggerOperation("Operation edits budget user's role")]
         [Route("Role/Edit")]
