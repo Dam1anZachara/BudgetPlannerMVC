@@ -2,7 +2,6 @@
 using BudgetPlannerMVC.Application.ViewModels.BudgetUserView;
 using BudgetPlannerMVC.Application.ViewModels.UserRoleView;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
@@ -12,7 +11,7 @@ using System.Threading.Tasks;
 namespace BudgetPlannerAPI.Controllers
 {
     [Authorize]
-    [Route("api/[controller]")]
+    [Route("api/budget-users")]
     [ApiController]
     public class BudgetUserController : ControllerBase
     {
@@ -66,7 +65,7 @@ namespace BudgetPlannerAPI.Controllers
             return NoContent();
         }
         [SwaggerOperation("Operation edits budget user")]
-        [Route("Edit")]
+        [Route("edit")]
         [Authorize(Roles = "Admin, User")]
         [HttpPut]
         public IActionResult EditBudgetUser(NewBudgetUserVm model)
@@ -75,7 +74,7 @@ namespace BudgetPlannerAPI.Controllers
             return NoContent();
         }
         [SwaggerOperation("Operation edits budget user's role")]
-        [Route("Role/Edit")]
+        [Route("roles/edit")]
         [Authorize(Roles = "Admin")]
         [HttpPut]
         public IActionResult EditUserRoleAsync(EditUserRoleVm editUserRoleVm)

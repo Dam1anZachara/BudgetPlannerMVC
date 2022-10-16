@@ -1,7 +1,6 @@
 ﻿using BudgetPlannerMVC.Application.Interfaces;
 using BudgetPlannerMVC.Application.ViewModels.PlanView;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 using System;
@@ -9,7 +8,7 @@ using System;
 namespace BudgetPlannerAPI.Controllers
 {
     [Authorize]
-    [Route("api/[controller]")]
+    [Route("api/plan-types")]
     [ApiController]
     public class PlanTypeController : ControllerBase
     {

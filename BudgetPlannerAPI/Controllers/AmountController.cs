@@ -1,7 +1,6 @@
 ﻿using BudgetPlannerMVC.Application.Interfaces;
 using BudgetPlannerMVC.Application.ViewModels.AmountView;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 using System;
@@ -9,7 +8,7 @@ using System;
 namespace BudgetPlannerAPI.Controllers
 {
     [Authorize]
-    [Route("api/[controller]")]
+    [Route("api/amounts")]
     [ApiController]
     public class AmountController : ControllerBase
     {
@@ -24,7 +23,7 @@ namespace BudgetPlannerAPI.Controllers
         }
         [SwaggerOperation("Gets filtered list of amounts")]
         [Authorize(Roles = "Admin, User")]
-        [HttpGet]  
+        [HttpGet]
         public IActionResult GetAmounts(int pageSize, int? pageNo, DateTime startDate, DateTime endDate)
         {
             FilterForAmountForListAmount filterForAmount = new();

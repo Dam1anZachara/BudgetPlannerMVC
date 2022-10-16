@@ -1,13 +1,12 @@
 ﻿using BudgetPlannerMVC.Application.Interfaces;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 
 namespace BudgetPlannerAPI.Controllers
 {
     [Authorize]
-    [Route("api/[controller]")]
+    [Route("api/budget-statuses")]
     [ApiController]
     public class BudgetStatusController : ControllerBase
     {
