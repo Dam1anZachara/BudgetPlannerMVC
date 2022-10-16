@@ -33,7 +33,7 @@ The Budget Planner MVC application is used for budget planning and documenting y
 * AutoMapper 11.0.1
 * AutoMapper.Extensions.Microsoft.DependencyInjection 11.0.0
 * Authentication.Facebook 5.0.17
-* AUthentication.Google 5.0.17
+* Authentication.Google 5.0.17
 * MSSQL
 * HTML5
 * CSS
