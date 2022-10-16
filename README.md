@@ -107,8 +107,10 @@ Below the plan, the total of expenses, incomes, and balance sheet for the plan *
 ## Web API Project
 
 All the functionalities from the MVC part were made available in the web API project.
-![Swagger1](https://user-images.githubusercontent.com/95985120/193462126-106afada-0f59-4e59-b3cd-773d21072f2c.png)
-![Swagger2](https://user-images.githubusercontent.com/95985120/193462135-6f20ca68-da4e-4334-b165-2e7c40886b52.png)
-![Swagger3](https://user-images.githubusercontent.com/95985120/193462206-66218e5b-88cd-40f2-89b7-0597479b1399.png)
+![Swagger1 1](https://user-images.githubusercontent.com/95985120/196038623-005063ee-7cc2-4cb3-9f54-a3054912c302.png)
+![Swagger2 1](https://user-images.githubusercontent.com/95985120/196038628-4b5ac2cb-7127-46b9-94db-cb64ed639c4a.png)
+![Swagger3 1](https://user-images.githubusercontent.com/95985120/196038630-4697ea1c-c9be-4303-95a7-af198b101da2.png)
+
 An example of getting a list of amounts
-![SwaggerAmountList](https://user-images.githubusercontent.com/95985120/193462213-9df2cb26-28d6-4014-97f5-ac28e304e139.png)
+![SwaggerAmountList2](https://user-images.githubusercontent.com/95985120/196038641-597a9436-86a8-41b2-b76e-7ba3312e4859.png)
+
